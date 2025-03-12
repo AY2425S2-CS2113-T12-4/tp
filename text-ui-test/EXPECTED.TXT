@@ -5,5 +5,5 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
-What is your name?
-Hello James Gosling
+Invalid input format: Please try again with one of the valid commands:
+add, bye
