@@ -1,6 +1,8 @@
 package seedu.duke;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,7 +32,7 @@ public class ExpenseTest {
     }
 
     @Test
-    public void AddExpense_nullDescription_exceptionThrown() {
+    public void addExpense_nullDescription_exceptionThrown() {
         double amount = 100.00;
         String description = null;
 
@@ -55,7 +57,8 @@ public class ExpenseTest {
         String expectedDateTime = LocalDateTime.now().format(expectedFormatter);
         String expectedString = String.format("$%,.2f", amount) + ", spent on " + expectedDateTime;
 
-        assertTrue(result.startsWith("$250.00, spent on"), "The string should start with formatted amount and 'spent on'");
+        assertTrue(result.startsWith("$250.00, spent on"),
+                "The string should start with formatted amount and 'spent on'");
         assertTrue(result.contains(expectedDateTime), "The string should contain the formatted date and time");
     }
 }

@@ -1,4 +1,4 @@
-package seedu.duke.Exceptions;
+package seedu.duke.exception;
 
 /**
  * Exception thrown when user input is invalid.

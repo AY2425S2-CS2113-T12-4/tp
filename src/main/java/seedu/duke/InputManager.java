@@ -2,7 +2,7 @@ package seedu.duke;
 
 import java.util.Scanner;
 
-import seedu.duke.Exceptions.InvalidInputException;
+import seedu.duke.exception.InvalidInputException;
 
 
 /**

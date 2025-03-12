@@ -4,10 +4,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Expense {
+    protected static final DateTimeFormatter DATETIME_FORMAT = DateTimeFormatter.ofPattern("E, MMM dd 'at' HH:mm");
     protected String description;
     protected double amount;
     protected LocalDateTime dateTime;
-    protected static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("E, MMM dd 'at' HH:mm");
+
 
     public Expense(double amount, String description) {
         if (description == null) {
@@ -23,7 +24,7 @@ public class Expense {
 
     @Override
     public String toString() {
-        String formattedDateTime = dateTime.format(dateTimeFormat);
+        String formattedDateTime = dateTime.format(DATETIME_FORMAT);
         String formattedAmount = String.format("$%,.2f", amount);
         return formattedAmount + ", spent on " + formattedDateTime;
     }

@@ -1,6 +1,5 @@
 package seedu.duke;
 
-import java.util.Scanner;
 
 public class Duke {
     /**
@@ -8,8 +7,8 @@ public class Duke {
      */
     public static void main(String[] args) {
 
-    BudgetManager budgetManager = new BudgetManager();
-    InputManager inputManager = new InputManager(budgetManager);
+        BudgetManager budgetManager = new BudgetManager();
+        InputManager inputManager = new InputManager(budgetManager);
 
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
