@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class Budget {
     private final String category;
-    private final double limit; //Optional
+    private double limit; //Optional
     private final ArrayList<Expense> expenses;
 
     /**
@@ -39,6 +39,27 @@ public class Budget {
      */
     public double getTotalExpenses() {
         return expenses.stream().mapToDouble(e -> e.amount).sum();
+    }
+
+    /**
+     * Sets a new spending limit for this budget.
+     *
+     * @param amount The new spending limit for this budget.
+     */
+    public void setLimit(double amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("Budget limit cannot be negative.");
+        }
+        this.limit = amount;
+    }
+
+    /**
+     * Gets the spending limit of this budget.
+     *
+     * @return The current spending limit for this budget.
+     */
+    public double getLimit() {
+        return this.limit;
     }
 
 }

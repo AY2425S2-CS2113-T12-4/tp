@@ -57,4 +57,5 @@ public class ExpenseTest {
                 "The string should start with formatted amount and 'spent on'");
         assertTrue(result.contains(expectedDateTime), "The string should contain the formatted date and time");
     }
+
 }
