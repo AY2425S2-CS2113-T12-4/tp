@@ -13,6 +13,7 @@ import seedu.duke.exception.InvalidInputException;
 public class InputManager {
     private final BudgetManager budgetManager;
 
+
     /**
      * Constructs an InputManager that interacts with the specified BudgetManager.
      *
@@ -49,8 +50,11 @@ public class InputManager {
                     double amount = Double.parseDouble(splitLine[0]);
                     String description = splitLine[1];
                     budgetManager.addExpenseToBudget("", amount, description);
-                } else {
-                    throw new InvalidInputException("Please try again with one of the valid commands:\nadd, bye");
+                } else if(line.equalsIgnoreCase("summary")){
+                    BudgetSummary budgetSummary = new BudgetSummary(budgetManager);
+                    budgetSummary.summariseBudget();
+                }else {
+                    throw new InvalidInputException("Please try again with one of the valid commands:\nadd, summary, bye");
                 }
             } catch (InvalidInputException e) {
                 e.print();
