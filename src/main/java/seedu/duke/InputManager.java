@@ -54,7 +54,8 @@ public class InputManager {
                     BudgetSummary budgetSummary = new BudgetSummary(budgetManager);
                     budgetSummary.summariseBudget();
                 }else {
-                    throw new InvalidInputException("Please try again with one of the valid commands:\nadd, summary, bye");
+                    throw new InvalidInputException("Please try again with one of the valid commands:\nadd," +
+                            " summary, bye");
                 }
             } catch (InvalidInputException e) {
                 e.print();
