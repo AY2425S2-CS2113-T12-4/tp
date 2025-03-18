@@ -16,7 +16,7 @@ public class Alert {
     }
 
     /**
-     * Sets the budget alert amount. If the amount is 0, it disables the alert.
+     * Sets the alert amount. If the amount is 0, it disables the alert.
      *
      * @param amount The amount to trigger an alert.
      */
