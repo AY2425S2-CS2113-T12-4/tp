@@ -18,7 +18,7 @@ public class BudgetManager {
      */
     public BudgetManager() {
         this.budgets = new HashMap<>();
-        this.alert = new Alert(); // ✅ Initialize alert system
+        this.alert = new Alert(); // ✅ Initialise alert system
         budgets.put("Monthly", new Budget("Monthly", 0));
     }
 
