@@ -85,4 +85,15 @@ public class BudgetManager {
     public Map<String, Budget> getBudgets() {
         return this.budgets;
     }
+
+    /**
+     * Displays all expenses categorized under each budget.
+     */
+    public void listAllExpenses() {
+        for (Map.Entry<String, Budget> entry : budgets.entrySet()) {
+            Budget budget = entry.getValue();
+            budget.printExpenses();
+            System.out.println("----------------------");
+        }
+    }
 }
