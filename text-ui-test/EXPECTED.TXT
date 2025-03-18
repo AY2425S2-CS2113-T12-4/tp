@@ -6,4 +6,4 @@ Hello from
 |____/ \__,_|_|\_\___|
 
 Invalid input format: Please try again with one of the valid commands:
-add, bye
+add, summary, bye

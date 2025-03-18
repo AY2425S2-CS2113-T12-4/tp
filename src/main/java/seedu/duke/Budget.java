@@ -1,5 +1,7 @@
 package seedu.duke;
 
+import seedu.duke.exception.InvalidInputException;
+
 import java.util.ArrayList;
 
 /**
@@ -8,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Budget {
     private final String category;
-    private final double limit; //Optional
+    private double limit; //Optional
     private final ArrayList<Expense> expenses;
 
     /**
@@ -39,6 +41,49 @@ public class Budget {
      */
     public double getTotalExpenses() {
         return expenses.stream().mapToDouble(e -> e.amount).sum();
+    }
+
+    /**
+     * Sets a new spending limit for this budget.
+     *
+     * @param amount The new spending limit for this budget.
+     */
+    public void setLimit(double amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("Budget limit cannot be negative.");
+        }
+        this.limit = amount;
+    }
+
+    /**
+     * Gets the spending limit of this budget.
+     *
+     * @return The current spending limit for this budget.
+     */
+    public double getLimit() {
+        return this.limit;
+    }
+
+    /**
+     * Prints all expenses under this budget in reverse order (most recent first).
+     */
+    public void printExpenses() {
+        if (expenses.isEmpty()) {
+            System.out.println("No expenses recorded.");
+            return;
+        }
+        for (int i = expenses.size() - 1; i >= 0 ; i--) {
+            System.out.println((expenses.size() - i) + ". " + expenses.get(i));
+        }
+    }
+
+    public void deleteExpense(int index) throws InvalidInputException {
+        if (index < 1 || index > expenses.size()) {
+            throw new InvalidInputException("Invalid index. Please provide a valid expense number.");
+        }
+        System.out.println("Expense deleted successfully.");
+        System.out.println("    " + expenses.get(expenses.size() - index));
+        expenses.remove(expenses.size() - index);
     }
 
 }

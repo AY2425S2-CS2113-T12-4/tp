@@ -13,6 +13,7 @@ import seedu.duke.exception.InvalidInputException;
 public class InputManager {
     private final BudgetManager budgetManager;
 
+
     /**
      * Constructs an InputManager that interacts with the specified BudgetManager.
      *
@@ -27,7 +28,7 @@ public class InputManager {
      * The loop continues until the user types "bye".
      * Valid commands include "add" to add expenses to budgets.
      */
-    public void processInputLoop() {
+        public void processInputLoop() {
         String line;
         Scanner in = new Scanner(System.in);
 
@@ -42,13 +43,14 @@ public class InputManager {
                         throw new InvalidInputException("Please use the format: add <AMOUNT> /d <DESCRIPTION>");
                     }
                     line = line.substring(4);
-                    String[] splitLine = line.split("/d", 2);  // Split into two parts: amount and description
+                    String[] splitLine = line.split("/d", 2);  // Split into two parts: description and amount
                     if (splitLine.length < 2) {
                         throw new InvalidInputException("Please use the format: add <AMOUNT> /d <DESCRIPTION>");
                     }
-                    double amount = Double.parseDouble(splitLine[0].trim());
-                    String description = splitLine[1].trim();
+                    double amount = Double.parseDouble(splitLine[0]);
+                    String description = splitLine[1];
                     budgetManager.addExpenseToBudget("", amount, description);
+
                 } else if (line.toLowerCase().startsWith("alert")) {
                     // Handle the alert command
                     String[] parts = line.split(" ");
@@ -57,8 +59,24 @@ public class InputManager {
                     }
                     double amount = Double.parseDouble(parts[1]);
                     budgetManager.setBudgetAlert(amount);
+
+                } else if (line.equalsIgnoreCase("summary")) {
+                    BudgetSummary budgetSummary = new BudgetSummary(budgetManager);
+                    budgetSummary.summariseBudget();
+
+                } else if (line.equalsIgnoreCase("list")) {
+                    budgetManager.listAllExpenses();
+
+                } else if (line.toLowerCase().startsWith("delete")) {
+                    String[] parts = line.split(" ");
+                    if (parts.length != 2) {
+                        throw new InvalidInputException("Please use the format: delete <INDEX>");
+                    }
+                    int index = Integer.parseInt(parts[1]);
+                    budgetManager.deleteExpense(index);
+
                 } else {
-                    throw new InvalidInputException("Please try again with one of the valid commands:\nadd, alert, bye");
+                    throw new InvalidInputException("Please try again with one of the valid commands:\nadd, alert, summary, list, delete, bye");
                 }
             } catch (InvalidInputException e) {
                 e.print();
