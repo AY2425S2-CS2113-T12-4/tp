@@ -42,15 +42,23 @@ public class InputManager {
                         throw new InvalidInputException("Please use the format: add <AMOUNT> /d <DESCRIPTION>");
                     }
                     line = line.substring(4);
-                    String[] splitLine = line.split("/d", 2);  // Split into two parts: description and amount
+                    String[] splitLine = line.split("/d", 2);  // Split into two parts: amount and description
                     if (splitLine.length < 2) {
                         throw new InvalidInputException("Please use the format: add <AMOUNT> /d <DESCRIPTION>");
                     }
-                    double amount = Double.parseDouble(splitLine[0]);
-                    String description = splitLine[1];
+                    double amount = Double.parseDouble(splitLine[0].trim());
+                    String description = splitLine[1].trim();
                     budgetManager.addExpenseToBudget("", amount, description);
+                } else if (line.toLowerCase().startsWith("alert")) {
+                    // Handle the alert command
+                    String[] parts = line.split(" ");
+                    if (parts.length != 2) {
+                        throw new InvalidInputException("Please use the format: alert <AMOUNT>");
+                    }
+                    double amount = Double.parseDouble(parts[1]);
+                    budgetManager.setBudgetAlert(amount);
                 } else {
-                    throw new InvalidInputException("Please try again with one of the valid commands:\nadd, bye");
+                    throw new InvalidInputException("Please try again with one of the valid commands:\nadd, alert, bye");
                 }
             } catch (InvalidInputException e) {
                 e.print();

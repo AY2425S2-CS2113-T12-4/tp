@@ -8,6 +8,7 @@ import java.util.HashMap;
  */
 public class BudgetManager {
     private final HashMap<String, Budget> budgets;
+    private double budgetAlertLimit = 0;
 
 
     /**
@@ -48,6 +49,49 @@ public class BudgetManager {
         }
         budgets.get(category).addExpense(expense);
         System.out.println("Expense Added: " + expense);
+
+        // 🔔 Check if the budget alert limit is exceeded
+        checkBudgetAlert();
     }
+
+    /**
+     * Sets a budget alert at the specified amount.
+     * If total expenses exceed this limit, a notification will be triggered.
+     *
+     * @param amount The alert threshold. If 0, the alert is removed.
+     */
+
+    public void setBudgetAlert(double amount) {
+        if (amount < 0) {
+            System.out.println("Alert amount must be a positive number.");
+            return;
+        }
+        this.budgetAlertLimit = amount;
+        if (amount == 0) {
+            System.out.println("🔕 Budget alert removed.");
+        } else {
+            System.out.println("🔔 Budget alert set at $" + amount);
+        }
+    }
+
+    /**
+     * Checks if total expenses exceed the alert limit.
+     */
+    private void checkBudgetAlert() {
+        double totalExpenses = getTotalExpenses();
+        if (budgetAlertLimit > 0 && totalExpenses > budgetAlertLimit) {
+            System.out.println("⚠️ ALERT: Total expenses ($" + totalExpenses + ") exceed the set limit of $" + budgetAlertLimit + "!");
+        }
+    }
+
+    /**
+     * Calculates the total expenses across all budgets.
+     *
+     * @return The sum of all expenses.
+     */
+    public double getTotalExpenses() {
+        return budgets.values().stream().mapToDouble(Budget::getTotalExpenses).sum();
+    }
+
 
 }
