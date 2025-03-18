@@ -1,5 +1,7 @@
 package seedu.duke;
 
+import seedu.duke.exception.InvalidInputException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -95,5 +97,10 @@ public class BudgetManager {
             budget.printExpenses();
             System.out.println("----------------------");
         }
+    }
+
+    public void deleteExpense(int index) throws InvalidInputException {
+        budgets.get("Monthly").deleteExpense(index);
+        System.out.println("----------------------");
     }
 }

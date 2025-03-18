@@ -1,5 +1,7 @@
 package seedu.duke;
 
+import seedu.duke.exception.InvalidInputException;
+
 import java.util.ArrayList;
 
 /**
@@ -73,6 +75,15 @@ public class Budget {
         for (int i = expenses.size() - 1; i >= 0 ; i--) {
             System.out.println((expenses.size() - i) + ". " + expenses.get(i));
         }
+    }
+
+    public void deleteExpense(int index) throws InvalidInputException {
+        if (index < 1 || index > expenses.size()) {
+            throw new InvalidInputException("Invalid index. Please provide a valid expense number.");
+        }
+        System.out.println("Expense deleted successfully.");
+        System.out.println("    " + expenses.get(expenses.size() - index));
+        expenses.remove(expenses.size() - index);
     }
 
 }

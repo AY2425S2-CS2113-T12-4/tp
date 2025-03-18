@@ -55,7 +55,15 @@ public class InputManager {
                     budgetSummary.summariseBudget();
                 } else if (line.equalsIgnoreCase("list")) {
                     budgetManager.listAllExpenses();
-                } else {
+                } else if (line.toLowerCase().startsWith("delete")){
+                    String[] parts = line.split(" ");
+                    if (parts.length != 2) {
+                        throw new InvalidInputException("Please use the format: delete <INDEX>");
+                    }
+                    int index = Integer.parseInt(parts[1]);
+                    budgetManager.deleteExpense(index);
+                }
+                else {
                     throw new InvalidInputException("Please try again with one of the valid commands:\nadd," +
                             " summary, list,  bye");
                 }
