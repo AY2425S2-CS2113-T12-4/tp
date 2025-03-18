@@ -53,9 +53,11 @@ public class InputManager {
                 } else if(line.equalsIgnoreCase("summary")){
                     BudgetSummary budgetSummary = new BudgetSummary(budgetManager);
                     budgetSummary.summariseBudget();
-                }else {
+                } else if (line.equalsIgnoreCase("list")) {
+                    budgetManager.listAllExpenses();
+                } else {
                     throw new InvalidInputException("Please try again with one of the valid commands:\nadd," +
-                            " summary, bye");
+                            " summary, list,  bye");
                 }
             } catch (InvalidInputException e) {
                 e.print();

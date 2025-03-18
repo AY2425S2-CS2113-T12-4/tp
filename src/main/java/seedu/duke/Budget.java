@@ -62,4 +62,17 @@ public class Budget {
         return this.limit;
     }
 
+    /**
+     * Prints all expenses under this budget in reverse order (most recent first).
+     */
+    public void printExpenses() {
+        if (expenses.isEmpty()) {
+            System.out.println("No expenses recorded.");
+            return;
+        }
+        for (int i = expenses.size() - 1; i >= 0 ; i--) {
+            System.out.println((expenses.size() - i) + ". " + expenses.get(i));
+        }
+    }
+
 }
