@@ -22,7 +22,7 @@ public class Alert {
      */
     public void setAlert(double amount) {
         if (amount < 0) {
-            System.out.println("⚠️ Error: Alert amount must be a positive number.");
+            System.out.println("Error: Alert amount must be a positive number.");
             return;
         }
 
@@ -30,9 +30,10 @@ public class Alert {
         this.isActive = amount > 0;
 
         if (isActive) {
-            System.out.println("✅ Budget alert set at $" + alertAmount + ". You will be notified if expenses exceed this amount.");
+            System.out.println("Budget alert set at $" + alertAmount +
+                    ". You will be notified if expenses exceed this amount.");
         } else {
-            System.out.println("🛑 Budget alert has been removed.");
+            System.out.println("Budget alert has been removed.");
         }
     }
 
@@ -43,7 +44,8 @@ public class Alert {
      */
     public void checkAlert(double totalExpenses) {
         if (isActive && totalExpenses > alertAmount) {
-            System.out.println("⚠️ Warning: Your total expenses ($" + totalExpenses + ") have exceeded the alert limit of $" + alertAmount);
+            System.out.println("Warning: Your total expenses ($" + totalExpenses +
+                    ") have exceeded the alert limit of $" + alertAmount);
         }
     }
 
