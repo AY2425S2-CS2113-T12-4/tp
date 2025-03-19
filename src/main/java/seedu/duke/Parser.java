@@ -109,6 +109,30 @@ public class Parser {
         return Integer.parseInt(parts[1].trim());
     }
 
+    /**
+     * Parses the "check-budget" command to extract the category (if provided).
+     * Expected formats:
+     * - "check-budget" (for overall budget)
+     * - "check-budget c/CATEGORY" (for category-specific budget)
+     *
+     * @param command The full user command.
+     * @return The extracted category or an empty string if not provided.
+     * @throws InvalidInputException If the format is incorrect.
+     */
+    public String parseCheckBudgetCommand(String command) throws InvalidInputException {
+        String[] parts = command.split(" ");
+
+        if (parts.length == 1) {
+            return ""; // No category provided, check overall budget
+        }
+
+        if (parts.length == 2 && parts[1].startsWith("c/")) {
+            return parts[1].substring(2).trim(); 
+        }
+
+        throw new InvalidInputException("Invalid format. Use: check-budget [c/CATEGORY]");
+    }
+
 
 }
 

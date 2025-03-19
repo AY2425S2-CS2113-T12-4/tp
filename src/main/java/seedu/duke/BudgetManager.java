@@ -47,7 +47,7 @@ public class BudgetManager {
 
         if (category != null && !category.trim().isEmpty()) {
             if (!budgets.containsKey(category)) {
-                System.out.println("Budget category '" + category + "' not found. Please create the category first.");
+                System.out.println("Budget category '" + category + "' not found. Added to Monthly Budget.");
             } else {
                 budgets.get(category).addExpense(expense);
             }
@@ -142,4 +142,45 @@ public class BudgetManager {
         budgets.get("Monthly").deleteExpense(index);
         System.out.println("----------------------");
     }
+
+    /**
+     * Displays the budget allocation, amount spent, and remaining balance.
+     * If a category is specified, it shows details for that category.
+     * Otherwise, it shows the overall budget usage for the current month.
+     *
+     * @param category The budget category (e.g., "Food"), or empty for "Monthly".
+     */
+    public void checkBudget(String category) {
+        if (category == "" || category.trim().isEmpty()) {
+            Budget monthlyBudget = budgets.get("Monthly");
+            assert monthlyBudget != null : "Error: 'Monthly' budget should always exist.";
+
+            double totalBudget = monthlyBudget.getLimit();
+            double spent = monthlyBudget.getTotalExpenses();
+            double remaining = Math.max(0, totalBudget - spent);
+
+            System.out.println("===== Overall Budget Usage =====");
+            System.out.println("Total Budget: $" + totalBudget);
+            System.out.println("Spent: $" + spent);
+            System.out.println("Remaining: $" + remaining);
+            System.out.println("===============================");
+        } else {
+            if (!budgets.containsKey(category)) {
+                System.out.println("Budget category '" + category + "' not found.");
+                return;
+            }
+
+            Budget categoryBudget = budgets.get(category);
+            double totalBudget = categoryBudget.getLimit();
+            double spent = categoryBudget.getTotalExpenses();
+            double remaining = Math.max(0, totalBudget - spent);
+
+            System.out.println("===== Budget for " + category + " =====");
+            System.out.println("Total Budget: $" + totalBudget);
+            System.out.println("Spent: $" + spent);
+            System.out.println("Remaining: $" + remaining);
+            System.out.println("===============================");
+        }
+    }
+
 }

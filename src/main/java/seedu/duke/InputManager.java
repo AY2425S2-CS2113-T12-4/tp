@@ -69,6 +69,9 @@ public class InputManager {
                     String category = splitline[0];
                     Double amount = Double.parseDouble(splitline[1]);
                     budgetManager.setBudget(category, amount);
+                } else if (line.toLowerCase().startsWith("check-budget")) {
+                    String category = parser.parseCheckBudgetCommand(line);
+                    budgetManager.checkBudget(category);
                 } else {
                     throw new InvalidInputException("Please try again with one of the valid commands:" +
                             "\nadd, alert, summary, list, delete, set-budget, bye");
