@@ -84,7 +84,7 @@ public class BudgetManager {
 
 
     public void setBudget(String category, double amount) {
-        if (category == null) { // Monthly budget setting
+        if (category == "") { // Monthly budget setting
             budgets.put("Monthly", new Budget("Monthly", amount));
             System.out.println("Monthly budget set to: $" + amount);
         } else { // Category budget setting
@@ -103,7 +103,8 @@ public class BudgetManager {
      * @return The sum of all expenses.
      */
     public double getTotalExpenses() {
-        return budgets.values().stream().mapToDouble(Budget::getTotalExpenses).sum();
+        Budget monthlyBudget = budgets.get("Monthly");
+        return (monthlyBudget != null) ? monthlyBudget.getTotalExpenses() : 0.0;
     }
 
     /**
