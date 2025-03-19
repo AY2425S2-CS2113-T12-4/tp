@@ -1,6 +1,5 @@
 package seedu.duke;
 
-import java.sql.SQLOutput;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -39,7 +38,7 @@ public class InputManager {
 
             try {
                 line = in.nextLine().trim();
-                
+
                 if (line.equalsIgnoreCase("bye")) {
                     break;
                 } else if (line.toLowerCase().startsWith("add")) {
