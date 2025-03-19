@@ -34,9 +34,9 @@ public class BudgetSummaryTest {
     @Test
     public void testSummariseBudget_withBudgets_correctSummaryPrinted() {
         // Set up budgets
-        budgetManager.setBudget("set-budget 2000");
-        budgetManager.setBudget("set-budget c/Food 500");
-        budgetManager.setBudget("set-budget c/Transport 300");
+        budgetManager.setBudget("", 2000);
+        budgetManager.setBudget("Food", 500);
+        budgetManager.setBudget("Transport", 300);
 
         // Call the method
         budgetSummary.summariseBudget();

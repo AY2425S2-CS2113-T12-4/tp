@@ -63,11 +63,7 @@ public class InputManager {
                     budgetManager.listAllExpenses();
 
                 } else if (line.toLowerCase().startsWith("delete")) {
-                    String[] parts = line.split(" ");
-                    if (parts.length != 2) {
-                        throw new InvalidInputException("Please use the format: delete <INDEX>");
-                    }
-                    int index = Integer.parseInt(parts[1]);
+                    int index = parser.parseDeleteCommand(line);
                     budgetManager.deleteExpense(index);
 
                 } else if (line.toLowerCase().startsWith("set-budget")) {

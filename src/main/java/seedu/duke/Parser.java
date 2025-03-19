@@ -67,6 +67,14 @@ public class Parser {
         return Double.parseDouble(parts[1].trim());
     }
 
+    public int parseDeleteCommand(String command) throws InvalidInputException {
+        String[] parts = command.split(" ");
+        if (parts.length != 2) {
+            throw new InvalidInputException("Please use the format: alert <AMOUNT>");
+        }
+        return Integer.parseInt(parts[1].trim());
+    }
+
 
 }
 
