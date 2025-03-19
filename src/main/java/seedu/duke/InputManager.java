@@ -52,12 +52,7 @@ public class InputManager {
                     budgetManager.addExpenseToBudget(category, amount, description);
 
                 } else if (line.toLowerCase().startsWith("alert")) {
-                    // Handle the alert command
-                    String[] parts = line.split(" ");
-                    if (parts.length != 2) {
-                        throw new InvalidInputException("Please use the format: alert <AMOUNT>");
-                    }
-                    double amount = Double.parseDouble(parts[1]);
+                    double amount = parser.parseAlertCommand(line);
                     budgetManager.setBudgetAlert(amount);
 
                 } else if (line.equalsIgnoreCase("summary")) {

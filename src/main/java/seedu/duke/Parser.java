@@ -59,6 +59,14 @@ public class Parser {
         return new String[]{category, amount};
     }
 
+    public double parseAlertCommand(String command) throws InvalidInputException {
+        String[] parts = command.split(" ");
+        if (parts.length != 2) {
+            throw new InvalidInputException("Please use the format: alert <AMOUNT>");
+        }
+        return Double.parseDouble(parts[1].trim());
+    }
+
 
 }
 
