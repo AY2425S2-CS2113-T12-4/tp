@@ -3,12 +3,15 @@ package seedu.duke;
 import seedu.duke.exception.InvalidInputException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.logging.Logger;
 
 /**
  * The BudgetManager class is responsible for managing multiple budgets.
  * It allows tracking expenses and setting alerts when expenses exceed a threshold.
  */
 public class BudgetManager {
+    private static final Logger logger = Logger.getLogger(BudgetManager.class.getName());
     private final HashMap<String, Budget> budgets;
     private final Alert alert;
 
@@ -20,6 +23,7 @@ public class BudgetManager {
         this.budgets = new HashMap<>();
         this.alert = new Alert(); // Initialise alert system
         budgets.put("Monthly", new Budget("Monthly", 0));
+        logger.info("BudgetManager initialized with Monthly budget.");
 
         assert budgets != null : "Budgets HashMap should be initialized.";
         assert alert != null : "Alert system should be initialized.";
@@ -42,15 +46,19 @@ public class BudgetManager {
 
         if (!budgets.containsKey("Monthly")) {
             budgets.put("Monthly", new Budget("Monthly", 0));
+            logger.warning("Monthly budget was missing. Initialized a new Monthly budget.");
         }
+        assert budgets.get("Monthly") != null : "Monthly budget should be initialized.";
         budgets.get("Monthly").addExpense(expense);
 
         if (category != null && !category.trim().isEmpty()) {
             if (!budgets.containsKey(category)) {
                 System.out.println("Budget category '" + category + "' not found. Added to Monthly Budget.");
+                logger.warning("Budget category '" + category + "' not found. Added to Monthly Budget.");
             } else {
                 budgets.get(category).addExpense(expense);
             }
+            logger.info("Expense Added: " + expense);
         }
 
         System.out.println("Expense Added: " + expense);
@@ -97,14 +105,16 @@ public class BudgetManager {
     public void setBudget(String category, double amount) {
         assert amount >= 0 : "Error: Budget amount should not be negative.";
 
-        if (category == "") { // Monthly budget setting
+        if (Objects.equals(category, "")) { // Monthly budget setting
             budgets.put("Monthly", new Budget("Monthly", amount));
             System.out.println("Monthly budget set to: $" + amount);
         } else { // Category budget setting
             if (!budgets.containsKey(category)) {
                 budgets.put(category, new Budget(category, amount));
+                logger.info("Created new budget category: " + category + " with limit $" + amount);
             } else {
                 budgets.get(category).setLimit(amount);
+                logger.info("Updated budget for category " + category + " to: $" + amount);
             }
             System.out.println("Budget for category " + category + " set to: $" + amount);
         }
@@ -136,10 +146,12 @@ public class BudgetManager {
      * @throws InvalidInputException if index is invalid.
      */
     public void deleteExpense(int index) throws InvalidInputException {
+        assert index >= 0 : "Expense index should not be negative.";
         if (!budgets.containsKey("Monthly")) {
             throw new InvalidInputException("No Monthly budget found.");
         }
         budgets.get("Monthly").deleteExpense(index);
+        logger.info("Expense at index " + index + " deleted from Monthly Budget.");
         System.out.println("----------------------");
     }
 
@@ -167,8 +179,10 @@ public class BudgetManager {
         } else {
             if (!budgets.containsKey(category)) {
                 System.out.println("Budget category '" + category + "' not found.");
+                logger.warning("Budget category '" + category + "' not found.");
                 return;
             }
+            assert budgets.get(category) != null : "Category budget should exist when checking.";
 
             Budget categoryBudget = budgets.get(category);
             double totalBudget = categoryBudget.getLimit();

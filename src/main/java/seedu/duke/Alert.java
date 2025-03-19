@@ -43,6 +43,7 @@ public class Alert {
      * @param totalExpenses The current total expenses.
      */
     public void checkAlert(double totalExpenses) {
+        assert totalExpenses >= 0 : "Total expenses cannot be negative";
         if (isActive && totalExpenses > alertAmount) {
             System.out.println("Warning: Your total expenses ($" + totalExpenses +
                     ") have exceeded the alert limit of $" + alertAmount);
