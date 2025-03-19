@@ -37,7 +37,7 @@ public class Parser {
         String[] parts = command.split(" ");
 
         if (parts.length != 2 && parts.length != 3) {
-            throw new InvalidInputException("Invalid command format. Usage: set-budget AMOUNT or set-budget c/CATEGORY AMOUNT");
+            throw new InvalidInputException("Invalid command format. Use set-budget c/CATEGORY AMOUNT");
         }
 
         String category = "";
@@ -50,7 +50,7 @@ public class Parser {
                 category = parts[1].substring(2).trim();
                 amount = parts[2];
             } else {
-                throw new InvalidInputException("Invalid command format. Usage: set-budget AMOUNT or set-budget c/CATEGORY AMOUNT");
+                throw new InvalidInputException("Invalid command format. Use set-budget c/CATEGORY AMOUNT");
             }
         } catch (NumberFormatException e) {
             throw new InvalidInputException("Invalid amount format. Please enter a valid number.");
@@ -77,5 +77,4 @@ public class Parser {
 
 
 }
-
 

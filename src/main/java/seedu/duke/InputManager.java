@@ -4,7 +4,6 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import seedu.duke.exception.InvalidInputException;
-import seedu.duke.Parser;
 
 
 /**
@@ -71,8 +70,7 @@ public class InputManager {
                     String category = splitline[0];
                     Double amount = Double.parseDouble(splitline[1]);
                     budgetManager.setBudget(category, amount);
-                }
-                else {
+                } else {
                     throw new InvalidInputException("Please try again with one of the valid commands:" +
                             "\nadd, alert, summary, list, delete, set-budget, bye");
                 }
