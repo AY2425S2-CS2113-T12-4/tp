@@ -3,6 +3,7 @@ package seedu.duke;
 import seedu.duke.exception.InvalidInputException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * The BudgetManager class is responsible for managing multiple budgets.
@@ -43,6 +44,7 @@ public class BudgetManager {
         if (!budgets.containsKey("Monthly")) {
             budgets.put("Monthly", new Budget("Monthly", 0));
         }
+        assert budgets.get("Monthly") != null : "Monthly budget should be initialized.";
         budgets.get("Monthly").addExpense(expense);
 
         if (category != null && !category.trim().isEmpty()) {
@@ -97,7 +99,7 @@ public class BudgetManager {
     public void setBudget(String category, double amount) {
         assert amount >= 0 : "Error: Budget amount should not be negative.";
 
-        if (category == "") { // Monthly budget setting
+        if (Objects.equals(category, "")) { // Monthly budget setting
             budgets.put("Monthly", new Budget("Monthly", amount));
             System.out.println("Monthly budget set to: $" + amount);
         } else { // Category budget setting
@@ -136,6 +138,7 @@ public class BudgetManager {
      * @throws InvalidInputException if index is invalid.
      */
     public void deleteExpense(int index) throws InvalidInputException {
+        assert index >= 0 : "Expense index should not be negative.";
         if (!budgets.containsKey("Monthly")) {
             throw new InvalidInputException("No Monthly budget found.");
         }
@@ -169,6 +172,7 @@ public class BudgetManager {
                 System.out.println("Budget category '" + category + "' not found.");
                 return;
             }
+            assert budgets.get(category) != null : "Category budget should exist when checking.";
 
             Budget categoryBudget = budgets.get(category);
             double totalBudget = categoryBudget.getLimit();
