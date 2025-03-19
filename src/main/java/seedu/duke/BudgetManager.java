@@ -74,6 +74,44 @@ public class BudgetManager {
     }
 
     /**
+     * Sets the spending limit for the "Monthly" budget or a specific category.
+     *
+     * @param command The command to set the budget (e.g., "set-budget 1000" or "set-budget c/Food 300").
+     */
+    public void setBudget(String command) {
+        String[] parts = command.split(" ");
+        if (parts.length != 2 && parts.length != 3) {
+            System.out.println("Invalid command format. Usage: set-budget AMOUNT or set-budget c/CATEGORY AMOUNT");
+            return;
+        }
+
+        if (parts.length == 2) { // Monthly budget setting
+            try {
+                double amount = Double.parseDouble(parts[1]);
+                budgets.put("Monthly", new Budget("Monthly", amount));
+                System.out.println("✅ Monthly budget set to: $" + amount);
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("Invalid amount format.");
+            }
+        } else if (parts.length == 3 && parts[1].startsWith("c/")) { // Category budget setting
+            String category = parts[1].substring(2);
+            try {
+                double amount = Double.parseDouble(parts[2]);
+                if (!budgets.containsKey(category)) {
+                    budgets.put(category, new Budget(category, amount));
+                } else {
+                    budgets.get(category).setLimit(amount);
+                }
+                System.out.println("✅ Budget for category " + category + " set to: $" + amount);
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("Invalid amount format.");
+            }
+        } else {
+            System.out.println("Invalid command format.");
+        }
+    }
+
+    /**
      * Calculates the total expenses across all budgets.
      *
      * @return The sum of all expenses.
