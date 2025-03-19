@@ -21,6 +21,7 @@ public class Expense {
      * @throws IllegalArgumentException If the description is null or the amount is negative.
      */
     public Expense(double amount, String description) {
+
         if (description == null) {
             throw new IllegalArgumentException("Description cannot be empty.");
         }
@@ -30,6 +31,8 @@ public class Expense {
         this.description = description;
         this.amount = amount;
         dateTime = LocalDateTime.now();
+
+        assert dateTime != null : "DateTime should be initialized properly.";
     }
 
     /**

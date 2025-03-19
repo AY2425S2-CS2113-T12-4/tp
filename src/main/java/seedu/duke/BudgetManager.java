@@ -20,6 +20,9 @@ public class BudgetManager {
         this.budgets = new HashMap<>();
         this.alert = new Alert(); // ✅ Initialise alert system
         budgets.put("Monthly", new Budget("Monthly", 0));
+
+        assert budgets != null : "Budgets HashMap should be initialized.";
+        assert alert != null : "Alert system should be initialized.";
     }
 
     /**
@@ -39,6 +42,8 @@ public class BudgetManager {
             System.out.println("⚠️ Budget category not found. Please create the category first.");
             return;
         }
+
+        assert budgets.get(category) != null : "Budget should exist before adding an expense.";
         budgets.get(category).addExpense(expense);
         System.out.println("✅ Expense Added: " + expense);
 

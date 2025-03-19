@@ -20,6 +20,7 @@ public class InputManager {
      * @param budgetManager The BudgetManager instance to be used for managing budgets and expenses.
      */
     public InputManager(BudgetManager budgetManager) {
+        assert budgetManager != null : "BudgetManager cannot be null.";
         this.budgetManager = budgetManager;
     }
 
@@ -28,7 +29,7 @@ public class InputManager {
      * The loop continues until the user types "bye".
      * Valid commands include "add" to add expenses to budgets.
      */
-        public void processInputLoop() {
+    public void processInputLoop() {
         String line;
         Scanner in = new Scanner(System.in);
 
@@ -43,7 +44,7 @@ public class InputManager {
                         throw new InvalidInputException("Please use the format: add <AMOUNT> /d <DESCRIPTION>");
                     }
                     line = line.substring(4);
-                    String[] splitLine = line.split("/d", 2);  // Split into two parts: description and amount
+                    String[] splitLine = line.split("/d", 2); // Split into two parts: description and amount
                     if (splitLine.length < 2) {
                         throw new InvalidInputException("Please use the format: add <AMOUNT> /d <DESCRIPTION>");
                     }
@@ -76,7 +77,8 @@ public class InputManager {
                     budgetManager.deleteExpense(index);
 
                 } else {
-                    throw new InvalidInputException("Please try again with one of the valid commands:\nadd, alert, summary, list, delete, bye");
+                    throw new InvalidInputException("Please try again with one of the valid commands:" +
+                            "\nadd, alert, summary, list, delete, bye");
                 }
             } catch (InvalidInputException e) {
                 e.print();
