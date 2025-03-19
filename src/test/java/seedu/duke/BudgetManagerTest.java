@@ -4,7 +4,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.exception.InvalidInputException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class BudgetManagerTest {
 
@@ -23,7 +26,11 @@ public class BudgetManagerTest {
 
         // Assert the monthly budget is set to 1000
         Budget monthlyBudget = budgetManager.getBudgets().get("Monthly");
-        assertEquals(1000, monthlyBudget.getLimit(), "Monthly budget should be set to 1000");
+        assertEquals(
+                1000,
+                monthlyBudget.getLimit(),
+                "Monthly budget should be set to 1000"
+        );
     }
 
     @Test
@@ -33,7 +40,11 @@ public class BudgetManagerTest {
 
         // Assert the budget for the "Food" category is set to 300
         Budget foodBudget = budgetManager.getBudgets().get("Food");
-        assertEquals(300, foodBudget.getLimit(), "Food category budget should be set to 300");
+        assertEquals(
+                300,
+                foodBudget.getLimit(),
+                "Food category budget should be set to 300"
+        );
     }
 
     @Test
@@ -44,13 +55,21 @@ public class BudgetManagerTest {
 
         // Ensure 2 expenses exist before deletion
         Budget monthlyBudget = budgetManager.getBudgets().get("Monthly");
-        assertEquals(70, monthlyBudget.getTotalExpenses(), "The total expenses should be 70");
+        assertEquals(
+                70,
+                monthlyBudget.getTotalExpenses(),
+                "The total expenses should be 70"
+        );
 
         // Delete the most recent expense (Coffee at index 1)
         budgetManager.deleteExpense(1);
 
         // Ensure 1 expense remains after deletion
-        assertEquals(50, monthlyBudget.getTotalExpenses(), "The total expenses should be 20");
+        assertEquals(
+                50,
+                monthlyBudget.getTotalExpenses(),
+                "The total expenses should be 20"
+        );
     }
 
     @Test
@@ -65,7 +84,10 @@ public class BudgetManagerTest {
     public void testCreateMonthlyBudget_defaultExists() {
         Budget monthlyBudget = budgetManager.getBudgets().get("Monthly");
         assertNotNull(monthlyBudget, "Monthly budget should exist by default");
-        assertEquals(0, monthlyBudget.getLimit(), "Default monthly budget should have a limit of 0");
+        assertEquals(0,
+                monthlyBudget.getLimit(),
+                "Default monthly budget should have a limit of 0"
+        );
     }
 
     @Test
@@ -73,14 +95,20 @@ public class BudgetManagerTest {
         budgetManager.addExpenseToBudget("", 100, "Groceries");
 
         Budget monthlyBudget = budgetManager.getBudgets().get("Monthly");
-        assertEquals(100, monthlyBudget.getTotalExpenses(), "Monthly budget total expenses should be 100");
+        assertEquals(100,
+                monthlyBudget.getTotalExpenses(),
+                "Monthly budget total expenses should be 100"
+        );
     }
 
     @Test
     public void testAddExpenseToNewCategory_budgetDoesNotExist() {
         budgetManager.addExpenseToBudget("Travel", 50, "Bus fare");
 
-        assertNull(budgetManager.getBudgets().get("Travel"), "Budget category 'Travel' should not be created automatically");
+        assertNull(
+                budgetManager.getBudgets().get("Travel"),
+                "Budget category 'Travel' should not be created automatically"
+        );
     }
 
     @Test
@@ -90,7 +118,10 @@ public class BudgetManagerTest {
 
         Budget foodBudget = budgetManager.getBudgets().get("Food");
         assertNotNull(foodBudget, "Food budget should exist");
-        assertEquals(50, foodBudget.getTotalExpenses(), "Food budget total expenses should be 50");
+        assertEquals(50,
+                foodBudget.getTotalExpenses(),
+                "Food budget total expenses should be 50"
+        );
     }
 
 
