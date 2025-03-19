@@ -84,7 +84,7 @@ public class BudgetManager {
 
 
     public void setBudget(String category, double amount) {
-        if (category == "") { // Monthly budget setting
+        if (category == null) { // Monthly budget setting
             budgets.put("Monthly", new Budget("Monthly", amount));
             System.out.println("Monthly budget set to: $" + amount);
         } else { // Category budget setting
@@ -110,11 +110,8 @@ public class BudgetManager {
      * Displays all expenses categorized under each budget.
      */
     public void listAllExpenses() {
-        for (Map.Entry<String, Budget> entry : budgets.entrySet()) {
-            Budget budget = entry.getValue();
-            budget.printExpenses();
-            System.out.println("----------------------");
-        }
+        Budget monthly = budgets.get("Monthly");
+        monthly.printExpenses();
     }
 
     /**
@@ -128,7 +125,6 @@ public class BudgetManager {
             throw new InvalidInputException("No Monthly budget found.");
         }
         budgets.get("Monthly").deleteExpense(index);
-        System.out.println("Expense removed successfully.");
         System.out.println("----------------------");
     }
 }

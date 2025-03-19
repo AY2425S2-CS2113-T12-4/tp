@@ -47,7 +47,7 @@ public class InputManager {
                     String[] splitLine = parser.parseAddCommand(line);
                     double amount = Double.parseDouble(splitLine[0]);
                     String category = splitLine[1];
-                    String description = splitLine[1];
+                    String description = splitLine[2];
                     budgetManager.addExpenseToBudget(category, amount, description);
 
                 } else if (line.toLowerCase().startsWith("alert")) {
