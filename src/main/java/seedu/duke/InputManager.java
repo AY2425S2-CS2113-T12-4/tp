@@ -30,7 +30,6 @@ public class InputManager {
     /**
      * Starts an input processing loop where the user can enter commands.
      * The loop continues until the user types "bye".
-     * Valid commands include "add" to add expenses to budgets.
      */
     public void processInputLoop() {
         String line;

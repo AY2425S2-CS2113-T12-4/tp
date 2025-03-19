@@ -26,11 +26,13 @@ public class BudgetManager {
     }
 
     /**
-     * Adds an expense to a specific budget category.
-     * If the category is empty or invalid, the expense is added to the "Monthly" budget.
+     * Adds an expense to a specified budget category.
+     * Always adds to the "Monthly" budget. If a valid category exists, it is added there too;
+     * otherwise, a prompt is shown to create the category.
+     * Also checks if total expenses exceed the budget alert threshold.
      *
-     * @param category The budget category to which the expense should be added (e.g., "Food", "Transport").
-     * @param amount The amount of the expense.
+     * @param category    The budget category (e.g., "Food"), or empty for "Monthly".
+     * @param amount      The expense amount.
      * @param description A brief description of the expense.
      */
     public void addExpenseToBudget(String category, double amount, String description) {
@@ -82,7 +84,13 @@ public class BudgetManager {
         return this.budgets;
     }
 
-
+    /**
+     * Sets the budget for a given category or the "Monthly" budget if no category is specified.
+     * Creates a new budget if the category does not exist, otherwise updates its limit.
+     *
+     * @param category The budget category (e.g., "Food"), or empty for "Monthly".
+     * @param amount   The budget limit to set.
+     */
     public void setBudget(String category, double amount) {
         if (category == "") { // Monthly budget setting
             budgets.put("Monthly", new Budget("Monthly", amount));
@@ -108,7 +116,7 @@ public class BudgetManager {
     }
 
     /**
-     * Displays all expenses categorized under each budget.
+     * Displays all expenses categorized under Monthly budget.
      */
     public void listAllExpenses() {
         Budget monthly = budgets.get("Monthly");

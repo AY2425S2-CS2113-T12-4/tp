@@ -6,6 +6,14 @@ public class Parser {
 
     public Parser(){}
 
+    /**
+     * Parses an "add" command to extract the amount, category, and description.
+     * Expected format: add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION>
+     *
+     * @param line The full command input.
+     * @return A string array containing [amount, category, description].
+     * @throws InvalidInputException If the format is incorrect.
+     */
     String[] parseAddCommand(String line) throws InvalidInputException {
         if (line.length() < 4) {
             throw new InvalidInputException("Please use the format: add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION>");
@@ -33,6 +41,16 @@ public class Parser {
         return new String[]{amount, category, description};
     }
 
+    /**
+     * Parses a "set-budget" command to extract the budget category and amount.
+     * Expected formats:
+     * - "set-budget <AMOUNT>" (for Monthly budget)
+     * - "set-budget c/CATEGORY <AMOUNT>" (for a specific category)
+     *
+     * @param command The full command input.
+     * @return A string array containing [category, amount].
+     * @throws InvalidInputException If the format is incorrect.
+     */
     public String[] parseSetBudgetCommand(String command) throws InvalidInputException {
         String[] parts = command.split(" ");
 
@@ -59,6 +77,14 @@ public class Parser {
         return new String[]{category, amount};
     }
 
+    /**
+     * Parses an "alert" command to extract the alert amount.
+     * Expected format: alert <AMOUNT>
+     *
+     * @param command The full command input.
+     * @return The alert amount as a double.
+     * @throws InvalidInputException If the format is incorrect.
+     */
     public double parseAlertCommand(String command) throws InvalidInputException {
         String[] parts = command.split(" ");
         if (parts.length != 2) {
@@ -67,6 +93,14 @@ public class Parser {
         return Double.parseDouble(parts[1].trim());
     }
 
+    /**
+     * Parses a "delete" command to extract the expense index to be deleted.
+     * Expected format: delete <INDEX>
+     *
+     * @param command The full command input.
+     * @return The index of the expense to delete.
+     * @throws InvalidInputException If the format is incorrect.
+     */
     public int parseDeleteCommand(String command) throws InvalidInputException {
         String[] parts = command.split(" ");
         if (parts.length != 2) {
