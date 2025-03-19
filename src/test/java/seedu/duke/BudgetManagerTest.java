@@ -1,11 +1,10 @@
 package seedu.duke;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.exception.InvalidInputException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BudgetManagerTest {
 
@@ -62,6 +61,38 @@ public class BudgetManagerTest {
         }, "Should throw InvalidInputException when deleting a non-existent expense");
     }
 
-    
+    @Test
+    public void testCreateMonthlyBudget_defaultExists() {
+        Budget monthlyBudget = budgetManager.getBudgets().get("Monthly");
+        assertNotNull(monthlyBudget, "Monthly budget should exist by default");
+        assertEquals(0, monthlyBudget.getLimit(), "Default monthly budget should have a limit of 0");
+    }
+
+    @Test
+    public void testAddExpenseToMonthlyBudget() {
+        budgetManager.addExpenseToBudget("", 100, "Groceries");
+
+        Budget monthlyBudget = budgetManager.getBudgets().get("Monthly");
+        assertEquals(100, monthlyBudget.getTotalExpenses(), "Monthly budget total expenses should be 100");
+    }
+
+    @Test
+    public void testAddExpenseToNewCategory_budgetDoesNotExist() {
+        budgetManager.addExpenseToBudget("Travel", 50, "Bus fare");
+
+        assertNull(budgetManager.getBudgets().get("Travel"), "Budget category 'Travel' should not be created automatically");
+    }
+
+    @Test
+    public void testAddExpenseToExistingCategory() {
+        budgetManager.setBudget("Food", 500);
+        budgetManager.addExpenseToBudget("Food", 50, "Lunch");
+
+        Budget foodBudget = budgetManager.getBudgets().get("Food");
+        assertNotNull(foodBudget, "Food budget should exist");
+        assertEquals(50, foodBudget.getTotalExpenses(), "Food budget total expenses should be 50");
+    }
+
+
 
 }
