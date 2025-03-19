@@ -18,7 +18,7 @@ public class BudgetManager {
      */
     public BudgetManager() {
         this.budgets = new HashMap<>();
-        this.alert = new Alert(); // ✅ Initialise alert system
+        this.alert = new Alert(); // Initialise alert system
         budgets.put("Monthly", new Budget("Monthly", 0));
 
         assert budgets != null : "Budgets HashMap should be initialized.";
@@ -39,15 +39,15 @@ public class BudgetManager {
             category = "Monthly";
         }
         if (!budgets.containsKey(category)) {
-            System.out.println("⚠️ Budget category not found. Please create the category first.");
+            System.out.println("Budget category not found. Please create the category first.");
             return;
         }
 
         assert budgets.get(category) != null : "Budget should exist before adding an expense.";
         budgets.get(category).addExpense(expense);
-        System.out.println("✅ Expense Added: " + expense);
+        System.out.println("Expense Added: " + expense);
 
-        // 🔔 Check if the total expenses exceed the alert threshold
+        // Check if the total expenses exceed the alert threshold
         checkBudgetAlert();
     }
 
@@ -94,7 +94,7 @@ public class BudgetManager {
             try {
                 double amount = Double.parseDouble(parts[1]);
                 budgets.put("Monthly", new Budget("Monthly", amount));
-                System.out.println("✅ Monthly budget set to: $" + amount);
+                System.out.println("Monthly budget set to: $" + amount);
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("Invalid amount format.");
             }
@@ -107,7 +107,7 @@ public class BudgetManager {
                 } else {
                     budgets.get(category).setLimit(amount);
                 }
-                System.out.println("✅ Budget for category " + category + " set to: $" + amount);
+                System.out.println("Budget for category " + category + " set to: $" + amount);
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("Invalid amount format.");
             }
@@ -147,7 +147,7 @@ public class BudgetManager {
             throw new InvalidInputException("No Monthly budget found.");
         }
         budgets.get("Monthly").deleteExpense(index);
-        System.out.println("🗑️ Expense removed successfully.");
+        System.out.println("Expense removed successfully.");
         System.out.println("----------------------");
     }
 }

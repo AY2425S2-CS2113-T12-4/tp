@@ -6,4 +6,5 @@ Hello from
 |____/ \__,_|_|\_\___|
 
 Invalid input format: Please try again with one of the valid commands:
-add, summary, bye
+add, alert, summary, list, delete, bye
+No input found, exiting...
