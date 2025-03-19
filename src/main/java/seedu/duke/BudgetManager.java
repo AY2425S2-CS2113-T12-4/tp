@@ -26,30 +26,38 @@ public class BudgetManager {
     }
 
     /**
-     * Adds an expense to a specific budget category.
-     * If the category is empty or invalid, the expense is added to the "Monthly" budget.
+     * Adds an expense to a specified budget category.
+     * Always adds to the "Monthly" budget. If a valid category exists, it is added there too;
+     * otherwise, a prompt is shown to create the category.
+     * Also checks if total expenses exceed the budget alert threshold.
      *
-     * @param category The budget category to which the expense should be added (e.g., "Food", "Transport").
-     * @param amount The amount of the expense.
+     * @param category    The budget category (e.g., "Food"), or empty for "Monthly".
+     * @param amount      The expense amount.
      * @param description A brief description of the expense.
      */
     public void addExpenseToBudget(String category, double amount, String description) {
+        assert amount > 0 : "Error: Expense amount should be positive.";
+
         Expense expense = new Expense(amount, description);
-        if (category.equalsIgnoreCase("")) {
-            category = "Monthly";
+
+        if (!budgets.containsKey("Monthly")) {
+            budgets.put("Monthly", new Budget("Monthly", 0));
         }
-        if (!budgets.containsKey(category)) {
-            System.out.println("Budget category not found. Please create the category first.");
-            return;
+        budgets.get("Monthly").addExpense(expense);
+
+        if (category != null && !category.trim().isEmpty()) {
+            if (!budgets.containsKey(category)) {
+                System.out.println("Budget category '" + category + "' not found. Added to Monthly Budget.");
+            } else {
+                budgets.get(category).addExpense(expense);
+            }
         }
 
-        assert budgets.get(category) != null : "Budget should exist before adding an expense.";
-        budgets.get(category).addExpense(expense);
         System.out.println("Expense Added: " + expense);
 
-        // Check if the total expenses exceed the alert threshold
         checkBudgetAlert();
     }
+
 
     /**
      * Sets a budget alert at the specified amount.
@@ -58,6 +66,7 @@ public class BudgetManager {
      * @param amount The alert threshold. If 0, the alert is removed.
      */
     public void setBudgetAlert(double amount) {
+        assert amount >= 0 : "Error: Budget amount should not be negative.";
         alert.setAlert(amount);
     }
 
@@ -78,8 +87,16 @@ public class BudgetManager {
         return this.budgets;
     }
 
-
+    /**
+     * Sets the budget for a given category or the "Monthly" budget if no category is specified.
+     * Creates a new budget if the category does not exist, otherwise updates its limit.
+     *
+     * @param category The budget category (e.g., "Food"), or empty for "Monthly".
+     * @param amount   The budget limit to set.
+     */
     public void setBudget(String category, double amount) {
+        assert amount >= 0 : "Error: Budget amount should not be negative.";
+
         if (category == "") { // Monthly budget setting
             budgets.put("Monthly", new Budget("Monthly", amount));
             System.out.println("Monthly budget set to: $" + amount);
@@ -99,22 +116,21 @@ public class BudgetManager {
      * @return The sum of all expenses.
      */
     public double getTotalExpenses() {
-        return budgets.values().stream().mapToDouble(Budget::getTotalExpenses).sum();
+        Budget monthlyBudget = budgets.get("Monthly");
+        return (monthlyBudget != null) ? monthlyBudget.getTotalExpenses() : 0.0;
     }
 
     /**
-     * Displays all expenses categorized under each budget.
+     * Displays all expenses categorized under Monthly budget.
      */
     public void listAllExpenses() {
-        for (Map.Entry<String, Budget> entry : budgets.entrySet()) {
-            Budget budget = entry.getValue();
-            budget.printExpenses();
-            System.out.println("----------------------");
-        }
+        assert budgets.containsKey("Monthly") : "Error: 'Monthly' budget should exist before listing expenses.";
+        Budget monthly = budgets.get("Monthly");
+        monthly.printExpenses();
     }
 
     /**
-     * Deletes an expense based on index.
+     * Deletes an expense from the Monthly Budget based on index.
      *
      * @param index The index of the expense to delete.
      * @throws InvalidInputException if index is invalid.
@@ -124,7 +140,47 @@ public class BudgetManager {
             throw new InvalidInputException("No Monthly budget found.");
         }
         budgets.get("Monthly").deleteExpense(index);
-        System.out.println("Expense removed successfully.");
         System.out.println("----------------------");
     }
+
+    /**
+     * Displays the budget allocation, amount spent, and remaining balance.
+     * If a category is specified, it shows details for that category.
+     * Otherwise, it shows the overall budget usage for the current month.
+     *
+     * @param category The budget category (e.g., "Food"), or empty for "Monthly".
+     */
+    public void checkBudget(String category) {
+        if (category == "" || category.trim().isEmpty()) {
+            Budget monthlyBudget = budgets.get("Monthly");
+            assert monthlyBudget != null : "Error: 'Monthly' budget should always exist.";
+
+            double totalBudget = monthlyBudget.getLimit();
+            double spent = monthlyBudget.getTotalExpenses();
+            double remaining = Math.max(0, totalBudget - spent);
+
+            System.out.println("===== Overall Budget Usage =====");
+            System.out.println("Total Budget: $" + totalBudget);
+            System.out.println("Spent: $" + spent);
+            System.out.println("Remaining: $" + remaining);
+            System.out.println("===============================");
+        } else {
+            if (!budgets.containsKey(category)) {
+                System.out.println("Budget category '" + category + "' not found.");
+                return;
+            }
+
+            Budget categoryBudget = budgets.get(category);
+            double totalBudget = categoryBudget.getLimit();
+            double spent = categoryBudget.getTotalExpenses();
+            double remaining = Math.max(0, totalBudget - spent);
+
+            System.out.println("===== Budget for " + category + " =====");
+            System.out.println("Total Budget: $" + totalBudget);
+            System.out.println("Spent: $" + spent);
+            System.out.println("Remaining: $" + remaining);
+            System.out.println("===============================");
+        }
+    }
+
 }

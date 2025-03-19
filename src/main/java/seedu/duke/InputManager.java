@@ -30,7 +30,6 @@ public class InputManager {
     /**
      * Starts an input processing loop where the user can enter commands.
      * The loop continues until the user types "bye".
-     * Valid commands include "add" to add expenses to budgets.
      */
     public void processInputLoop() {
         String line;
@@ -47,7 +46,7 @@ public class InputManager {
                     String[] splitLine = parser.parseAddCommand(line);
                     double amount = Double.parseDouble(splitLine[0]);
                     String category = splitLine[1];
-                    String description = splitLine[1];
+                    String description = splitLine[2];
                     budgetManager.addExpenseToBudget(category, amount, description);
 
                 } else if (line.toLowerCase().startsWith("alert")) {
@@ -70,6 +69,9 @@ public class InputManager {
                     String category = splitline[0];
                     Double amount = Double.parseDouble(splitline[1]);
                     budgetManager.setBudget(category, amount);
+                } else if (line.toLowerCase().startsWith("check-budget")) {
+                    String category = parser.parseCheckBudgetCommand(line);
+                    budgetManager.checkBudget(category);
                 } else {
                     throw new InvalidInputException("Please try again with one of the valid commands:" +
                             "\nadd, alert, summary, list, delete, set-budget, bye");
