@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import seedu.duke.exception.InvalidInputException;
+import seedu.duke.Parser;
 
 
 /**
@@ -13,6 +14,7 @@ import seedu.duke.exception.InvalidInputException;
  */
 public class InputManager {
     private final BudgetManager budgetManager;
+    private final Parser parser;
 
 
     /**
@@ -23,6 +25,7 @@ public class InputManager {
     public InputManager(BudgetManager budgetManager) {
         assert budgetManager != null : "BudgetManager cannot be null.";
         this.budgetManager = budgetManager;
+        this.parser = new Parser();
     }
 
     /**
@@ -42,17 +45,11 @@ public class InputManager {
                 if (line.equalsIgnoreCase("bye")) {
                     break;
                 } else if (line.toLowerCase().startsWith("add")) {
-                    if (line.length() < 4) {
-                        throw new InvalidInputException("Please use the format: add <AMOUNT> /d <DESCRIPTION>");
-                    }
-                    line = line.substring(4);
-                    String[] splitLine = line.split("/d", 2); // Split into two parts: description and amount
-                    if (splitLine.length < 2) {
-                        throw new InvalidInputException("Please use the format: add <AMOUNT> /d <DESCRIPTION>");
-                    }
+                    String[] splitLine = parser.parseAddCommand(line);
                     double amount = Double.parseDouble(splitLine[0]);
+                    String category = splitLine[1];
                     String description = splitLine[1];
-                    budgetManager.addExpenseToBudget("", amount, description);
+                    budgetManager.addExpenseToBudget(category, amount, description);
 
                 } else if (line.toLowerCase().startsWith("alert")) {
                     // Handle the alert command
@@ -78,9 +75,15 @@ public class InputManager {
                     int index = Integer.parseInt(parts[1]);
                     budgetManager.deleteExpense(index);
 
-                } else {
+                } else if (line.toLowerCase().startsWith("set-budget")) {
+                    String[] splitline = parser.parseSetBudgetCommand(line);
+                    String category = splitline[0];
+                    Double amount = Double.parseDouble(splitline[1]);
+                    budgetManager.setBudget(category, amount);
+                }
+                else {
                     throw new InvalidInputException("Please try again with one of the valid commands:" +
-                            "\nadd, alert, summary, list, delete, bye");
+                            "\nadd, alert, summary, list, delete, set-budget, bye");
                 }
             } catch (InvalidInputException e) {
                 e.print();
