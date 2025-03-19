@@ -8,7 +8,7 @@ public class Parser {
 
     /**
      * Parses an "add" command to extract the amount, category, and description.
-     * Expected format: add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION>
+     * Expected format: add `AMOUNT` c/ `CATEGORY` d/ `DESCRIPTION`
      *
      * @param line The full command input.
      * @return A string array containing [amount, category, description].
@@ -44,8 +44,8 @@ public class Parser {
     /**
      * Parses a "set-budget" command to extract the budget category and amount.
      * Expected formats:
-     * - "set-budget <AMOUNT>" (for Monthly budget)
-     * - "set-budget c/CATEGORY <AMOUNT>" (for a specific category)
+     * - "set-budget `AMOUNT`" (for Monthly budget)
+     * - "set-budget c/CATEGORY `AMOUNT`" (for a specific category)
      *
      * @param command The full command input.
      * @return A string array containing [category, amount].
@@ -79,7 +79,7 @@ public class Parser {
 
     /**
      * Parses an "alert" command to extract the alert amount.
-     * Expected format: alert <AMOUNT>
+     * Expected format: alert `AMOUNT`
      *
      * @param command The full command input.
      * @return The alert amount as a double.
@@ -95,7 +95,7 @@ public class Parser {
 
     /**
      * Parses a "delete" command to extract the expense index to be deleted.
-     * Expected format: delete <INDEX>
+     * Expected format: delete `INDEX`
      *
      * @param command The full command input.
      * @return The index of the expense to delete.
@@ -104,7 +104,7 @@ public class Parser {
     public int parseDeleteCommand(String command) throws InvalidInputException {
         String[] parts = command.split(" ");
         if (parts.length != 2) {
-            throw new InvalidInputException("Please use the format: alert <AMOUNT>");
+            throw new InvalidInputException("Please use the format: delete <INDEX>");
         }
         return Integer.parseInt(parts[1].trim());
     }
@@ -127,7 +127,7 @@ public class Parser {
         }
 
         if (parts.length == 2 && parts[1].startsWith("c/")) {
-            return parts[1].substring(2).trim(); 
+            return parts[1].substring(2).trim();
         }
 
         throw new InvalidInputException("Invalid format. Use: check-budget [c/CATEGORY]");
