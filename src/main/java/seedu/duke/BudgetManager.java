@@ -36,6 +36,8 @@ public class BudgetManager {
      * @param description A brief description of the expense.
      */
     public void addExpenseToBudget(String category, double amount, String description) {
+        assert amount > 0 : "Error: Expense amount should be positive.";
+
         Expense expense = new Expense(amount, description);
 
         if (!budgets.containsKey("Monthly")) {
@@ -64,6 +66,7 @@ public class BudgetManager {
      * @param amount The alert threshold. If 0, the alert is removed.
      */
     public void setBudgetAlert(double amount) {
+        assert amount >= 0 : "Error: Budget amount should not be negative.";
         alert.setAlert(amount);
     }
 
@@ -92,6 +95,8 @@ public class BudgetManager {
      * @param amount   The budget limit to set.
      */
     public void setBudget(String category, double amount) {
+        assert amount >= 0 : "Error: Budget amount should not be negative.";
+
         if (category == "") { // Monthly budget setting
             budgets.put("Monthly", new Budget("Monthly", amount));
             System.out.println("Monthly budget set to: $" + amount);
@@ -119,6 +124,7 @@ public class BudgetManager {
      * Displays all expenses categorized under Monthly budget.
      */
     public void listAllExpenses() {
+        assert budgets.containsKey("Monthly") : "Error: 'Monthly' budget should exist before listing expenses.";
         Budget monthly = budgets.get("Monthly");
         monthly.printExpenses();
     }
