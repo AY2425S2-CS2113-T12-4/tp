@@ -35,21 +35,25 @@ public class BudgetManager {
      */
     public void addExpenseToBudget(String category, double amount, String description) {
         Expense expense = new Expense(amount, description);
-        if (category.equalsIgnoreCase("")) {
-            category = "Monthly";
+
+        if (!budgets.containsKey("Monthly")) {
+            budgets.put("Monthly", new Budget("Monthly", 0));
         }
-        if (!budgets.containsKey(category)) {
-            System.out.println("Budget category not found. Please create the category first.");
-            return;
+        budgets.get("Monthly").addExpense(expense);
+
+        if (category != null && !category.trim().isEmpty()) {
+            if (!budgets.containsKey(category)) {
+                System.out.println("Budget category '" + category + "' not found. Please create the category first.");
+            } else {
+                budgets.get(category).addExpense(expense);
+            }
         }
 
-        assert budgets.get(category) != null : "Budget should exist before adding an expense.";
-        budgets.get(category).addExpense(expense);
         System.out.println("Expense Added: " + expense);
 
-        // Check if the total expenses exceed the alert threshold
         checkBudgetAlert();
     }
+
 
     /**
      * Sets a budget alert at the specified amount.
