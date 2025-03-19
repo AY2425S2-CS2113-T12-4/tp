@@ -130,7 +130,7 @@ public class BudgetManager {
     }
 
     /**
-     * Deletes an expense based on index.
+     * Deletes an expense from the Monthly Budget based on index.
      *
      * @param index The index of the expense to delete.
      * @throws InvalidInputException if index is invalid.
