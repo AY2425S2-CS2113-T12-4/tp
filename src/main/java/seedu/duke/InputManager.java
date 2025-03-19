@@ -1,5 +1,7 @@
 package seedu.duke;
 
+import java.sql.SQLOutput;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import seedu.duke.exception.InvalidInputException;
@@ -34,9 +36,10 @@ public class InputManager {
         Scanner in = new Scanner(System.in);
 
         while (true) {
-            line = in.nextLine().trim();
 
             try {
+                line = in.nextLine().trim();
+                
                 if (line.equalsIgnoreCase("bye")) {
                     break;
                 } else if (line.toLowerCase().startsWith("add")) {
@@ -84,6 +87,9 @@ public class InputManager {
                 e.print();
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input: Please enter a valid number.");
+            } catch (NoSuchElementException e) {
+                System.out.println("No input found, exiting...");
+                break;
             }
         }
         in.close();
