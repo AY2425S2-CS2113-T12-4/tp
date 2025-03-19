@@ -45,6 +45,6 @@ public class Expense {
     public String toString() {
         String formattedDateTime = dateTime.format(DATETIME_FORMAT);
         String formattedAmount = String.format("$%,.2f", amount);
-        return formattedAmount +" -" + description +" (" + formattedDateTime + ")";
+        return formattedAmount + " spent on " + description + " (" + formattedDateTime + ")";
     }
 }
