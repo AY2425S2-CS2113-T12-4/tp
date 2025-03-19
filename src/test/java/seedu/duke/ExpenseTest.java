@@ -50,12 +50,10 @@ public class ExpenseTest {
 
         String result = expense.toString();
 
-        DateTimeFormatter expectedFormatter = DateTimeFormatter.ofPattern("E, MMM dd 'at' HH:mm");
-        String expectedDateTime = LocalDateTime.now().format(expectedFormatter);
-
-        assertTrue(result.startsWith("$250.00, spent on"),
+        assertTrue(result.startsWith("$250.00 spent on"),
                 "The string should start with formatted amount and 'spent on'");
-        assertTrue(result.contains(expectedDateTime), "The string should contain the formatted date and time");
+
+        assertTrue(result.contains("Dinner"), "The string should contain the description");
     }
 
 }
