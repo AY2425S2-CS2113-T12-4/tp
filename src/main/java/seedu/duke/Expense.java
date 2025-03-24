@@ -47,4 +47,12 @@ public class Expense {
         String formattedAmount = String.format("$%,.2f", amount);
         return formattedAmount + " spent on " + description + " (" + formattedDateTime + ")";
     }
+
+    public double getAmount() {
+        return  amount;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }
