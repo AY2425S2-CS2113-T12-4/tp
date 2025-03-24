@@ -1,6 +1,7 @@
 package seedu.duke;
 
 import seedu.duke.exception.InvalidInputException;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -42,28 +43,33 @@ public class BudgetManager {
     public void addExpenseToBudget(String category, double amount, String description) {
         assert amount > 0 : "Error: Expense amount should be positive.";
 
-        Expense expense = new Expense(amount, description);
+        try {
+            Expense expense = new Expense(amount, description);
 
-        if (!budgets.containsKey("Monthly")) {
-            budgets.put("Monthly", new Budget("Monthly", 0));
-            logger.warning("Monthly budget was missing. Initialized a new Monthly budget.");
-        }
-        assert budgets.get("Monthly") != null : "Monthly budget should be initialized.";
-        budgets.get("Monthly").addExpense(expense);
 
-        if (category != null && !category.trim().isEmpty()) {
-            if (!budgets.containsKey(category)) {
-                System.out.println("Budget category '" + category + "' not found. Added to Monthly Budget.");
-                logger.warning("Budget category '" + category + "' not found. Added to Monthly Budget.");
-            } else {
-                budgets.get(category).addExpense(expense);
+            if (!budgets.containsKey("Monthly")) {
+                budgets.put("Monthly", new Budget("Monthly", 0));
+                logger.warning("Monthly budget was missing. Initialized a new Monthly budget.");
             }
-            logger.info("Expense Added: " + expense);
+            assert budgets.get("Monthly") != null : "Monthly budget should be initialized.";
+            budgets.get("Monthly").addExpense(expense);
+
+            if (category != null && !category.trim().isEmpty()) {
+                if (!budgets.containsKey(category)) {
+                    System.out.println("Budget category '" + category + "' not found. Added to Monthly Budget.");
+                    logger.warning("Budget category '" + category + "' not found. Added to Monthly Budget.");
+                } else {
+                    budgets.get(category).addExpense(expense);
+                }
+                logger.info("Expense Added: " + expense);
+            }
+
+            System.out.println("Expense Added: " + expense);
+
+            checkBudgetAlert();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
-
-        System.out.println("Expense Added: " + expense);
-
-        checkBudgetAlert();
     }
 
 
@@ -105,18 +111,22 @@ public class BudgetManager {
     public void setBudget(String category, double amount) {
         assert amount >= 0 : "Error: Budget amount should not be negative.";
 
-        if (Objects.equals(category, "")) { // Monthly budget setting
-            budgets.put("Monthly", new Budget("Monthly", amount));
-            System.out.println("Monthly budget set to: $" + amount);
-        } else { // Category budget setting
-            if (!budgets.containsKey(category)) {
-                budgets.put(category, new Budget(category, amount));
-                logger.info("Created new budget category: " + category + " with limit $" + amount);
-            } else {
-                budgets.get(category).setLimit(amount);
-                logger.info("Updated budget for category " + category + " to: $" + amount);
+        try {
+            if (Objects.equals(category, "")) { // Monthly budget setting
+                budgets.put("Monthly", new Budget("Monthly", amount));
+                System.out.println("Monthly budget set to: $" + amount);
+            } else { // Category budget setting
+                if (!budgets.containsKey(category)) {
+                    budgets.put(category, new Budget(category, amount));
+                    logger.info("Created new budget category: " + category + " with limit $" + amount);
+                } else {
+                    budgets.get(category).setLimit(amount);
+                    logger.info("Updated budget for category " + category + " to: $" + amount);
+                }
+                System.out.println("Budget for category " + category + " set to: $" + amount);
             }
-            System.out.println("Budget for category " + category + " set to: $" + amount);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -197,4 +207,7 @@ public class BudgetManager {
         }
     }
 
+    public Alert getBudgetAlert() {
+        return alert;
+    }
 }

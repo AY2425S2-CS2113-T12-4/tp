@@ -3,6 +3,7 @@ package seedu.duke;
 import seedu.duke.exception.InvalidInputException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a Budget that tracks expenses within a specific category.
@@ -20,6 +21,14 @@ public class Budget {
      * @param limit The spending limit for the budget.
      */
     public Budget(String category, double limit) {
+
+        if (category == null) {
+            throw new IllegalArgumentException("Category cannot be empty.");
+        }
+        if (limit < 0) {
+            throw new IllegalArgumentException("Limit cannot be negative.");
+        }
+
         this.category = category;
         this.limit = limit;
         this.expenses = new ArrayList<>();
@@ -85,5 +94,10 @@ public class Budget {
         System.out.println("    " + expenses.get(expenses.size() - index));
         expenses.remove(expenses.size() - index);
     }
+
+    public List<Expense> getExpenses() {
+        return expenses;
+    }
+
 
 }

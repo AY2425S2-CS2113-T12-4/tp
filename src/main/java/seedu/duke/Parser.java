@@ -14,7 +14,7 @@ public class Parser {
      * @return A string array containing [amount, category, description].
      * @throws InvalidInputException If the format is incorrect.
      */
-    String[] parseAddCommand(String line) throws InvalidInputException {
+    public String[] parseAddCommand(String line) throws InvalidInputException {
         if (line.length() < 4) {
             throw new InvalidInputException("Please use the format: add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION>");
         }
