@@ -19,8 +19,9 @@ public class AlertCommand extends Command{
     /**
      * Executes the AlertCommand by parsing the input and setting the alert for the budget.
      *
-     * <p>The method extracts the alert amount from the description using the {@link Parser#parseAlertCommand(String)} method,
-     * and then calls the {@link BudgetManager#setBudgetAlert(double)} method to set the alert for the budget.</p>
+     * <p>The method extracts the alert amount from the description using the {@link Parser#parseAlertCommand(String)}
+     * method, and then calls the {@link BudgetManager#setBudgetAlert(double)} method to set the alert for the budget.
+     * </p>
      *
      * @param parser The parser used to handle and parse the user input.
      * @param budgetManager The BudgetManager responsible for managing budgets and setting alerts.

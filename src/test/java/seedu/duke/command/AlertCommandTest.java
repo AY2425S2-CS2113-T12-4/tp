@@ -1,6 +1,8 @@
 package seedu.duke.command;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.BudgetManager;
@@ -24,7 +26,8 @@ public class AlertCommandTest {
             AlertCommand alertCommand = new AlertCommand("alert 100");
             alertCommand.execute(parser, budgetManager);
 
-            assertEquals(100.0, budgetManager.getBudgetAlert().getAlertAmount(), "Budget alert should be set to 100");
+            assertEquals(100.0, budgetManager.getBudgetAlert().getAlertAmount(), "Budget alert " +
+                    "should be set to 100");
         } catch (InvalidInputException e) {
             fail("Unexpected InvalidInputException: " + e.getMessage());
         }

@@ -1,11 +1,20 @@
 package seedu.duke;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.duke.command.*;
+import seedu.duke.command.AddExpenseCommand;
+import seedu.duke.command.AlertCommand;
+import seedu.duke.command.Command;
+import seedu.duke.command.SummaryCommand;
+import seedu.duke.command.ListCommand;
+import seedu.duke.command.DeleteCommand;
+import seedu.duke.command.SetBudgetCommand;
+import seedu.duke.command.CheckBudgetCommand;
 import seedu.duke.exception.InvalidInputException;
 import java.util.NoSuchElementException;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InputParserTest {
 

@@ -1,6 +1,14 @@
 package seedu.duke;
 
-import seedu.duke.command.*;
+import seedu.duke.command.Command;
+import seedu.duke.command.AddExpenseCommand;
+import seedu.duke.command.AlertCommand;
+import seedu.duke.command.CheckBudgetCommand;
+import seedu.duke.command.DeleteCommand;
+import seedu.duke.command.ExitCommand;
+import seedu.duke.command.ListCommand;
+import seedu.duke.command.SetBudgetCommand;
+import seedu.duke.command.SummaryCommand;
 import seedu.duke.exception.InvalidInputException;
 
 import java.util.NoSuchElementException;

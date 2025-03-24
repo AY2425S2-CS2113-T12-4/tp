@@ -1,6 +1,6 @@
 package seedu.duke.command;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.BudgetManager;
@@ -39,7 +39,8 @@ public class AddExpenseCommandTest {
 
             Expense addedExpense = expenses.get(0);
             assertEquals(50.0, addedExpense.getAmount(), "Expense amount should be 50");
-            assertEquals("lunch", addedExpense.getDescription(), "Expense description should be 'lunch'");
+            assertEquals("lunch", addedExpense.getDescription(), "Expense description should be " +
+                    "'lunch'");
         } catch (InvalidInputException e) {
             System.out.println("Invalid input");
         }

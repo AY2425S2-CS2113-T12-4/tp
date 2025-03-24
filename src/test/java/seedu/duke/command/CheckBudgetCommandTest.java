@@ -1,6 +1,8 @@
 package seedu.duke.command;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.BudgetManager;
@@ -14,19 +16,18 @@ public class CheckBudgetCommandTest {
 
     @BeforeEach
     public void setUp() {
-        budgetManager = new BudgetManager(); // Actual instance
-        parser = new Parser(); // Actual instance
+        budgetManager = new BudgetManager();
+        parser = new Parser();
     }
 
     @Test
     public void testExecute_validCategory() {
         try {
-            budgetManager.setBudget("Food", 100.0); // Set up a valid budget
+            budgetManager.setBudget("Food", 100.0);
 
             CheckBudgetCommand command = new CheckBudgetCommand("check-budget c/Monthly");
             command.execute(parser, budgetManager);
 
-            // No assertion needed if no exception occurs (meaning success)
         } catch (InvalidInputException e) {
             fail("Unexpected InvalidInputException: " + e.getMessage());
         }

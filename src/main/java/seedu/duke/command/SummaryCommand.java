@@ -25,7 +25,8 @@ public class SummaryCommand extends Command{
      *
      * @param parser The parser used to handle and parse the user input (not used in this case).
      * @param budgetManager The BudgetManager responsible for managing budgets and expenses.
-     * @throws InvalidInputException If the input is invalid (e.g., unexpected errors occur), this exception will be thrown.
+     * @throws InvalidInputException If the input is invalid (e.g., unexpected errors occur), this exception will be
+     *     thrown.
      */
     @Override
     public void execute(Parser parser, BudgetManager budgetManager) throws InvalidInputException {
