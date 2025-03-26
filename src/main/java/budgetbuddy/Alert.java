@@ -58,4 +58,28 @@ public class Alert {
     public double getAlertAmount() {
         return alertAmount;
     }
+
+
+    /**
+     * Edits the current alert amount.
+     *
+     * @return The new alert threshold.
+     */
+    public int editAlertAmount(int amount) {
+        if (amount < 0) {
+            System.out.println("Alert amount must be a non-negative number.");
+            return (int) alertAmount;
+        }
+
+        this.alertAmount = amount;
+        this.isActive = amount > 0;
+
+        if (isActive) {
+            System.out.println("Alert amount updated to $" + alertAmount);
+        } else {
+            System.out.println("Alert disabled.");
+        }
+
+        return amount;
+    }
 }
