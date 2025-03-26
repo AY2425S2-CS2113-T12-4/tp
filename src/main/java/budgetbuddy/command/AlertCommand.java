@@ -27,10 +27,41 @@ public class AlertCommand extends Command{
      * @param budgetManager The BudgetManager responsible for managing budgets and setting alerts.
      * @throws InvalidInputException If there is invalid input while parsing the description or setting the alert.
      */
+
     @Override
     public void execute(Parser parser, BudgetManager budgetManager) throws InvalidInputException {
-        double amount = parser.parseAlertCommand(description);
-        budgetManager.setBudgetAlert(amount);
+        String[] parts = description.trim().split(" ", 2);
+
+        if (parts.length < 2) {
+            throw new InvalidInputException("Invalid alert command. Try: alert set/edit/remove <AMOUNT>");
+        }
+
+        String subInput = parts[1]; // "set 5000", "edit 3000", etc.
+        String[] subParts = subInput.trim().split(" ");
+
+        String subcommand = subParts[0].toLowerCase();
+
+        switch (subcommand) {
+        case "set":
+        case "edit": {
+            if (subParts.length != 2) {
+                throw new InvalidInputException("Usage: alert set/edit <AMOUNT>");
+            }
+            double amount = parser.parseDouble(subParts[1]);
+            if (amount < 0) {
+                throw new InvalidInputException("Alert amount must be a non-negative number.");
+            }
+
+            budgetManager.setBudgetAlert(amount);
+            break;
+        }
+        case "remove": {
+            budgetManager.setBudgetAlert(0);
+            break;
+        }
+        default:
+            throw new InvalidInputException("Unknown alert subcommand. Use: set, edit, or remove.");
+        }
     }
 
     /**

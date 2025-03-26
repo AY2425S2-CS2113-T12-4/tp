@@ -93,6 +93,14 @@ public class Parser {
         return Double.parseDouble(parts[1].trim());
     }
 
+    public double parseDouble(String input) throws InvalidInputException {
+        try {
+            return Double.parseDouble(input.trim());
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException("Invalid number format. Please enter a valid number.");
+        }
+    }
+
     /**
      * Parses a "delete" command to extract the expense index to be deleted.
      * Expected format: delete `INDEX`
