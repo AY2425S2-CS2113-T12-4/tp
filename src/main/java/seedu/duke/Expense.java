@@ -35,6 +35,22 @@ public class Expense {
         assert dateTime != null : "DateTime should be initialized properly.";
     }
 
+    // New constructor for loading from storage
+    public Expense(double amount, String description, LocalDateTime dateTime) {
+        if (description == null) {
+            throw new IllegalArgumentException("Description cannot be empty.");
+        }
+        if (amount < 0) {
+            throw new IllegalArgumentException("Amount cannot be negative.");
+        }
+        if (dateTime == null) {
+            throw new IllegalArgumentException("DateTime cannot be null.");
+        }
+        this.description = description;
+        this.amount = amount;
+        this.dateTime = dateTime;
+    }
+
     /**
      * Returns a string representation of the expense, including the amount and timestamp.
      * The amount is formatted as currency, and the timestamp follows the predefined format.
