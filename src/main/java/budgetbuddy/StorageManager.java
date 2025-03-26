@@ -1,16 +1,15 @@
 package budgetbuddy;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.*;
-import java.io.*;
-import java.util.*;
+import java.util.Map;
 
 /**
- * Handles saving and loading of budget and alert data to/from a local file.
+ * Handles saving and loading of budget and alert data to/from a local txt file.
  */
 public class StorageManager {
     private static final String FILE_PATH = "budget_data.txt";
@@ -42,7 +41,9 @@ public class StorageManager {
      */
     public static void load(BudgetManager manager) {
         File file = new File(FILE_PATH);
-        if (!file.exists()) return;
+        if (!file.exists()) {
+            return;
+        }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;

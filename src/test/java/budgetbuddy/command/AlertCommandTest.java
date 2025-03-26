@@ -23,7 +23,7 @@ public class AlertCommandTest {
     @Test
     public void testExecute_validAlert_setsBudgetAlert() {
         try {
-            AlertCommand alertCommand = new AlertCommand("alert 100");
+            AlertCommand alertCommand = new AlertCommand("alert set 100");
             alertCommand.execute(parser, budgetManager);
 
             assertEquals(100.0, budgetManager.getBudgetAlert().getAlertAmount(), "Budget alert " +

@@ -7,6 +7,10 @@ public class BudgetBuddy {
      */
     public static void main(String[] args) {
         BudgetManager budgetManager = new BudgetManager();
+
+        // Load data from file into the budget manager
+        StorageManager.load(budgetManager);
+
         InputManager inputManager = new InputManager(budgetManager);
 
         String logo = " ____        _        \n"
@@ -17,5 +21,7 @@ public class BudgetBuddy {
         System.out.println("Hello from\n" + logo);
 
         inputManager.processInputLoop();
+        // Save data to file after user exits
+        StorageManager.save(budgetManager);
     }
 }
