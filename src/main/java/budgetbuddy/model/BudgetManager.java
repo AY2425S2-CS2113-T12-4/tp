@@ -40,11 +40,12 @@ public class BudgetManager {
      * @param amount      The expense amount.
      * @param description A brief description of the expense.
      */
-    public void addExpenseToBudget(String category, double amount, String description) {
+    public void addExpenseToBudget(String category, double amount, String description, String time) {
         assert amount > 0 : "Error: Expense amount should be positive.";
 
         try {
-            Expense expense = new Expense(amount, description);
+            //instantiate a new expense
+            Expense expense = new Expense(amount, description, time);
 
 
             if (!budgets.containsKey("Monthly")) {

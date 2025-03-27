@@ -31,19 +31,22 @@ public class DateTimeParser {
      */
     public static LocalDateTime parseOrDefault(String inputDateTimeStr) {
         // Debug print: show the user provided string.
-        Boolean isCorrectDateTimeFormat = false;
+        boolean isCorrectDateTimeFormat = false;
+        LocalDateTime dateTimeParsed = null;
+
         try {
             // Attempt to parse the string using the predefined formatter.
             LocalDateTime parsedDateTime = LocalDateTime.parse(inputDateTimeStr, DATETIME_FORMAT);
             isCorrectDateTimeFormat = true;
-            return parsedDateTime;
+            dateTimeParsed = parsedDateTime;
         } catch (DateTimeParseException e) {
             // If parsing fails, print a debug message and fallback to system time.
             System.out.println("Wrong dateTime format used. Will use system current dateTime instead.");
             LocalDateTime systemNow = LocalDateTime.now();
+            dateTimeParsed = systemNow;
             // Assert that the system time is not null.
             assert systemNow != null : "System current dateTime should never be null.";
-            return systemNow;
         }
+        return dateTimeParsed;
     }
 }
