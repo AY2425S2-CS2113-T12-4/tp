@@ -1,5 +1,6 @@
 package budgetbuddy;
 
+import budgetbuddy.parser.InputParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import budgetbuddy.command.AddExpenseCommand;

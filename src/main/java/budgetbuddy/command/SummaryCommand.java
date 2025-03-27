@@ -1,8 +1,8 @@
 package budgetbuddy.command;
 
-import budgetbuddy.BudgetManager;
-import budgetbuddy.BudgetSummary;
-import budgetbuddy.Parser;
+import budgetbuddy.model.BudgetManager;
+import budgetbuddy.model.BudgetSummary;
+import budgetbuddy.parser.Parser;
 import budgetbuddy.exception.InvalidInputException;
 
 /**

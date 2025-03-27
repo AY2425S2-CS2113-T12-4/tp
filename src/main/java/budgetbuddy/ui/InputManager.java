@@ -1,10 +1,13 @@
-package budgetbuddy;
+package budgetbuddy.ui;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import budgetbuddy.command.Command;
 import budgetbuddy.exception.InvalidInputException;
+import budgetbuddy.model.BudgetManager;
+import budgetbuddy.parser.InputParser;
+import budgetbuddy.parser.Parser;
 
 
 /**

@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import budgetbuddy.BudgetManager;
-import budgetbuddy.Parser;
+import budgetbuddy.model.BudgetManager;
+import budgetbuddy.parser.Parser;
 import budgetbuddy.exception.InvalidInputException;
 
 public class AlertCommandTest {
@@ -23,7 +23,7 @@ public class AlertCommandTest {
     @Test
     public void testExecute_validAlert_setsBudgetAlert() {
         try {
-            AlertCommand alertCommand = new AlertCommand("alert set 100");
+            AlertCommand alertCommand = new AlertCommand("alert 100");
             alertCommand.execute(parser, budgetManager);
 
             assertEquals(100.0, budgetManager.getBudgetAlert().getAlertAmount(), "Budget alert " +

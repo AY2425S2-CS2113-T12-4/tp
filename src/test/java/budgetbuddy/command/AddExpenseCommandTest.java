@@ -3,11 +3,11 @@ package budgetbuddy.command;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import budgetbuddy.BudgetManager;
-import budgetbuddy.Parser;
+import budgetbuddy.model.BudgetManager;
+import budgetbuddy.parser.Parser;
 import budgetbuddy.exception.InvalidInputException;
-import budgetbuddy.Budget;
-import budgetbuddy.Expense;
+import budgetbuddy.model.Budget;
+import budgetbuddy.model.Expense;
 import java.util.List;
 import java.util.Map;
 

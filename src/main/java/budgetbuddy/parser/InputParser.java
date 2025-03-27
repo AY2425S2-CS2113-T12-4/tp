@@ -1,4 +1,4 @@
-package budgetbuddy;
+package budgetbuddy.parser;
 
 import budgetbuddy.command.Command;
 import budgetbuddy.command.AddExpenseCommand;
@@ -6,6 +6,7 @@ import budgetbuddy.command.AlertCommand;
 import budgetbuddy.command.CheckBudgetCommand;
 import budgetbuddy.command.DeleteCommand;
 import budgetbuddy.command.ExitCommand;
+import budgetbuddy.command.HelpCommand;
 import budgetbuddy.command.ListCommand;
 import budgetbuddy.command.SetBudgetCommand;
 import budgetbuddy.command.SummaryCommand;
@@ -47,6 +48,7 @@ public class InputParser {
         case "delete" -> new DeleteCommand(userInput);
         case "set-budget" -> new SetBudgetCommand(userInput);
         case "check-budget" -> new CheckBudgetCommand(userInput);
+        case "help" -> new HelpCommand(userInput);
         case "find" -> new FindExpenseCommand(userInput);
         default -> throw new InvalidInputException("Please try again with one of the valid commands:" +
                     "\nadd, alert, summary, list, delete, set-budget, bye");

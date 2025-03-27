@@ -1,4 +1,4 @@
-package budgetbuddy;
+package budgetbuddy.model;
 
 import budgetbuddy.exception.InvalidInputException;
 
@@ -131,7 +131,6 @@ public class BudgetManager {
             System.out.println(e.getMessage());
         }
     }
-
 
     /**
      * Calculates the total expenses across all budgets.

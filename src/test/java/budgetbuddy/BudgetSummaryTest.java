@@ -2,6 +2,8 @@ package budgetbuddy;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import budgetbuddy.model.BudgetManager;
+import budgetbuddy.model.BudgetSummary;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
