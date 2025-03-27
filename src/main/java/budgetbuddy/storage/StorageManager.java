@@ -29,7 +29,9 @@ public class StorageManager {
                 writer.write("CATEGORY:" + category + "|LIMIT:" + budget.getLimit());
                 writer.newLine();
                 for (Expense e : budget.getExpenses()) {
-                    writer.write("EXPENSE:" + e.getAmount() + "|" + e.getDescription().replace("|", " ") + "|" + e.dateTime);
+                    writer.write("EXPENSE:" + e.getAmount() + "|"
+                            + e.getDescription().replace("|", " ") + "|"
+                            + e.dateTime);
                     writer.newLine();
                 }
             }

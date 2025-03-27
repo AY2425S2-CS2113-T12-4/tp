@@ -8,9 +8,9 @@ import java.time.format.DateTimeFormatter;
  */
 public class Expense {
     protected static final DateTimeFormatter DATETIME_FORMAT = DateTimeFormatter.ofPattern("E, MMM dd 'at' HH:mm");
+    public LocalDateTime dateTime;
     protected String description;
     protected double amount;
-    public LocalDateTime dateTime;
 
     /**
      * Creates a new Expense with a specified amount and description.
