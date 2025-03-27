@@ -109,13 +109,15 @@ public class BudgetManager {
      * @param amount   The budget limit to set.
      */
     public void setBudget(String category, double amount) {
-        assert amount >= 0 : "Error: Budget amount should not be negative.";
-
         try {
-            if (Objects.equals(category, "")) { // Monthly budget setting
-                budgets.put("Monthly", new Budget("Monthly", amount));
+            if (Objects.equals(category, "")) {
+                if (budgets.containsKey("Monthly")) {
+                    budgets.get("Monthly").setLimit(amount);
+                } else {
+                    budgets.put("Monthly", new Budget("Monthly", amount));
+                }
                 System.out.println("Monthly budget set to: $" + amount);
-            } else { // Category budget setting
+            } else { 
                 if (!budgets.containsKey(category)) {
                     budgets.put(category, new Budget(category, amount));
                     logger.info("Created new budget category: " + category + " with limit $" + amount);
@@ -129,6 +131,7 @@ public class BudgetManager {
             System.out.println(e.getMessage());
         }
     }
+
 
     /**
      * Calculates the total expenses across all budgets.
