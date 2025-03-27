@@ -141,6 +141,14 @@ public class Parser {
         throw new InvalidInputException("Invalid format. Use: check-budget [c/CATEGORY]");
     }
 
+    public String parseFindExpenseCommand(String command) throws InvalidInputException {
+        String[] parts = command.split(" ");
+        if (parts.length != 2) {
+            throw new InvalidInputException("Please use the format: find <KEYWORD>");
+        }
+        return parts[1].trim();
+    }
+
 
 }
 
