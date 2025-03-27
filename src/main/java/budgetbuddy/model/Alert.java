@@ -64,7 +64,7 @@ public class Alert {
      *
      * @return The new alert threshold.
      */
-    public int editAlertAmount(int amount) {
+    public double editAlertAmount(double amount) {
         if (amount < 0) {
             Ui.printInvalidBudgetAlertWarning();
             return (int) alertAmount;
