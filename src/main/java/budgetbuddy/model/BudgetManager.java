@@ -162,7 +162,6 @@ public class BudgetManager {
         }
         budgets.get("Monthly").deleteExpense(index);
         logger.info("Expense at index " + index + " deleted from Monthly Budget.");
-        System.out.println("----------------------");
     }
 
     /**

@@ -1,5 +1,7 @@
 package budgetbuddy.model;
 
+import budgetbuddy.ui.Ui;
+
 /**
  * Manages budget alerts and notifies the user when expenses exceed a specified amount.
  */
@@ -22,18 +24,16 @@ public class Alert {
      */
     public void setAlert(double amount) {
         if (amount < 0) {
-            System.out.println("Error: Alert amount must be a positive number.");
-            return;
+            Ui.printInvalidBudgetAlertWarning();
         }
 
         this.alertAmount = amount;
         this.isActive = amount > 0;
 
         if (isActive) {
-            System.out.println("Budget alert set at $" + alertAmount +
-                    ". You will be notified if expenses exceed this amount.");
-        } else {
-            System.out.println("Budget alert has been removed.");
+            Ui.printSetBudgetAlert(alertAmount, false);
+        }else {
+            Ui.printRemoveBudgetAlert();
         }
     }
 
@@ -45,8 +45,7 @@ public class Alert {
     public void checkAlert(double totalExpenses) {
         assert totalExpenses >= 0 : "Total expenses cannot be negative";
         if (isActive && totalExpenses > alertAmount) {
-            System.out.println("Warning: Your total expenses ($" + totalExpenses +
-                    ") have exceeded the alert limit of $" + alertAmount);
+            Ui.printCheckAlert(totalExpenses, alertAmount);
         }
     }
 
@@ -67,7 +66,7 @@ public class Alert {
      */
     public int editAlertAmount(int amount) {
         if (amount < 0) {
-            System.out.println("Alert amount must be a non-negative number.");
+            Ui.printInvalidBudgetAlertWarning();
             return (int) alertAmount;
         }
 
@@ -75,9 +74,9 @@ public class Alert {
         this.isActive = amount > 0;
 
         if (isActive) {
-            System.out.println("Alert amount updated to $" + alertAmount);
-        } else {
-            System.out.println("Alert disabled.");
+            Ui.printSetBudgetAlert(alertAmount, true);
+        }else {
+            Ui.printRemoveBudgetAlert();
         }
 
         return amount;

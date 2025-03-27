@@ -2,6 +2,7 @@ package budgetbuddy.command;
 
 import budgetbuddy.model.BudgetManager;
 import budgetbuddy.parser.Parser;
+import budgetbuddy.ui.Ui;
 
 /**
  * The ExitCommand class represents a command that exits the program.
@@ -25,7 +26,7 @@ public class ExitCommand extends Command{
      */
     @Override
     public void execute(Parser parser, BudgetManager budgetManager) {
-        System.out.println("Bye");
+        Ui.printGoodbyeMessage();
     }
 
     /**

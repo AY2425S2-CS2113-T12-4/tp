@@ -1,6 +1,7 @@
 package budgetbuddy.model;
 
 import budgetbuddy.exception.InvalidInputException;
+import budgetbuddy.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,11 +79,9 @@ public class Budget {
      */
     public void printExpenses() {
         if (expenses.isEmpty()) {
-            System.out.println("No expenses recorded.");
-            return;
-        }
-        for (int i = expenses.size() - 1; i >= 0 ; i--) {
-            System.out.println((expenses.size() - i) + ". " + expenses.get(i));
+            Ui.printNoExpense();
+        }else {
+            Ui.printExpensesList(expenses);
         }
     }
 
@@ -90,9 +89,7 @@ public class Budget {
         if (index < 1 || index > expenses.size()) {
             throw new InvalidInputException("Invalid index. Please provide a valid expense number.");
         }
-        System.out.println("Expense deleted successfully.");
-        System.out.println("    " + expenses.get(expenses.size() - index));
-        expenses.remove(expenses.size() - index);
+        Ui.printDeleteExpense(expenses, index);
     }
 
     public List<Expense> getExpenses() {
