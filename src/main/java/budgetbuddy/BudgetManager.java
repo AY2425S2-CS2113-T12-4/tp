@@ -117,7 +117,7 @@ public class BudgetManager {
                     budgets.put("Monthly", new Budget("Monthly", amount));
                 }
                 System.out.println("Monthly budget set to: $" + amount);
-            } else { 
+            } else {
                 if (!budgets.containsKey(category)) {
                     budgets.put(category, new Budget(category, amount));
                     logger.info("Created new budget category: " + category + " with limit $" + amount);
@@ -153,18 +153,48 @@ public class BudgetManager {
     }
 
     /**
-     * Deletes an expense from the Monthly Budget based on index.
+     * Deletes an expense from the Monthly Budget based on the index.
+     * Also deletes the same expense from the corresponding category budget.
      *
      * @param index The index of the expense to delete.
-     * @throws InvalidInputException if index is invalid.
+     * @throws InvalidInputException if the index is invalid.
      */
     public void deleteExpense(int index) throws InvalidInputException {
-        assert index >= 0 : "Expense index should not be negative.";
         if (!budgets.containsKey("Monthly")) {
             throw new InvalidInputException("No Monthly budget found.");
         }
-        budgets.get("Monthly").deleteExpense(index);
+
+        Budget monthlyBudget = budgets.get("Monthly");
+        if (index < 1 || index > monthlyBudget.getExpenses().size()) {
+            throw new InvalidInputException("Invalid index. Please provide a valid expense number.");
+        }
+
+        Expense expenseToDelete = monthlyBudget.getExpenses().get(monthlyBudget.getExpenses().size() - index);
+        System.out.println("Expense deleted successfully from Monthly Budget.");
+        System.out.println("    " + expenseToDelete);
+
+        monthlyBudget.deleteExpense(index);
         logger.info("Expense at index " + index + " deleted from Monthly Budget.");
+
+        for (Map.Entry<String, Budget> entry : budgets.entrySet()) {
+            String category = entry.getKey();
+            Budget categoryBudget = entry.getValue();
+
+            if (category.equals("Monthly")) {
+                continue;
+            }
+
+            for (int i = 0; i < categoryBudget.getExpenses().size(); i++) {
+                Expense categoryExpense = categoryBudget.getExpenses().get(i);
+                if (categoryExpense.equals(expenseToDelete)) {
+                    categoryBudget.getExpenses().remove(i);
+                    System.out.println("Expense also deleted from category '" + category + "'.");
+                    logger.info("Expense deleted from category '" + category + "'.");
+                    break;
+                }
+            }
+        }
+
         System.out.println("----------------------");
     }
 
