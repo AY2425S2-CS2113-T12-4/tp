@@ -8,3 +8,4 @@
 Hello! I'm your Budget Buddy
 What can I do for you?
 Input 'help' if you want to know what I can do!!
+___________________________________________

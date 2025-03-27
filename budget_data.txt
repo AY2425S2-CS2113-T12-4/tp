@@ -1,0 +1,3 @@
+CATEGORY:Monthly|LIMIT:0.0
+EXPENSE:100.0|lunch|2025-03-27T20:13:04.523253800
+ALERT:budgetbuddy.model.Alert@61e4705b
