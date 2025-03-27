@@ -10,6 +10,7 @@ import budgetbuddy.command.HelpCommand;
 import budgetbuddy.command.ListCommand;
 import budgetbuddy.command.SetBudgetCommand;
 import budgetbuddy.command.SummaryCommand;
+import budgetbuddy.command.FindExpenseCommand;
 import budgetbuddy.exception.InvalidInputException;
 
 import java.util.NoSuchElementException;
@@ -48,6 +49,7 @@ public class InputParser {
         case "set-budget" -> new SetBudgetCommand(userInput);
         case "check-budget" -> new CheckBudgetCommand(userInput);
         case "help" -> new HelpCommand(userInput);
+        case "find" -> new FindExpenseCommand(userInput);
         default -> throw new InvalidInputException("Please try again with one of the valid commands:" +
                     "\nadd, alert, summary, list, delete, set-budget, bye");
         };

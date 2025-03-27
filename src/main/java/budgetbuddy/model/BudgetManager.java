@@ -109,13 +109,15 @@ public class BudgetManager {
      * @param amount   The budget limit to set.
      */
     public void setBudget(String category, double amount) {
-        assert amount >= 0 : "Error: Budget amount should not be negative.";
-
         try {
-            if (Objects.equals(category, "")) { // Monthly budget setting
-                budgets.put("Monthly", new Budget("Monthly", amount));
+            if (Objects.equals(category, "")) {
+                if (budgets.containsKey("Monthly")) {
+                    budgets.get("Monthly").setLimit(amount);
+                } else {
+                    budgets.put("Monthly", new Budget("Monthly", amount));
+                }
                 System.out.println("Monthly budget set to: $" + amount);
-            } else { // Category budget setting
+            } else {
                 if (!budgets.containsKey(category)) {
                     budgets.put(category, new Budget(category, amount));
                     logger.info("Created new budget category: " + category + " with limit $" + amount);
@@ -150,18 +152,49 @@ public class BudgetManager {
     }
 
     /**
-     * Deletes an expense from the Monthly Budget based on index.
+     * Deletes an expense from the Monthly Budget based on the index.
+     * Also deletes the same expense from the corresponding category budget.
      *
      * @param index The index of the expense to delete.
-     * @throws InvalidInputException if index is invalid.
+     * @throws InvalidInputException if the index is invalid.
      */
     public void deleteExpense(int index) throws InvalidInputException {
-        assert index >= 0 : "Expense index should not be negative.";
         if (!budgets.containsKey("Monthly")) {
             throw new InvalidInputException("No Monthly budget found.");
         }
-        budgets.get("Monthly").deleteExpense(index);
+
+        Budget monthlyBudget = budgets.get("Monthly");
+        if (index < 1 || index > monthlyBudget.getExpenses().size()) {
+            throw new InvalidInputException("Invalid index. Please provide a valid expense number.");
+        }
+
+        Expense expenseToDelete = monthlyBudget.getExpenses().get(monthlyBudget.getExpenses().size() - index);
+        System.out.println("Expense deleted successfully from Monthly Budget.");
+        System.out.println("    " + expenseToDelete);
+
+        monthlyBudget.deleteExpense(index);
         logger.info("Expense at index " + index + " deleted from Monthly Budget.");
+
+        for (Map.Entry<String, Budget> entry : budgets.entrySet()) {
+            String category = entry.getKey();
+            Budget categoryBudget = entry.getValue();
+
+            if (category.equals("Monthly")) {
+                continue;
+            }
+
+            for (int i = 0; i < categoryBudget.getExpenses().size(); i++) {
+                Expense categoryExpense = categoryBudget.getExpenses().get(i);
+                if (categoryExpense.equals(expenseToDelete)) {
+                    categoryBudget.getExpenses().remove(i);
+                    System.out.println("Expense also deleted from category '" + category + "'.");
+                    logger.info("Expense deleted from category '" + category + "'.");
+                    break;
+                }
+            }
+        }
+
+        System.out.println("----------------------");
     }
 
     /**
@@ -209,4 +242,37 @@ public class BudgetManager {
     public Alert getBudgetAlert() {
         return alert;
     }
+
+    /**
+     * Finds and displays expenses from the Monthly budget that match the given keyword.
+     *
+     * @param keyword The keyword to search for in expense descriptions.
+     */
+    public void findExpense(String keyword) {
+        assert keyword != null && !keyword.trim().isEmpty() : "Error: Keyword should not be null or empty.";
+
+        if (!budgets.containsKey("Monthly")) {
+            System.out.println("No Monthly budget found.");
+            return;
+        }
+
+        Budget monthlyBudget = budgets.get("Monthly");
+        boolean found = false;
+
+        System.out.println("------- Expenses Matching: '" + keyword + "' -------");
+        for (int i = 0; i < monthlyBudget.getExpenses().size(); i++) {
+            Expense expense = monthlyBudget.getExpenses().get(i);
+            if (expense.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                System.out.println((i + 1) + ". " + expense);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No matching expenses found for keyword: " + keyword);
+        }
+
+        System.out.println("-------------------------------------");
+    }
+
 }
