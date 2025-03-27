@@ -210,4 +210,37 @@ public class BudgetManager {
     public Alert getBudgetAlert() {
         return alert;
     }
+
+    /**
+     * Finds and displays expenses from the Monthly budget that match the given keyword.
+     *
+     * @param keyword The keyword to search for in expense descriptions.
+     */
+    public void findExpense(String keyword) {
+        assert keyword != null && !keyword.trim().isEmpty() : "Error: Keyword should not be null or empty.";
+
+        if (!budgets.containsKey("Monthly")) {
+            System.out.println("No Monthly budget found.");
+            return;
+        }
+
+        Budget monthlyBudget = budgets.get("Monthly");
+        boolean found = false;
+
+        System.out.println("------- Expenses Matching: '" + keyword + "' -------");
+        for (int i = 0; i < monthlyBudget.getExpenses().size(); i++) {
+            Expense expense = monthlyBudget.getExpenses().get(i);
+            if (expense.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                System.out.println((i + 1) + ". " + expense);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No matching expenses found for keyword: " + keyword);
+        }
+
+        System.out.println("-------------------------------------");
+    }
+
 }
