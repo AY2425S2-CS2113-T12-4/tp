@@ -1,4 +1,3 @@
- _____________________
 |                     |
 |  $$$$       $$$$    |
 | $    $     $    $   |
@@ -11,3 +10,4 @@ Input 'help' if you want to know what I can do!!
 ___________________________________________
 Invalid input format: Please try again with one of the valid commands:
 add, alert, summary, list, delete, set-budget, bye
+

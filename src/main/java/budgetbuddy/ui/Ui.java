@@ -29,7 +29,7 @@ public class Ui {
      * and prompt the user for input.</p>
      */
     public void printWelcomeMessage() {
-        System.out.println(" _____________________ ");
+        // System.out.println(" _____________________ ");
         System.out.println("|                     |");
         System.out.println("|  $$$$       $$$$    |");
         System.out.println("| $    $     $    $   |");
