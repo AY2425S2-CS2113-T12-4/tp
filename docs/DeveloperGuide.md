@@ -15,15 +15,19 @@
 {Describe the target user profile}
 
 ### Value proposition
+Budget Buddy empowers students to take control of their finances by providing a simple and intuitive way to track 
+expenses, set budgets, and gain financial insights. Many students struggle with managing their money effectively, often 
+leading to overspending and financial stress. By offering real-time updates, spending alerts, and budget summaries, 
+Budget Buddy helps students develop better financial habits, avoid overspending, and make informed financial decisions 
+without hassle.
 
-{Describe the value proposition: what problem does it solve?}
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+|Version| As a ...                      | I want to ...             | So that I can ...                                           |
+|--------|-------------------------------|---------------------------|-------------------------------------------------------------|
+|v1.0| financially conscious student | log my daily expenses     | track my spending habits effectively.                       |
+|v2.0| user                          | find a to-do item by name | locate a to-do without having to go through the entire list |
 
 ## Non-Functional Requirements
 
