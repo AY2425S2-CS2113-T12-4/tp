@@ -1,4 +1,4 @@
-package budgetbuddy;
+package budgetbuddy.model;
 
 import java.util.Map;
 

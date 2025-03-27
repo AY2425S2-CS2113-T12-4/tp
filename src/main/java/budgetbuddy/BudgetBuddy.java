@@ -1,6 +1,10 @@
 package budgetbuddy;
 
 
+import budgetbuddy.model.BudgetManager;
+import budgetbuddy.storage.StorageManager;
+import budgetbuddy.ui.InputManager;
+
 public class BudgetBuddy {
     /**
      * Main entry-point for the java.duke.Duke application.

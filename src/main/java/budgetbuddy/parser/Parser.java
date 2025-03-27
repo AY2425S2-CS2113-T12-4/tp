@@ -1,4 +1,4 @@
-package budgetbuddy;
+package budgetbuddy.parser;
 
 import budgetbuddy.exception.InvalidInputException;
 

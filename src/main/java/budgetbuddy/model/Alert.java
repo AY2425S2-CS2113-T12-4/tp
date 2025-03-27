@@ -1,4 +1,4 @@
-package budgetbuddy;
+package budgetbuddy.model;
 
 /**
  * Manages budget alerts and notifies the user when expenses exceed a specified amount.

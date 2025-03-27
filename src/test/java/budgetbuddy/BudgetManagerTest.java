@@ -1,5 +1,7 @@
 package budgetbuddy;
 
+import budgetbuddy.model.Budget;
+import budgetbuddy.model.BudgetManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import budgetbuddy.exception.InvalidInputException;

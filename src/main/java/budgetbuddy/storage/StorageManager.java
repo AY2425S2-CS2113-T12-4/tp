@@ -1,4 +1,8 @@
-package budgetbuddy;
+package budgetbuddy.storage;
+
+import budgetbuddy.model.Budget;
+import budgetbuddy.model.BudgetManager;
+import budgetbuddy.model.Expense;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -25,7 +29,7 @@ public class StorageManager {
                 writer.write("CATEGORY:" + category + "|LIMIT:" + budget.getLimit());
                 writer.newLine();
                 for (Expense e : budget.getExpenses()) {
-                    writer.write("EXPENSE:" + e.amount + "|" + e.description.replace("|", " ") + "|" + e.dateTime);
+                    writer.write("EXPENSE:" + e.getAmount() + "|" + e.getDescription().replace("|", " ") + "|" + e.dateTime);
                     writer.newLine();
                 }
             }

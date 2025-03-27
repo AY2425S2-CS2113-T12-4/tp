@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import budgetbuddy.model.Expense;
 import org.junit.jupiter.api.Test;
 
 public class ExpenseTest {
@@ -15,8 +16,8 @@ public class ExpenseTest {
 
         Expense expense = new Expense(amount, description);
 
-        assertEquals(amount, expense.amount, "Amount should be 100.50");
-        assertEquals(description, expense.description, "Description should be 'Groceries'");
+        assertEquals(amount, expense.getAmount(), "Amount should be 100.50");
+        assertEquals(description, expense.getDescription(), "Description should be 'Groceries'");
     }
 
     @Test
