@@ -78,7 +78,34 @@ public class Expense {
         this.description = description;
         this.amount = amount;
         // Use the DateTimeUtil to parse the provided string.
-        this.dateTime = budgetbuddy.parser.DateTimeParser.parseOrDefault(dateTimeString);
+        this.dateTime = budgetbuddy.parser.DateTimeParser.parseOrDefault(dateTimeString,false);
+        //we want to print error messages here, if applicable.Hence, noErrorPrint is false
+    }
+
+    /**
+     * This constructor is used when loading from .txt so that we can bypass all the error messages
+     * @param amount The amount spent. Must be non-negative.
+     * @param description The description of the expense. Cannot be null.
+     * @param dateTimeString The user provided LocalDateTime.
+     * @param noErrorPrint Whether to print error messages or not. Connected to DateTimeParser
+     *                     where messages is toggled on/off.
+     */
+
+    public Expense(double amount, String description, String dateTimeString, Boolean noErrorPrint) {
+        // Validate description.
+        if (description == null) {
+            throw new IllegalArgumentException("Description cannot be empty.");
+        }
+        // Validate amount.
+        if (amount < 0) {
+            throw new IllegalArgumentException("Amount cannot be negative.");
+        }
+        // Initialize fields.
+        this.description = description;
+        this.amount = amount;
+        // Use the DateTimeUtil to parse the provided string.
+        this.dateTime = budgetbuddy.parser.DateTimeParser.parseOrDefault(dateTimeString, noErrorPrint);
+        //when noErrorPrint is true then we don't print error messages
     }
 
     /**
@@ -108,7 +135,7 @@ public class Expense {
         // Initialize instance variables.
         this.description = description;
         this.amount = amount;
-        this.dateTime = dateTime;
+        this.dateTime = (LocalDateTime) dateTime;
     }
 
     /**

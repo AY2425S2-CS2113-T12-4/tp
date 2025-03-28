@@ -67,7 +67,7 @@ public class StorageManager {
                     double amount = Double.parseDouble(parts[0]);
                     String description = parts[1];
                     String timeStamp = parts[2];
-                    Expense e = new Expense(amount, description, timeStamp);
+                    Expense e = new Expense(amount, description, timeStamp, true);
                     currentBudget.addExpense(e);
                 } else if (line.startsWith("ALERT:")) {
                     double alertAmount = Double.parseDouble(line.substring(6));

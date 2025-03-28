@@ -27,10 +27,11 @@ public class DateTimeParser {
      * </p>
      *
      * @param inputDateTimeStr The user provided date and time string.
+     * @param noErrorPrint Whether to print error messages or not.
      * @return The parsed LocalDateTime if the format is correct; otherwise, the system's current date and time.
      */
-    public static LocalDateTime parseOrDefault(String inputDateTimeStr) {
-        // Debug print: show the user provided string.
+    public static LocalDateTime parseOrDefault(String inputDateTimeStr, Boolean noErrorPrint) {
+        //we bypass the error messages when loading from .txt
         boolean isCorrectDateTimeFormat = false;
         LocalDateTime dateTimeParsed = null;
 
@@ -41,7 +42,11 @@ public class DateTimeParser {
             dateTimeParsed = parsedDateTime;
         } catch (DateTimeParseException e) {
             // If parsing fails, print a debug message and fallback to system time.
-            System.out.println("Wrong dateTime format used. Will use system current dateTime instead.");
+            if(!noErrorPrint){
+                //when noErrorPrint is false, then only we will print this message
+                System.out.println("Sorry wrong dateTime format used. " +
+                        "Will use system current dateTime instead.");
+            }
             LocalDateTime systemNow = LocalDateTime.now();
             dateTimeParsed = systemNow;
             // Assert that the system time is not null.
