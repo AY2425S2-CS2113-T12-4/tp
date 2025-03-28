@@ -29,7 +29,7 @@ public class DateTimeParser {
      * </p>
      *
      * @param inputDateTimeStr The user provided date and time string.
-     * @param noErrorPrint Whether to print error messages or not.
+     * @param noErrorPrint     Whether to print error messages or not.
      * @return The parsed LocalDateTime if the format is correct; otherwise, the system's current date and time.
      */
     public static LocalDateTime parseOrDefault(String inputDateTimeStr, boolean noErrorPrint) {
@@ -42,17 +42,17 @@ public class DateTimeParser {
             LocalDateTime parsedDateTime = LocalDateTime.parse(inputDateTimeStr, DATETIME_FORMAT);
             isCorrectDateTimeFormat = true;
             dateTimeParsed = parsedDateTime;
-        }catch (DateTimeParseException e) {
-                if (!noErrorPrint) {
-                    //when noErrorPrint is false, then only we will print this message
-                    System.out.println("Sorry wrong dateTime format used. " +
-                            "Will use system current dateTime instead.");
-                    System.out.println("Format guide: \"MMM dd yyyy 'at' HH:mm\"");
-                }
-                LocalDateTime systemNow = LocalDateTime.now();
-                dateTimeParsed = systemNow;
-                // Assert that the system time is not null.
-                assert systemNow != null : "System current dateTime should never be null.";
+        } catch (DateTimeParseException e) {
+            if (!noErrorPrint) {
+                //when noErrorPrint is false, then only we will print this message
+                System.out.println("Sorry wrong dateTime format used. " +
+                        "Will use system current dateTime instead.");
+                System.out.println("Format guide: \"MMM dd yyyy 'at' HH:mm\"");
+            }
+            LocalDateTime systemNow = LocalDateTime.now();
+            dateTimeParsed = systemNow;
+            // Assert that the system time is not null.
+            assert systemNow != null : "System current dateTime should never be null.";
         }
         return dateTimeParsed;
     }

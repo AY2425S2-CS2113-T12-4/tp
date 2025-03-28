@@ -3,7 +3,6 @@ package budgetbuddy.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import budgetbuddy.parser.DateTimeParser;
 
 /**
  * Represents an expense with an amount, description, and timestamp.
