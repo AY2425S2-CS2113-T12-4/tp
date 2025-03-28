@@ -31,7 +31,7 @@ public class StorageManager {
                 for (Expense e : budget.getExpenses()) {
                     writer.write("EXPENSE:" + e.getAmount() + "|"
                             + e.getDescription().replace("|", " ") + "|"
-                            + e.dateTime);
+                            + e.getDateTimeString()); //string type to preserve date time format
                     writer.newLine();
                 }
             }
@@ -66,8 +66,8 @@ public class StorageManager {
                     String[] parts = line.substring(8).split("\\|");
                     double amount = Double.parseDouble(parts[0]);
                     String description = parts[1];
-                    String timestamp = parts[2];
-                    Expense e = new Expense(amount, description);
+                    String timeStamp = parts[2];
+                    Expense e = new Expense(amount, description, timeStamp, true);
                     currentBudget.addExpense(e);
                 } else if (line.startsWith("ALERT:")) {
                     double alertAmount = Double.parseDouble(line.substring(6));

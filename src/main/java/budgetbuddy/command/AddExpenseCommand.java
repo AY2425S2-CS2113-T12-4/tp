@@ -7,8 +7,9 @@ import budgetbuddy.exception.InvalidInputException;
 /**
  * The AddExpenseCommand class represents a command that adds an expense to a specified budget.
  *
- * <p>This command parses the input description, extracts the amount, category, and description of the expense,
- * and then adds the expense to the specified budget using the BudgetManager.</p>
+ * <p>This command parses the input description, extracts the amount, category, description of the expense,
+ * and time of expense.
+ * It then adds the expense to the specified budget using the BudgetManager.</p>
  */
 public class AddExpenseCommand extends Command {
 
@@ -20,11 +21,12 @@ public class AddExpenseCommand extends Command {
      * Executes the AddExpenseCommand by parsing the input and adding the expense to the appropriate budget.
      *
      * <p>The method first splits the input description into its components: the expense amount, category,
-     * and description.
-     * It then calls the {@link BudgetManager#addExpenseToBudget(String, double, String)} method to add the expense
+     * description and time.
+     * It then calls the {@link BudgetManager#addExpenseToBudget(String, double, String, String)}
+     * method to add the expense
      * to the specified category of the budget.</p>
      *
-     * @param parser The parser used to handle and parse the user input.
+     * @param parser        The parser used to handle and parse the user input.
      * @param budgetManager The BudgetManager responsible for managing expenses and budgets.
      * @throws InvalidInputException If there is invalid input while parsing the description or adding the expense.
      */
@@ -35,7 +37,9 @@ public class AddExpenseCommand extends Command {
         double amount = Double.parseDouble(splitLine[0]);
         String category = splitLine[1];
         String description = splitLine[2];
-        budgetManager.addExpenseToBudget(category, amount, description);
+        String time = splitLine[3];
+
+        budgetManager.addExpenseToBudget(category, amount, description, time);
     }
 
     /**

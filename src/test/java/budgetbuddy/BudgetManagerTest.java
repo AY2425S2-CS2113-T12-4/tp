@@ -52,8 +52,8 @@ public class BudgetManagerTest {
     @Test
     public void testDeleteExpense_validIndex_expenseDeleted() throws InvalidInputException {
         // Add expenses to the Monthly budget
-        budgetManager.addExpenseToBudget("", 50, "Lunch");
-        budgetManager.addExpenseToBudget("", 20, "Coffee");
+        budgetManager.addExpenseToBudget("Monthly", 50, "Lunch","Oct 05 2025 at 12:30");
+        budgetManager.addExpenseToBudget("Monthly", 20, "Coffee", "Oct 05 2025 at 12:30");
 
         // Ensure 2 expenses exist before deletion
         Budget monthlyBudget = budgetManager.getBudgets().get("Monthly");
@@ -92,20 +92,12 @@ public class BudgetManagerTest {
         );
     }
 
-    @Test
-    public void testAddExpenseToMonthlyBudget() {
-        budgetManager.addExpenseToBudget("", 100, "Groceries");
 
-        Budget monthlyBudget = budgetManager.getBudgets().get("Monthly");
-        assertEquals(100,
-                monthlyBudget.getTotalExpenses(),
-                "Monthly budget total expenses should be 100"
-        );
-    }
 
     @Test
     public void testAddExpenseToNewCategory_budgetDoesNotExist() {
-        budgetManager.addExpenseToBudget("Travel", 50, "Bus fare");
+        budgetManager.addExpenseToBudget("Travel", 50, "Bus fare",
+                "Oct 05 2025 at 12:30");
 
         assertNull(
                 budgetManager.getBudgets().get("Travel"),
@@ -116,7 +108,7 @@ public class BudgetManagerTest {
     @Test
     public void testAddExpenseToExistingCategory() {
         budgetManager.setBudget("Food", 500);
-        budgetManager.addExpenseToBudget("Food", 50, "Lunch");
+        budgetManager.addExpenseToBudget("Food", 50, "Lunch","Oct 05 2025 at 12:30");
 
         Budget foodBudget = budgetManager.getBudgets().get("Food");
         assertNotNull(foodBudget, "Food budget should exist");
@@ -126,6 +118,15 @@ public class BudgetManagerTest {
         );
     }
 
+    @Test
+    public void testAddExpenseToMonthlyBudget() {
+        budgetManager.addExpenseToBudget("Monthly", 100, "Groceries","Oct 05 2025 at 12:30");
 
+        Budget monthlyBudget = budgetManager.getBudgets().get("Monthly");
+        assertEquals(100,
+                monthlyBudget.getTotalExpenses(),
+                "Monthly budget total expenses should be 100"
+        );
+    }
 
 }

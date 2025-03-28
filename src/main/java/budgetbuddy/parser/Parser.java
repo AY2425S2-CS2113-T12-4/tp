@@ -7,8 +7,9 @@ public class Parser {
     public Parser(){}
 
     /**
-     * Parses an "add" command to extract the amount, category, and description.
-     * Expected format: add `AMOUNT` c/ `CATEGORY` d/ `DESCRIPTION`
+     * Parses an "add" command to extract the amount, category, description and time.
+     * Expected format:
+     * add `AMOUNT` c/ `CATEGORY` d/ `DESCRIPTION` t/ 'DATE TIME'
      *
      * @param line The full command input.
      * @return A string array containing [amount, category, description].
@@ -16,29 +17,53 @@ public class Parser {
      */
     public String[] parseAddCommand(String line) throws InvalidInputException {
         if (line.length() < 4) {
-            throw new InvalidInputException("Please use the format: add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION>");
+            throw new InvalidInputException(
+                    "Please use the format: add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <DATE TIME>");
         }
 
+        //to remove the word "add"
         line = line.substring(4).trim();
 
         String[] splitAmountCategory = line.split("c/", 2);
         if (splitAmountCategory.length < 2) {
-            throw new InvalidInputException("Please use the format: add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION>");
+            throw new InvalidInputException(
+                    "Please use the format: add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <DATE TIME>");
         }
 
+        //this gives amount component from the splitAmountCategory
         String amount = splitAmountCategory[0].trim();
+
+        //this gives the rest of line component from the splitAmountCategory
         String remaining = splitAmountCategory[1].trim();
 
-        // Split by "/d" to separate Category and Description
+        // Split by "d/" to separate Category and Description
         String[] splitCategoryDescription = remaining.split("d/", 2);
         if (splitCategoryDescription.length < 2) {
-            throw new InvalidInputException("Please use the format: add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION>");
+            throw new InvalidInputException(
+                    "Please use the format: add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <DATE TIME>");
         }
 
+        //this gives category component from the splitCategoryDescription
         String category = splitCategoryDescription[0].trim();
-        String description = splitCategoryDescription[1].trim();
 
-        return new String[]{amount, category, description};
+        //this gives description component from the splitCategoryDescription
+        //String description = splitCategoryDescription[1].trim();
+
+        // Split by "t/" to separate Description and Time
+        //this is all the command category onwards
+        String[] splitDescriptionTime = splitCategoryDescription[1].trim().split("t/", 2);
+        if (splitDescriptionTime.length < 2) {
+            throw new InvalidInputException(
+                    "Please use the format: add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <DATE TIME>");
+        }
+        //this gives time component from the splitDescriptionTime
+        String dateTime = splitDescriptionTime[1].trim();
+
+        //this gives only the string of description that we require
+        //earlier it was giving description + time
+        String description = splitDescriptionTime[0].trim();
+
+        return new String[]{amount, category, description, dateTime};
     }
 
     /**
