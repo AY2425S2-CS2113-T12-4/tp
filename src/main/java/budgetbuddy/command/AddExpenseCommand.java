@@ -26,7 +26,7 @@ public class AddExpenseCommand extends Command {
      * method to add the expense
      * to the specified category of the budget.</p>
      *
-     * @param parser The parser used to handle and parse the user input.
+     * @param parser        The parser used to handle and parse the user input.
      * @param budgetManager The BudgetManager responsible for managing expenses and budgets.
      * @throws InvalidInputException If there is invalid input while parsing the description or adding the expense.
      */

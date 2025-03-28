@@ -31,7 +31,7 @@ public class StorageManager {
                 for (Expense e : budget.getExpenses()) {
                     writer.write("EXPENSE:" + e.getAmount() + "|"
                             + e.getDescription().replace("|", " ") + "|"
-                            + e.dateTime);
+                            + e.getDateTimeString()); //string type to preserve date time format
                     writer.newLine();
                 }
             }

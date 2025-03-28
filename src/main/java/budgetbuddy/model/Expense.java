@@ -17,7 +17,7 @@ import budgetbuddy.parser.DateTimeParser;
 public class Expense {
     // Formatter to display date and time.
     protected static final DateTimeFormatter DATETIME_FORMAT =
-            DateTimeFormatter.ofPattern("E, MMM dd 'at' HH:mm");
+            DateTimeFormatter.ofPattern("MMM dd yyyy 'at' HH:mm");
 
     // The date and time when the expense was recorded.
     public LocalDateTime dateTime;
@@ -172,5 +172,13 @@ public class Expense {
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * this return string type of date time to preserve format
+     * @return date time in string
+     */
+    public String getDateTimeString() {
+        return dateTime.format(DATETIME_FORMAT);
     }
 }
