@@ -92,6 +92,18 @@ public class BudgetManagerTest {
         );
     }
 
+    @Test
+    public void testAddExpenseToMonthlyBudget() {
+        budgetManager.addExpenseToBudget("", 100, "Groceries","Oct 05 2025 at 12:30");
+
+        Budget monthlyBudget = budgetManager.getBudgets().get("Monthly");
+        assertEquals(100,
+                monthlyBudget.getTotalExpenses(),
+                "Monthly budget total expenses should be 100"
+        );
+    }
+
+
 
     @Test
     public void testAddExpenseToNewCategory_budgetDoesNotExist() {
@@ -116,18 +128,5 @@ public class BudgetManagerTest {
                 "Food budget total expenses should be 50"
         );
     }
-
-    @Test
-    public void testAddExpenseToMonthlyBudget() {
-        budgetManager.addExpenseToBudget("", 100, "Groceries","Oct 05 2025 at 12:30");
-
-        Budget monthlyBudget = budgetManager.getBudgets().get("Monthly");
-        assertEquals(100,
-                monthlyBudget.getTotalExpenses(),
-                "Monthly budget total expenses should be 100"
-        );
-    }
-
-
 
 }
