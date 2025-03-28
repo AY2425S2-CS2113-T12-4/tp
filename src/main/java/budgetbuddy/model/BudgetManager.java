@@ -51,9 +51,11 @@ public class BudgetManager {
             if (!budgets.containsKey("Monthly")) {
                 budgets.put("Monthly", new Budget("Monthly", 0));
                 logger.warning("Monthly budget was missing. Initialized a new Monthly budget.");
+
+                assert budgets.get("Monthly") != null : "Monthly budget should be initialized.";
+                budgets.get("Monthly").addExpense(expense);
+                //moved these inside the if block otherwise the expense was being added twice
             }
-            assert budgets.get("Monthly") != null : "Monthly budget should be initialized.";
-            budgets.get("Monthly").addExpense(expense);
 
             if (category != null && !category.trim().isEmpty()) {
                 if (!budgets.containsKey(category)) {

@@ -47,10 +47,11 @@ public class Parser {
         String category = splitCategoryDescription[0].trim();
 
         //this gives description component from the splitCategoryDescription
-        String description = splitCategoryDescription[1].trim();
+        //String description = splitCategoryDescription[1].trim();
 
         // Split by "t/" to separate Description and Time
-        String[] splitDescriptionTime = description.split("t/", 2);
+        //this is all the command category onwards
+        String[] splitDescriptionTime = splitCategoryDescription[1].trim().split("t/", 2);
         if (splitDescriptionTime.length < 2) {
             throw new InvalidInputException(
                     "Please use the format: add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <DATE TIME>");
@@ -58,7 +59,9 @@ public class Parser {
         //this gives time component from the splitDescriptionTime
         String dateTime = splitDescriptionTime[1].trim();
 
-        String beforeDateTime = splitDescriptionTime[0].trim();
+        //this gives only the string of description that we require
+        //earlier it was giving description + time
+        String description = splitDescriptionTime[0].trim();
 
         return new String[]{amount, category, description, dateTime};
     }
