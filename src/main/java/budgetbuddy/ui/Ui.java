@@ -64,8 +64,10 @@ public class Ui {
         System.out.println("Available Commands:");
 
         System.out.println("\nAdd Expense: add");
-        System.out.println("Format: add AMOUNT c/ CATEGORY d/ DESCRIPTION");
-        System.out.println("Examples: add 15.50 c/Food d/Lunch, add 40 c/Transport d/Taxi Ride");
+        System.out.println("Format: add AMOUNT c/ CATEGORY d/ DESCRIPTION t/ TIME <MMM dd yyyy 'at' hh:mm");
+        System.out.println("Please Note: id dateTime format is incorrect, current system time would be used instead");
+        System.out.println("Examples: add 15.50 c/Food d/Lunch t/Oct 05 2025 at 12:30, " +
+                "\n"+"       add 40 c/Transport d/Taxi Ride t/Oct 10 2025 at 14:35");
 
         System.out.println("\nDelete Expense: delete");
         System.out.println("Format: delete INDEX");

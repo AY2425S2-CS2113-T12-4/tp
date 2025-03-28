@@ -1,6 +1,2 @@
 CATEGORY:Monthly|LIMIT:0.0
-EXPENSE:5.0|foo|Oct 05 2023 at 12:11
-EXPENSE:5.0|foo|Oct 15 2009 at 12:11
-EXPENSE:5.0|foo|Mar 28 2025 at 14:31
-EXPENSE:5.0|foo|Mar 28 2025 at 14:32
-ALERT:budgetbuddy.model.Alert@73a8dfcc
+ALERT:budgetbuddy.model.Alert@3eb07fd3
