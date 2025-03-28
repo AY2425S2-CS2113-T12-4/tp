@@ -52,8 +52,8 @@ public class BudgetManagerTest {
     @Test
     public void testDeleteExpense_validIndex_expenseDeleted() throws InvalidInputException {
         // Add expenses to the Monthly budget
-        budgetManager.addExpenseToBudget("", 50, "Lunch","Oct 05 2025 at 12:30");
-        budgetManager.addExpenseToBudget("", 20, "Coffee", "Oct 05 2025 at 12:30");
+        budgetManager.addExpenseToBudget("Monthly", 50, "Lunch","Oct 05 2025 at 12:30");
+        budgetManager.addExpenseToBudget("Monthly", 20, "Coffee", "Oct 05 2025 at 12:30");
 
         // Ensure 2 expenses exist before deletion
         Budget monthlyBudget = budgetManager.getBudgets().get("Monthly");
@@ -92,17 +92,6 @@ public class BudgetManagerTest {
         );
     }
 
-    @Test
-    public void testAddExpenseToMonthlyBudget() {
-        budgetManager.addExpenseToBudget("", 100, "Groceries","Oct 05 2025 at 12:30");
-
-        Budget monthlyBudget = budgetManager.getBudgets().get("Monthly");
-        assertEquals(100,
-                monthlyBudget.getTotalExpenses(),
-                "Monthly budget total expenses should be 100"
-        );
-    }
-
 
 
     @Test
@@ -126,6 +115,17 @@ public class BudgetManagerTest {
         assertEquals(50,
                 foodBudget.getTotalExpenses(),
                 "Food budget total expenses should be 50"
+        );
+    }
+
+    @Test
+    public void testAddExpenseToMonthlyBudget() {
+        budgetManager.addExpenseToBudget("Monthly", 100, "Groceries","Oct 05 2025 at 12:30");
+
+        Budget monthlyBudget = budgetManager.getBudgets().get("Monthly");
+        assertEquals(100,
+                monthlyBudget.getTotalExpenses(),
+                "Monthly budget total expenses should be 100"
         );
     }
 
