@@ -1,4 +1,0 @@
-CATEGORY:Monthly|LIMIT:0.0
-EXPENSE:50.0|foo|Oct 05 2025 at 12:30
-EXPENSE:20.0|foo|Oct 05 2025 at 12:30
-ALERT:budgetbuddy.model.Alert@726f3b58
