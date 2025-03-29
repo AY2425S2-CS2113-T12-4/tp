@@ -267,7 +267,7 @@ public class Parser {
         String[] splitOld = line.split("old/", 2);
         String[] currentNameString = splitOld[1].trim().split(" ");
 
-        result[0] = currentNameString[0].trim(); 
+        result[0] = currentNameString[0].trim();
         String remaining = splitOld[1].substring(result[0].length()).trim();
 
         if (remaining.contains("a/")) {
@@ -276,7 +276,7 @@ public class Parser {
                 amt = amt.split(" ")[0].trim();
             }
             try {
-                Double.parseDouble(amt); // Validate format
+                Double.parseDouble(amt);
                 result[1] = amt;
             } catch (NumberFormatException e) {
                 throw new InvalidInputException("Invalid amount provided after a/. It must be a number.");
@@ -298,7 +298,7 @@ public class Parser {
             throw new InvalidInputException("You must specify at least one of a/<amount> or c/<new name>.");
         }
 
-        return result; // [currentName, newAmount, newName]
+        return result;
     }
 
 

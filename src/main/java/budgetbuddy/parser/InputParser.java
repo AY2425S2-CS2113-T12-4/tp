@@ -1,17 +1,6 @@
 package budgetbuddy.parser;
 
-import budgetbuddy.command.AddExpenseCommand;
-import budgetbuddy.command.AlertCommand;
-import budgetbuddy.command.Command;
-import budgetbuddy.command.SummaryCommand;
-import budgetbuddy.command.ListCommand;
-import budgetbuddy.command.DeleteCommand;
-import budgetbuddy.command.SetBudgetCommand;
-import budgetbuddy.command.CheckBudgetCommand;
-import budgetbuddy.command.ExitCommand;
-import budgetbuddy.command.HelpCommand;
-import budgetbuddy.command.EditExpenseCommand;
-import budgetbuddy.command.FindExpenseCommand;
+import budgetbuddy.command.*;
 import budgetbuddy.exception.InvalidInputException;
 
 import java.util.NoSuchElementException;
@@ -52,6 +41,7 @@ public class InputParser {
         case "help" -> new HelpCommand(userInput);
         case "find" -> new FindExpenseCommand(userInput);
         case "editexpense" -> new EditExpenseCommand(userInput);
+        case "edit-budget" -> new EditBudgetCommand(userInput);
         default -> throw new InvalidInputException("Please try again with one of the valid commands:" +
                     "\nadd, alert, summary, list, delete, set-budget, help, find, editExpense, bye");
         };
