@@ -44,7 +44,13 @@ Many students struggle with money management, leading to overspending and financ
 - Spending alerts to prevent overspending
 - Budget summaries for a clear financial overview
 
-With Budget Buddy, students can build better financial habits, stay within budget, and make informed money decisions—effortlessly.
+**Budget Buddy helps students:**
+- Build better financial habits
+- Stick to their budget
+- Track spending with ease
+- Make smarter money choices
+- Set financial goals
+- Gain confidence managing money
 
 ## User Stories
 
