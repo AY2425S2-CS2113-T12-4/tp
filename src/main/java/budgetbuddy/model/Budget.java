@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * The budget can have an optional spending limit.
  */
 public class Budget {
-    private final String category;
+    private String category;
     private double limit; //Optional
     private final ArrayList<Expense> expenses;
 
@@ -32,6 +32,27 @@ public class Budget {
         this.category = category;
         this.limit = limit;
         this.expenses = new ArrayList<>();
+    }
+
+    /**
+     * Sets a new category name for the budget.
+     *
+     * @param category The new category name.
+     */
+    public void setCategory(String category) {
+        if (category == null || category.trim().isEmpty()) {
+            throw new IllegalArgumentException("Category cannot be empty.");
+        }
+        this.category = category;
+    }
+
+    /**
+     * Gets the category name of the budget.
+     *
+     * @return The current category name.
+     */
+    public String getCategory() {
+        return this.category;
     }
 
     /**

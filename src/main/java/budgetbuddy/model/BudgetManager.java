@@ -294,4 +294,36 @@ public class BudgetManager {
         System.out.println("-------------------------------------");
     }
 
+    /**
+     * Edits an existing budget by updating its name and/or limit.
+     *
+     * @param currentName The current name of the budget to edit.
+     * @param newAmount   The new budget limit to set.
+     * @param newName     The new name for the budget.
+     * @throws InvalidInputException if the specified budget does not exist.
+     */
+    public void editBudget(String currentName, double newAmount, String newName) throws InvalidInputException {
+        if (!budgets.containsKey(currentName)) {
+            throw new InvalidInputException("Budget '" + currentName + "' not found.");
+        }
+
+        Budget budgetToEdit = budgets.get(currentName);
+
+        // Update the budget limit if specified
+        if (newAmount >= 0) {
+            budgetToEdit.setLimit(newAmount);
+            System.out.println("Updated limit of budget '" + currentName + "' to $" + newAmount);
+        }
+
+        // Rename the budget if a new name is provided and different from the current one
+        if (newName != null && !newName.equals(currentName) && !newName.isEmpty()) {
+            budgets.remove(currentName);
+            budgetToEdit.setCategory(newName);
+            budgets.put(newName, budgetToEdit);
+            System.out.println("Renamed budget '" + currentName + "' to '" + newName + "'");
+        }
+
+        logger.info("Budget edited: Name - " + newName + ", Limit - " + newAmount);
+    }
+
 }

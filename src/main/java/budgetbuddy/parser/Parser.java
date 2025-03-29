@@ -236,6 +236,70 @@ public class Parser {
         return result; // Returns [index, amount, description, dateTime] with empty strings for missing fields
     }
 
+    /**
+     * Parses an "edit-budget" command to extract the current budget name, new amount, and new name.
+     * At least one of "a/" (new amount) or "c/" (new name) must be provided.
+     *
+     * @param command The full command input.
+     * @return A string array containing [currentName, newAmount, newName].
+     *         If no amount is provided, the second element will be an empty string.
+     *         If no new name is provided, the third element will be an empty string.
+     * @throws InvalidInputException If the format is incorrect or required fields are missing.
+     */
+
+    public String[] parseEditBudgetCommand(String command) throws InvalidInputException {
+        String[] result = {"", "", ""};
+
+        if (!command.startsWith("edit-budget ")) {
+            throw new InvalidInputException("Please use the format: " +
+                    "edit-budget old/<CurrentName> a/<NewAmount> c/<NewName>");
+        }
+
+        String line = command.substring("edit-budget ".length()).trim();
+
+        if (!line.contains("old/")) {
+            throw new InvalidInputException("Missing old/ prefix. Please specify the current budget name.");
+        }
+
+
+        String[] splitOld = line.split("old/", 2);
+        String[] currentNameString = splitOld[1].trim().split(" ");
+
+        result[0] = currentNameString[0].trim();
+        String remaining = splitOld[1].substring(result[0].length()).trim();
+
+        if (remaining.contains("a/")) {
+            String amt = remaining.split("a/", 2)[1].trim();
+            if (amt.contains(" ")) {
+                amt = amt.split(" ")[0].trim();
+            }
+            try {
+                Double.parseDouble(amt);
+                result[1] = amt;
+            } catch (NumberFormatException e) {
+                throw new InvalidInputException("Invalid amount provided after a/. It must be a number.");
+            }
+        }
+
+        if (remaining.contains("c/")) {
+            String cat = remaining.split("c/", 2)[1].trim();
+            if (cat.contains(" ")) {
+                cat = cat.split(" ")[0].trim();
+            }
+            if (cat.isEmpty()) {
+                throw new InvalidInputException("Budget name after c/ cannot be empty.");
+            }
+            result[2] = cat;
+        }
+
+        if (result[1].isEmpty() && result[2].isEmpty()) {
+            throw new InvalidInputException("You must specify at least one of a/<amount> or c/<new name>.");
+        }
+
+        return result;
+    }
+
+
 
 }
 
