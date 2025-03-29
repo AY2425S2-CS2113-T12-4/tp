@@ -1,6 +1,8 @@
 package budgetbuddy.ui;
 
 import budgetbuddy.model.Budget;
+import budgetbuddy.model.Expense;
+
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
@@ -179,7 +181,7 @@ public class Ui {
      * @param expenses A list of all expenses.
      * @param index The index of the expense to be deleted.
      */
-    public static void printDeleteExpense(ArrayList expenses, int index) {
+    public static void printDeleteExpense(ArrayList<Expense> expenses, int index) {
         printSeparator();
         System.out.println("The following expense has been deleted successfully.");
         System.out.println("-> " + expenses.get(expenses.size() - index));
@@ -203,4 +205,12 @@ public class Ui {
         }
         printSeparator();
     }
+
+    public static void printExpenseEditedMessage(ArrayList<Expense> expenses, int index) {
+        printSeparator();
+        System.out.println("Got it, the expense at index" + index + "has been updated!");
+        System.out.println("Updated expense -> " + expenses.get(expenses.size() - index));
+        printSeparator();
+    }
+
 }

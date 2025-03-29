@@ -1,5 +1,6 @@
 package budgetbuddy.model;
 
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -153,6 +154,18 @@ public class Expense {
         String formattedAmount = String.format("$%,.2f", amount);
         // Build and return the full string representation.
         return formattedAmount + " spent on " + description + " (" + formattedDateTime + ")";
+    }
+
+    public void editExpense(double amount, String description, String dateTime) {
+        if (amount != 0) {
+            this.amount = amount;
+        }
+        if (!description.isEmpty()) {
+            this.description = description;
+        }
+        if (!dateTime.isEmpty()) {
+            this.dateTime = budgetbuddy.parser.DateTimeParser.parseOrDefault(dateTime, false);
+        }
     }
 
     /**

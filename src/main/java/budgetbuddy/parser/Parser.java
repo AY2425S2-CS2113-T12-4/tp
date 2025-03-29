@@ -4,7 +4,8 @@ import budgetbuddy.exception.InvalidInputException;
 
 public class Parser {
 
-    public Parser(){}
+    public Parser() {
+    }
 
     /**
      * Parses an "add" command to extract the amount, category, description and time.
@@ -69,7 +70,7 @@ public class Parser {
     /**
      * Parses a "set-budget" command to extract the budget category and amount.
      * Expected formats:
-     * - "set-budget `AMOUNT`" (for Monthly budget)
+     * - "set-budget `AMOUNT`" (for Overall budget)
      * - "set-budget c/CATEGORY `AMOUNT`" (for a specific category)
      *
      * @param command The full command input.
@@ -87,7 +88,7 @@ public class Parser {
         String amount;
 
         try {
-            if (parts.length == 2) { // Monthly budget setting
+            if (parts.length == 2) { // Overall budget setting
                 amount = parts[1];
             } else if (parts.length == 3 && parts[1].startsWith("c/")) { // Category budget setting
                 category = parts[1].substring(2).trim();
@@ -172,6 +173,67 @@ public class Parser {
             throw new InvalidInputException("Please use the format: find <KEYWORD>");
         }
         return parts[1].trim();
+    }
+
+
+    public String[] parseEditExpenseCommand(String command) throws InvalidInputException {
+        String[] result = {"", "", "", ""}; // Default values: [index, amount, description, dateTime]
+
+        String[] parts = command.split(" ", 3);
+        if (parts.length < 3) { // Must have at least "editExpense <INDEX>" and one more parameter
+            throw new InvalidInputException("Please use the format: editExpense <INDEX> a/ <AMOUNT> " +
+                    "d/ <DESCRIPTION> t/ <DATE TIME>");
+        }
+
+        // Extract index and ensure it is purely numeric
+        String index = parts[1];
+        if (!index.matches("\\d+")) {
+            throw new InvalidInputException("Invalid index. Please provide a valid number.");
+        }
+        result[0] = index; // Store the valid index
+
+        // Remaining arguments (optional fields)
+        String remaining = parts[2].trim();
+
+        // Check if the amount exists
+        if (remaining.contains("a/")) {
+            // Extract the part after "a/" and remove any extra whitespace
+            String amountPart = remaining.split("a/", 2)[1].trim();
+
+            // Now check if 'd/' or 't/' exist and trim accordingly
+            if (amountPart.contains("d/")) {
+                amountPart = amountPart.split("d/", 2)[0].trim(); // Extract before 'd/'
+            }
+            if (amountPart.contains("t/")) {
+                amountPart = amountPart.split("t/", 2)[0].trim(); // Extract before 't/'
+            }
+
+            result[1] = amountPart; // Store the amount
+            remaining = remaining.replace("a/" + result[1], "").trim(); // Remove the amount from
+            // the remaining string
+        }
+
+        // Extract description (if present)
+        if (remaining.contains("d/")) {
+            String[] split = remaining.split("d/", 2);
+            String descriptionPart = split[1].trim();
+
+            // Check if 't/' exists, and if so, split by it. Otherwise, take the whole string as description.
+            if (descriptionPart.contains("t/")) {
+                descriptionPart = descriptionPart.split("t/", 2)[0].trim();
+            }
+
+            result[2] = descriptionPart;  // Store the description
+            remaining = remaining.replace("d/" + result[2], "").trim();  // Remove description
+            // from remaining string
+        }
+
+        // Extract date/time (if present)
+        if (remaining.contains("t/")) {
+            result[3] = remaining.split("t/", 2)[1].trim();  // Extract date/time after 't/'
+        }
+
+        return result; // Returns [index, amount, description, dateTime] with empty strings for missing fields
     }
 
 

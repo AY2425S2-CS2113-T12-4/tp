@@ -46,8 +46,8 @@ public class BudgetSummaryTest {
 
         // Assert the summary contains expected values
         assertTrue(output.contains("Budget Summary:"), "Output should contain 'Budget Summary:'");
-        assertTrue(output.contains("Category: Monthly"), "Output should contain 'Category: Monthly'");
-        assertTrue(output.contains("Spending Limit: $2000"), "Output should show the monthly" +
+        assertTrue(output.contains("Category: Overall"), "Output should contain 'Category: Overall'");
+        assertTrue(output.contains("Spending Limit: $2000"), "Output should show the overall" +
                 " budget limit of 2000");
         assertTrue(output.contains("Category: Food"), "Output should contain 'Category: Food'");
         assertTrue(output.contains("Spending Limit: $500"), "Output should show the Food category " +

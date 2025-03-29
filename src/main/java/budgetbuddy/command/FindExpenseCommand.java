@@ -5,7 +5,7 @@ import budgetbuddy.parser.Parser;
 import budgetbuddy.exception.InvalidInputException;
 
 /**
- * The FindExpenseCommand class represents a command that searches for expenses in the Monthly budget.
+ * The FindExpenseCommand class represents a command that searches for expenses in the Overall budget.
  *
  * <p>This command parses the input description, extracts the keyword after "find",
  * and then calls the {@link BudgetManager#findExpense(String)} method to find and display matching expenses.</p>
@@ -17,7 +17,7 @@ public class FindExpenseCommand extends Command {
     }
 
     /**
-     * Executes the FindExpenseCommand by parsing the input and searching for the keyword in the Monthly budget.
+     * Executes the FindExpenseCommand by parsing the input and searching for the keyword in the Overall budget.
      *
      * <p>The method expects the user input to start with the keyword "find" followed by the search term.
      * Example: "find food" will search for expenses containing "food" in the description.</p>

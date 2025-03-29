@@ -4,7 +4,6 @@ import budgetbuddy.exception.InvalidInputException;
 import budgetbuddy.ui.Ui;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents a Budget that tracks expenses within a specific category.
@@ -92,7 +91,7 @@ public class Budget {
         Ui.printDeleteExpense(expenses, index);
     }
 
-    public List<Expense> getExpenses() {
+    public ArrayList<Expense> getExpenses() {
         return expenses;
     }
 

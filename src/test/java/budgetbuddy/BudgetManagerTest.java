@@ -22,16 +22,16 @@ public class BudgetManagerTest {
     }
 
     @Test
-    public void testSetMonthlyBudget_validAmount_budgetSet() {
-        // Set a Monthly budget of 1000
+    public void testSetOverallBudget_validAmount_budgetSet() {
+        // Set a Overall budget of 1000
         budgetManager.setBudget("", 1000);
 
-        // Assert the monthly budget is set to 1000
-        Budget monthlyBudget = budgetManager.getBudgets().get("Monthly");
+        // Assert the overall budget is set to 1000
+        Budget overallBudget = budgetManager.getBudgets().get("Overall");
         assertEquals(
                 1000,
-                monthlyBudget.getLimit(),
-                "Monthly budget should be set to 1000"
+                overallBudget.getLimit(),
+                "Overall budget should be set to 1000"
         );
     }
 
@@ -51,15 +51,15 @@ public class BudgetManagerTest {
 
     @Test
     public void testDeleteExpense_validIndex_expenseDeleted() throws InvalidInputException {
-        // Add expenses to the Monthly budget
-        budgetManager.addExpenseToBudget("Monthly", 50, "Lunch","Oct 05 2025 at 12:30");
-        budgetManager.addExpenseToBudget("Monthly", 20, "Coffee", "Oct 05 2025 at 12:30");
+        // Add expenses to the Overall budget
+        budgetManager.addExpenseToBudget("Overall", 50, "Lunch","Oct 05 2025 at 12:30");
+        budgetManager.addExpenseToBudget("Overall", 20, "Coffee", "Oct 05 2025 at 12:30");
 
         // Ensure 2 expenses exist before deletion
-        Budget monthlyBudget = budgetManager.getBudgets().get("Monthly");
+        Budget overallBudget = budgetManager.getBudgets().get("Overall");
         assertEquals(
                 70,
-                monthlyBudget.getTotalExpenses(),
+                overallBudget.getTotalExpenses(),
                 "The total expenses should be 70"
         );
 
@@ -69,26 +69,26 @@ public class BudgetManagerTest {
         // Ensure 1 expense remains after deletion
         assertEquals(
                 50,
-                monthlyBudget.getTotalExpenses(),
+                overallBudget.getTotalExpenses(),
                 "The total expenses should be 20"
         );
     }
 
     @Test
     public void testDeleteExpense_invalidIndex_throwsException() {
-        // Ensure Monthly budget exists but has no expenses
+        // Ensure Overall budget exists but has no expenses
         assertThrows(InvalidInputException.class, () -> {
             budgetManager.deleteExpense(0); // Invalid index
         }, "Should throw InvalidInputException when deleting a non-existent expense");
     }
 
     @Test
-    public void testCreateMonthlyBudget_defaultExists() {
-        Budget monthlyBudget = budgetManager.getBudgets().get("Monthly");
-        assertNotNull(monthlyBudget, "Monthly budget should exist by default");
+    public void testCreateOverallBudget_defaultExists() {
+        Budget overallBudget = budgetManager.getBudgets().get("Overall");
+        assertNotNull(overallBudget, "Overall budget should exist by default");
         assertEquals(0,
-                monthlyBudget.getLimit(),
-                "Default monthly budget should have a limit of 0"
+                overallBudget.getLimit(),
+                "Default overall budget should have a limit of 0"
         );
     }
 
@@ -119,13 +119,13 @@ public class BudgetManagerTest {
     }
 
     @Test
-    public void testAddExpenseToMonthlyBudget() {
-        budgetManager.addExpenseToBudget("Monthly", 100, "Groceries","Oct 05 2025 at 12:30");
+    public void testAddExpenseToOverallBudget() {
+        budgetManager.addExpenseToBudget("Overall", 100, "Groceries","Oct 05 2025 at 12:30");
 
-        Budget monthlyBudget = budgetManager.getBudgets().get("Monthly");
+        Budget overallBudget = budgetManager.getBudgets().get("Overall");
         assertEquals(100,
-                monthlyBudget.getTotalExpenses(),
-                "Monthly budget total expenses should be 100"
+                overallBudget.getTotalExpenses(),
+                "Overall budget total expenses should be 100"
         );
     }
 
