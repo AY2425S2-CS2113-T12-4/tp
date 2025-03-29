@@ -238,9 +238,6 @@ public class Parser {
 
     /**
      * Parses an "edit-budget" command to extract the current budget name, new amount, and new name.
-     * Expected format:
-     * edit-budget old/<CurrentName> a/<NewAmount> c/<NewName>
-     *
      * At least one of "a/" (new amount) or "c/" (new name) must be provided.
      *
      * @param command The full command input.
@@ -254,7 +251,8 @@ public class Parser {
         String[] result = {"", "", ""};
 
         if (!command.startsWith("edit-budget ")) {
-            throw new InvalidInputException("Please use the format: edit-budget old/<CurrentName> a/<NewAmount> c/<NewName>");
+            throw new InvalidInputException("Please use the format: " +
+                    "edit-budget old/<CurrentName> a/<NewAmount> c/<NewName>");
         }
 
         String line = command.substring("edit-budget ".length()).trim();

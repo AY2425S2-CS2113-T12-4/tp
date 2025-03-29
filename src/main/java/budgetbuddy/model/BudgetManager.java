@@ -296,7 +296,6 @@ public class BudgetManager {
 
     /**
      * Edits an existing budget by updating its name and/or limit.
-     * Format: edit-budget old/<currentName> a/<newAmount> c/<newName>
      *
      * @param currentName The current name of the budget to edit.
      * @param newAmount   The new budget limit to set.
