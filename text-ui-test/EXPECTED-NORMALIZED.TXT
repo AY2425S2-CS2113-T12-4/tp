@@ -1,4 +1,3 @@
-Error loading budget data: For input string: "budgetbuddy.model.Alert@6659c656"
 |                     |
 |  $$$$       $$$$    |
 | $    $     $    $   |

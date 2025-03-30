@@ -1,2 +1,0 @@
-CATEGORY:Overall|LIMIT:0.0
-ALERT:budgetbuddy.model.Alert@6659c656
