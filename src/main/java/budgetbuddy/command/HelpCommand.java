@@ -1,7 +1,6 @@
 package budgetbuddy.command;
 
 import budgetbuddy.model.BudgetManager;
-import budgetbuddy.parser.Parser;
 import budgetbuddy.ui.Ui;
 
 /**
@@ -12,7 +11,7 @@ import budgetbuddy.ui.Ui;
 public class HelpCommand extends Command {
 
     public HelpCommand(String description) {
-        super(description);  // Pass the description to the parent class constructor
+        super(description);
     }
 
     /**
@@ -20,11 +19,10 @@ public class HelpCommand extends Command {
      *
      * <p>This method interacts with the {@link Ui} class to display the available commands and their formats.</p>
      *
-     * @param parser The parser used to handle and parse the user input (not used in this case).
      * @param budgetManager The BudgetManager responsible for managing budgets and expenses (not used in this case).
      */
     @Override
-    public void execute(Parser parser, BudgetManager budgetManager) {
+    public void execute(BudgetManager budgetManager) {
         Ui.printHelpMessage();  // Print the help message
     }
 

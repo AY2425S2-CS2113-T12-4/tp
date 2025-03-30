@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import budgetbuddy.model.BudgetManager;
-import budgetbuddy.parser.Parser;
 import budgetbuddy.exception.InvalidInputException;
 import budgetbuddy.model.Budget;
 import budgetbuddy.model.Expense;
@@ -14,13 +13,11 @@ import java.util.Map;
 public class AddExpenseCommandTest {
 
     private BudgetManager budgetManager;
-    private Parser parser;
     private AddExpenseCommand addExpenseCommand;
 
     @BeforeEach
     public void setUp() {
         budgetManager = new BudgetManager();
-        parser = new Parser();
     }
 
     @Test
@@ -29,7 +26,7 @@ public class AddExpenseCommandTest {
         addExpenseCommand = new AddExpenseCommand(description);
 
         try {
-            addExpenseCommand.execute(parser, budgetManager);
+            addExpenseCommand.execute(budgetManager);
 
             Map<String, Budget> budgets = budgetManager.getBudgets();
             Budget monthlyBudget = budgets.get("Monthly");

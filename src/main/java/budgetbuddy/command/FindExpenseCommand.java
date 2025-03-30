@@ -1,8 +1,8 @@
 package budgetbuddy.command;
 
 import budgetbuddy.model.BudgetManager;
-import budgetbuddy.parser.Parser;
 import budgetbuddy.exception.InvalidInputException;
+import budgetbuddy.parser.FindExpenseParser;
 
 /**
  * The FindExpenseCommand class represents a command that searches for expenses in the Overall budget.
@@ -22,13 +22,13 @@ public class FindExpenseCommand extends Command {
      * <p>The method expects the user input to start with the keyword "find" followed by the search term.
      * Example: "find food" will search for expenses containing "food" in the description.</p>
      *
-     * @param parser        The parser used to handle and parse the user input.
      * @param budgetManager The BudgetManager responsible for managing expenses and budgets.
      * @throws InvalidInputException If there is invalid input while parsing the description.
      */
     @Override
-    public void execute(Parser parser, BudgetManager budgetManager) throws InvalidInputException {
-        String keyword = parser.parseFindExpenseCommand(description);
+    public void execute(BudgetManager budgetManager) throws InvalidInputException {
+        FindExpenseParser parser = new FindExpenseParser(description);
+        String keyword = parser.parse();
         budgetManager.findExpense(keyword);
     }
 

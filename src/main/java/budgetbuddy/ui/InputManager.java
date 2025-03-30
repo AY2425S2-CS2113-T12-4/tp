@@ -32,7 +32,6 @@ import budgetbuddy.parser.Parser;
  */
 public class InputManager {
     private final BudgetManager budgetManager;
-    private final Parser parser;
     private final InputParser inputParser;
 
 
@@ -44,7 +43,6 @@ public class InputManager {
     public InputManager(BudgetManager budgetManager) {
         assert budgetManager != null : "BudgetManager cannot be null.";
         this.budgetManager = budgetManager;
-        this.parser = new Parser();
         inputParser = new InputParser();
     }
 
@@ -69,7 +67,7 @@ public class InputManager {
             try {
                 line = in.nextLine().trim();
                 Command c = inputParser.parseInput(line);
-                c.execute(parser, budgetManager);
+                c.execute(budgetManager);
                 isExit = c.isExit();
             } catch (InvalidInputException e) {
                 e.print();

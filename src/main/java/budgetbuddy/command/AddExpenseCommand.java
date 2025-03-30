@@ -1,7 +1,7 @@
 package budgetbuddy.command;
 
 import budgetbuddy.model.BudgetManager;
-import budgetbuddy.parser.Parser;
+import budgetbuddy.parser.AddParser;
 import budgetbuddy.exception.InvalidInputException;
 
 /**
@@ -26,14 +26,14 @@ public class AddExpenseCommand extends Command {
      * method to add the expense
      * to the specified category of the budget.</p>
      *
-     * @param parser        The parser used to handle and parse the user input.
      * @param budgetManager The BudgetManager responsible for managing expenses and budgets.
      * @throws InvalidInputException If there is invalid input while parsing the description or adding the expense.
      */
     @Override
-    public void execute(Parser parser, BudgetManager budgetManager) throws InvalidInputException { //need to add UI and
+    public void execute(BudgetManager budgetManager) throws InvalidInputException { //need to add UI and
         // Saving class
-        String[] splitLine = parser.parseAddCommand(description);
+        AddParser parser = new AddParser(description);
+        String[] splitLine = parser.parse();
         double amount = Double.parseDouble(splitLine[0]);
         String category = splitLine[1];
         String description = splitLine[2];

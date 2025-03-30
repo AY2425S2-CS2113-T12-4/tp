@@ -1,8 +1,8 @@
 package budgetbuddy.command;
 
 import budgetbuddy.model.BudgetManager;
-import budgetbuddy.parser.Parser;
 import budgetbuddy.exception.InvalidInputException;
+import budgetbuddy.parser.EditBudgetParser;
 
 /**
  * The EditBudgetCommand class represents a command that edits an existing budget.
@@ -25,13 +25,13 @@ public class EditBudgetCommand extends Command {
      * It then calls the {@link BudgetManager#editBudget(String, double, String)}
      * method to update the budget information.</p>
      *
-     * @param parser        The parser used to handle and parse the user input.
      * @param budgetManager The BudgetManager responsible for managing budgets and expenses.
      * @throws InvalidInputException If there is invalid input while parsing the description or editing the budget.
      */
     @Override
-    public void execute(Parser parser, BudgetManager budgetManager) throws InvalidInputException {
-        String[] parsedInput = parser.parseEditBudgetCommand(description);
+    public void execute(BudgetManager budgetManager) throws InvalidInputException {
+        EditBudgetParser parser = new EditBudgetParser(description);
+        String[] parsedInput = parser.parse();
         String currentName = parsedInput[0];
         double newAmount = parsedInput[1].isEmpty() ? -1 : Double.parseDouble(parsedInput[1]);
         String newName = parsedInput[2];

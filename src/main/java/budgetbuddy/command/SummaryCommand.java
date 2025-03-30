@@ -2,7 +2,6 @@ package budgetbuddy.command;
 
 import budgetbuddy.model.BudgetManager;
 import budgetbuddy.model.BudgetSummary;
-import budgetbuddy.parser.Parser;
 import budgetbuddy.exception.InvalidInputException;
 
 /**
@@ -23,13 +22,12 @@ public class SummaryCommand extends Command{
      * <p>This method creates a {@link BudgetSummary} instance and calls its {@link BudgetSummary#summariseBudget()}
      * method to generate and display the summary based on the data in the {@link BudgetManager}.</p>
      *
-     * @param parser The parser used to handle and parse the user input (not used in this case).
      * @param budgetManager The BudgetManager responsible for managing budgets and expenses.
      * @throws InvalidInputException If the input is invalid (e.g., unexpected errors occur), this exception will be
      *     thrown.
      */
     @Override
-    public void execute(Parser parser, BudgetManager budgetManager) throws InvalidInputException {
+    public void execute(BudgetManager budgetManager) throws InvalidInputException {
         BudgetSummary budgetSummary = new BudgetSummary(budgetManager);
         budgetSummary.summariseBudget();
     }

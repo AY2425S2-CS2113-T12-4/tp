@@ -1,7 +1,6 @@
 package budgetbuddy.command;
 
 import budgetbuddy.model.BudgetManager;
-import budgetbuddy.parser.Parser;
 import budgetbuddy.ui.Ui;
 
 /**
@@ -18,14 +17,13 @@ public class ExitCommand extends Command{
     /**
      * Executes the ExitCommand by printing a goodbye message to the console.
      *
-     * <p>This method does not interact with the {@link BudgetManager} or {@link Parser}, as it simply
+     * <p>This method does not interact with the {@link BudgetManager}  as it simply
      * terminates the program by printing "Bye".</p>
      *
-     * @param parser The parser used to handle and parse the user input (not used in this case).
      * @param budgetManager The BudgetManager responsible for managing budgets and expenses (not used in this case).
      */
     @Override
-    public void execute(Parser parser, BudgetManager budgetManager) {
+    public void execute(BudgetManager budgetManager) {
         Ui.printGoodbyeMessage();
     }
 

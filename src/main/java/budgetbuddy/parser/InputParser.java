@@ -52,7 +52,7 @@ public class InputParser {
         case "check-budget" -> new CheckBudgetCommand(userInput);
         case "help" -> new HelpCommand(userInput);
         case "find" -> new FindExpenseCommand(userInput);
-        case "editexpense" -> new EditExpenseCommand(userInput);
+        case "edit-expense" -> new EditExpenseCommand(userInput);
         case "edit-budget" -> new EditBudgetCommand(userInput);
         default -> throw new InvalidInputException("Please try again with one of the valid commands:" +
                     "\nadd, alert, summary, list, delete, set-budget, help, find, editExpense, bye");

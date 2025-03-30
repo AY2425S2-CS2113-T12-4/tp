@@ -6,18 +6,15 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import budgetbuddy.model.BudgetManager;
-import budgetbuddy.parser.Parser;
 import budgetbuddy.exception.InvalidInputException;
 
 public class CheckBudgetCommandTest {
 
     private BudgetManager budgetManager;
-    private Parser parser;
 
     @BeforeEach
     public void setUp() {
         budgetManager = new BudgetManager();
-        parser = new Parser();
     }
 
     @Test
@@ -26,7 +23,7 @@ public class CheckBudgetCommandTest {
             budgetManager.setBudget("Food", 100.0);
 
             CheckBudgetCommand command = new CheckBudgetCommand("check-budget c/Monthly");
-            command.execute(parser, budgetManager);
+            command.execute(budgetManager);
 
         } catch (InvalidInputException e) {
             fail("Unexpected InvalidInputException: " + e.getMessage());
@@ -38,7 +35,7 @@ public class CheckBudgetCommandTest {
         CheckBudgetCommand command = new CheckBudgetCommand("check-budget UnknownCategory");
 
         assertThrows(InvalidInputException.class, () -> {
-            command.execute(parser, budgetManager);
+            command.execute(budgetManager);
         }, "Expected InvalidInputException for invalid category");
     }
 }
