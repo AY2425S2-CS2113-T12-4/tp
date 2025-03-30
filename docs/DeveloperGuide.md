@@ -54,19 +54,38 @@ Many students struggle with money management, leading to overspending and financ
 
 ## User Stories
 
-|Version| As a ...                                                 | I want to ...                                         | So that I can ...                                            |
-|--------|----------------------------------------------------------|-------------------------------------------------------|--------------------------------------------------------------|
-|v1.0| financially conscious student                            | log my daily expenses                                 | track my spending habits effectively.                        |
-|v1.0| busy student                                             | categorise my expenses                                | see where most of my money is spent.                         |
-|v1.0| student on limited budget                                | set a monthly budget                                  | I can manage my finances and avoid overspending.             |
-|v1.0| forgetful student woth hectic schedule                   | see the portion of my budget I have used              | be more financially aware.                                   |
-|v1.0| time-strapped student managing multiple responsibilities | view a summary of my finances                         | quickly understand my financial situation.                   |
-|v1.0| student prone to overspending                            | receive alerts when I am close to exceeding my budget | adjust my spending.                                          |
-|v2.0| user                                                     | find a to-do item by name                             | locate a to-do without having to go through the entire list. |
+|Version| As a ...                                                 | I want to ...                                         | So that I can ...                                                               |
+|--------|----------------------------------------------------------|-------------------------------------------------------|---------------------------------------------------------------------------------|
+|v1.0| financially conscious student                            | log my daily expenses                                 | track my spending habits effectively.                                           |
+|v1.0| busy student                                             | categorise my expenses                                | see where most of my money is spent.                                            |
+|v1.0| student on limited budget                                | set a overall budget                                  | I can manage my finances and avoid overspending.                                |
+|v1.0| forgetful student with hectic schedule                   | see the portion of my budget I have used              | be more financially aware.                                                      |
+|v1.0| time-strapped student managing multiple responsibilities | view a summary of my finances                         | quickly understand my financial situation.                                      |
+|v1.0| student prone to overspending                            | receive alerts when I am close to exceeding my budget | adjust my spending.                                                             |
+|v2.0| user                                                     | find a to-do item by name                             | locate a to-do without having to go through the entire list.                    |
+|v2.0| careless student                                         | edit previously inputted expenses                     | update the details of the expenses without deleting and creating a new expense. |
+|v2.0| new user                                                 | learn about the functionalities of the program        | fully utilize what the application has to offer                                 |
 
 ## Non-Functional Requirements
+The application is designed to meet the following non-functional requirements:
 
-{Give non-functional requirements}
+**Cross-Platform Compatibility**
+
+   - The application can run on Windows, Linux, and macOS without requiring platform-specific modifications.
+
+**Performance**
+
+  - The application should provide a smooth user experience with minimal latency when managing expenses and budgets.
+
+  - It should be able to handle at least 1000 expense entries without significant performance degradation.
+
+**Usability**
+
+  - The user interface should be intuitive and easy to navigate, ensuring accessibility for first-time users.
+
+**Maintainability**
+
+  - The codebase should follow modular design principles, making it easy to debug, update, and extend.
 
 ## Glossary
 

@@ -76,6 +76,8 @@ public class InputManager {
             } catch (NoSuchElementException e) {
                 System.out.println("No input found, exiting...");
                 break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
         }
         in.close();
