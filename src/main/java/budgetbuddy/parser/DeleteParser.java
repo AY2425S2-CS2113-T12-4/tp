@@ -4,7 +4,6 @@ import budgetbuddy.exception.InvalidInputException;
 
 /**
  * Parses the "delete" command to extract the index of the expense.
- * Expected format: delete <INDEX>
  */
 public class DeleteParser extends Parser<Integer> {
     public DeleteParser(String input) {

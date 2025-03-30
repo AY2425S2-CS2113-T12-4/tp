@@ -32,7 +32,9 @@ public class EditBudgetParser extends Parser<String[]> {
         }
         if (remaining.contains("c/")) {
             String cat = remaining.split("c/", 2)[1].split(" ")[0].trim();
-            if (cat.isEmpty()) throw new InvalidInputException("Budget name cannot be empty.");
+            if (cat.isEmpty()) {
+                throw new InvalidInputException("Budget name cannot be empty.");
+            }
             result[2] = cat;
         }
         if (result[1].isEmpty() && result[2].isEmpty()) {

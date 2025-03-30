@@ -4,7 +4,6 @@ import budgetbuddy.exception.InvalidInputException;
 
 /**
  * Parses the "set-budget" command to extract category and amount.
- * Expected format: set-budget [c/CATEGORY] <AMOUNT>
  */
 public class SetBudgetParser extends Parser<String[]> {
     public SetBudgetParser(String input) {

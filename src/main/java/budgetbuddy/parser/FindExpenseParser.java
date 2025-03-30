@@ -4,7 +4,6 @@ import budgetbuddy.exception.InvalidInputException;
 
 /**
  * Parses the "find" command to extract a search keyword.
- * Expected format: find <KEYWORD>
  */
 public class FindExpenseParser extends Parser<String> {
     public FindExpenseParser(String input) {

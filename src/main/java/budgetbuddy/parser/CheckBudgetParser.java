@@ -4,7 +4,6 @@ import budgetbuddy.exception.InvalidInputException;
 
 /**
  * Parses the "check-budget" command to extract category if provided.
- * Expected formats: check-budget OR check-budget c/<CATEGORY>
  */
 public class CheckBudgetParser extends Parser<String> {
     public CheckBudgetParser(String input) {
