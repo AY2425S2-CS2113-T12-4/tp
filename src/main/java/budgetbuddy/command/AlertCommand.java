@@ -1,7 +1,7 @@
 package budgetbuddy.command;
 
 import budgetbuddy.model.BudgetManager;
-import budgetbuddy.parser.Parser;
+import budgetbuddy.parser.AlertParser;
 import budgetbuddy.exception.InvalidInputException;
 
 /**
@@ -19,17 +19,17 @@ public class AlertCommand extends Command{
     /**
      * Executes the AlertCommand by parsing the input and setting the alert for the budget.
      *
-     * <p>The method extracts the alert amount from the description using the {@link Parser#parseAlertCommand(String)}
-     * method, and then calls the {@link BudgetManager#setBudgetAlert(double)} method to set the alert for the budget.
+     * <p>The method extracts the alert amount from the description and then calls the
+     * {@link BudgetManager#setBudgetAlert(double)} method to set the alert for the budget.
      * </p>
      *
-     * @param parser The parser used to handle and parse the user input.
      * @param budgetManager The BudgetManager responsible for managing budgets and setting alerts.
      * @throws InvalidInputException If there is invalid input while parsing the description or setting the alert.
      */
     @Override
-    public void execute(Parser parser, BudgetManager budgetManager) throws InvalidInputException {
-        double amount = parser.parseAlertCommand(description);
+    public void execute(BudgetManager budgetManager) throws InvalidInputException {
+        AlertParser parser = new AlertParser(description);
+        double amount = parser.parse();
         budgetManager.setBudgetAlert(amount);
     }
 

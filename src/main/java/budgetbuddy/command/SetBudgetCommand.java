@@ -1,8 +1,8 @@
 package budgetbuddy.command;
 
 import budgetbuddy.model.BudgetManager;
-import budgetbuddy.parser.Parser;
 import budgetbuddy.exception.InvalidInputException;
+import budgetbuddy.parser.SetBudgetParser;
 
 /**
  * The SetBudgetCommand class represents a command to set a budget for a specific category.
@@ -22,13 +22,13 @@ public class SetBudgetCommand extends Command{
      * <p>This method parses the description for category and amount, then delegates the task of
      * setting the budget to the {@link BudgetManager}.</p>
      *
-     * @param parser The parser used to handle and parse the user input.
      * @param budgetManager The BudgetManager responsible for managing budgets and expenses.
      * @throws InvalidInputException If the input is invalid (e.g., parsing errors), this exception will be thrown.
      */
     @Override
-    public void execute(Parser parser, BudgetManager budgetManager) throws InvalidInputException {
-        String[] splitline = parser.parseSetBudgetCommand(description);
+    public void execute(BudgetManager budgetManager) throws InvalidInputException {
+        SetBudgetParser parser = new SetBudgetParser(description);
+        String[] splitline = parser.parse();
         String category = splitline[0];
         double amount = Double.parseDouble(splitline[1]);
         budgetManager.setBudget(category, amount);

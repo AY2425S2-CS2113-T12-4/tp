@@ -1,7 +1,7 @@
 package budgetbuddy.command;
 
 import budgetbuddy.model.BudgetManager;
-import budgetbuddy.parser.Parser;
+import budgetbuddy.parser.CheckBudgetParser;
 import budgetbuddy.exception.InvalidInputException;
 
 /**
@@ -20,17 +20,17 @@ public class CheckBudgetCommand extends Command{
      * Executes the CheckBudgetCommand by parsing the input to get the category and then checking the budget for that
      * category.
      *
-     * <p>The method extracts the category from the description using the {@link Parser#parseCheckBudgetCommand(String)}
-     * method, and then calls the {@link BudgetManager#checkBudget(String)} method to check the budget for that
-     * category.</p>
+     * <p>The method extracts the category from the description and then calls the
+     * {@link BudgetManager#checkBudget(String)} method to check the budget for that category.
+     * </p>
      *
-     * @param parser The parser used to handle and parse the user input.
      * @param budgetManager The BudgetManager responsible for managing budgets and checking the budget for a category.
      * @throws InvalidInputException If there is invalid input while parsing the description or checking the budget.
      */
     @Override
-    public void execute(Parser parser, BudgetManager budgetManager) throws InvalidInputException {
-        String category = parser.parseCheckBudgetCommand(description);
+    public void execute(BudgetManager budgetManager) throws InvalidInputException {
+        CheckBudgetParser parser = new CheckBudgetParser(description);
+        String category = parser.parse();
         budgetManager.checkBudget(category);
     }
 

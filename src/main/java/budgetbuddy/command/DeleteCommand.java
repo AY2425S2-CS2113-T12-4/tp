@@ -1,7 +1,7 @@
 package budgetbuddy.command;
 
 import budgetbuddy.model.BudgetManager;
-import budgetbuddy.parser.Parser;
+import budgetbuddy.parser.DeleteParser;
 import budgetbuddy.exception.InvalidInputException;
 
 /**
@@ -20,16 +20,17 @@ public class DeleteCommand extends Command{
      * Executes the DeleteCommand by parsing the input to get the index of the expense to be deleted
      * and then deleting the expense at that index.
      *
-     * <p>The method extracts the index from the description using the {@link Parser#parseDeleteCommand(String)} method,
-     * and then calls the {@link BudgetManager#deleteExpense(int)} method to remove the expense from the budget.</p>
+     * <p>The method extracts the index from the description and then calls the
+     * {@link BudgetManager#deleteExpense(int)} method to remove the expense from the budget.
+     * </p>
      *
-     * @param parser The parser used to handle and parse the user input.
      * @param budgetManager The BudgetManager responsible for managing budgets and deleting the expense.
      * @throws InvalidInputException If there is invalid input while parsing the description or deleting the expense.
      */
     @Override
-    public void execute(Parser parser, BudgetManager budgetManager) throws InvalidInputException {
-        int index = parser.parseDeleteCommand(description);
+    public void execute(BudgetManager budgetManager) throws InvalidInputException {
+        DeleteParser parser = new DeleteParser(description);
+        int index = parser.parse();
         budgetManager.deleteExpense(index);
     }
 
