@@ -200,7 +200,27 @@ public class BudgetManager {
         System.out.println("----------------------");
     }
 
-    public void editExpense(int index, double amount, String description, String dateTime)
+    /**
+     * Edits an existing expense in the Overall budget.
+     *
+     * This method allows users to modify an expense at a specific index in the Overall budget.
+     * It updates the expense's amount, description, and date/time, provided they meet the necessary conditions.
+     * If no Overall budget is found, or the index is invalid, an exception is thrown.
+     * The method will then call the `editExpense` method to update the selected expense and print a confirmation
+     * message.
+     *
+     * @param index The index of the expense to edit, where the first expense in the list is 1.
+     *              The index must be a valid number between 1 and the size of the expense list.
+     * @param amount A string representing the new amount of the expense. If the string is valid and positive,
+     *               it updates the amount of the expense.
+     * @param description A string representing the new description of the expense. If the string is not empty,
+     *                    it updates the description.
+     * @param dateTime A string representing the new date and time of the expense. If the string is valid,
+     *                 it updates the date/time; otherwise, it remains unchanged.
+     *
+     * @throws InvalidInputException If no Overall budget is found or if the provided index is invalid.
+     */
+    public void editExpense(int index, String amount, String description, String dateTime)
             throws InvalidInputException {
         if (!budgets.containsKey("Overall")) {
             throw new InvalidInputException("No Overall budget found.");

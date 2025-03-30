@@ -156,8 +156,30 @@ public class Expense {
         return formattedAmount + " spent on " + description + " (" + formattedDateTime + ")";
     }
 
-    public void editExpense(double amount, String description, String dateTime) {
-        if (amount != 0) {
+    /**
+     * Edits the details of an existing expense.
+     *
+     * This method allows users to modify the amount, description, and date/time of an expense.
+     * The amount must be a positive value, and if not provided, it remains unchanged.
+     * The description and date/time are optional and only updated if provided.
+     * If the date/time is in an incorrect format, the method uses the current date and time by default.
+     *
+     * @param amountStr A string representing the new amount of the expense. This value must be positive.
+     *                  If the string is empty, the amount remains unchanged.
+     * @param description A string representing the new description of the expense. If the string is empty,
+     *                    the description remains unchanged.
+     * @param dateTime A string representing the new date and time of the expense in a specific format
+     *                 (MMM dd yyyy at HH:mm). If the string is empty or the format is incorrect,
+     *                 the current date and time are used.
+     *
+     * @throws IllegalArgumentException If the provided amount is zero or negative.
+     */
+    public void editExpense(String amountStr, String description, String dateTime){
+        if (!amountStr.isEmpty()) {
+            double amount = Double.parseDouble(amountStr);
+            if (amount <= 0)  {
+                throw new IllegalArgumentException ("Amount cannot be zero or negative");
+            }
             this.amount = amount;
         }
         if (!description.isEmpty()) {

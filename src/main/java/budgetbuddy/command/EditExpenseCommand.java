@@ -30,11 +30,10 @@ public class EditExpenseCommand extends Command {
         String[] splitLine = parser.parse();
 
         int index = Integer.parseInt(splitLine[0]);
-        String amountStr = splitLine[1];
+        String amount = splitLine[1];
         String desc = splitLine[2];
         String dateTime = splitLine[3];
 
-        double amount = amountStr.isEmpty() ? -1 : Double.parseDouble(amountStr);
 
         budgetManager.editExpense(index, amount, desc, dateTime);
     }

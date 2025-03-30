@@ -208,7 +208,7 @@ public class Ui {
 
     public static void printExpenseEditedMessage(ArrayList<Expense> expenses, int index) {
         printSeparator();
-        System.out.println("Got it, the expense at index" + index + "has been updated!");
+        System.out.println("Got it, the expense at index " + index + " has been updated!");
         System.out.println("Updated expense -> " + expenses.get(expenses.size() - index));
         printSeparator();
     }

@@ -15,19 +15,31 @@
 
 {Give detailed description of each feature}
 
-### Adding a todo: `todo`
-Adds a new item to the list of todo items.
+### Adding an expense: `add`
+Adds a new item to the list of expenses. Users can choose to leave `CATEGORY` and `DATE TIME` blank, in which case:
+ - The expense will default to the **Overall Budget** if `CATEGORY` is not provided or cannot be found.
+ - The `DATE TIME` will default to the **current date and time** if left blank or formatted incorrectly.
 
-Format: `todo n/TODO_NAME d/DEADLINE`
+Format: `add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <DATE TIME>`
 
-* The `DEADLINE` can be in a natural language format.
-* The `TODO_NAME` cannot contain punctuation.  
+* The `CATEGORY` can be in natural language format. If it does not exist, the expense defaults to the **Overall Budget**.
+* The `DESCRIPTION` can be in natural language format.  
+* The `CATEGORY` and `DESCRIPTION` cannot contain `d/` and `t/`
+* The `DATE TIME` has to follow the format of `MMM dd yyyy at HH:mm`, where **only** the first letter of `MMM` is 
+capitalized, and HH:mm follows the 24-hour clock format. 
+* The `DATE TIME` must follow the format `MMM dd yyyy at HH:mm`, where:
+  - **Only the first letter of `MMM` is capitalized** (e.g., `Jan 15 2025 at 11:30`).
+  - **`HH:mm` follows the 24-hour clock format** (e.g., `13:45 for 1:45 PM`). 
+  - If an incorrect date format is provided, the **current date and time** will be used instead.
+* Users **must still include `c/` and `t/` even if leaving them blank**.
 
 Example of usage: 
 
-`todo n/Write the rest of the User Guide d/next week`
+`add 200 c/ d/ food t/`
 
-`todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
+`add 100 c/ Overall d/ bus fares t/`
+
+`add 50 c/ Overall d/ cab fares t/ Jan 15 2025 at 11:30`
 
 ## FAQ
 
