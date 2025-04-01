@@ -1,0 +1,49 @@
+@startuml
+' Abstract Command class
+package "Logic"{
+abstract class Command {
+    -String description
+    +Command(String description)
+    +abstract void execute(BudgetManager budgetManager) throws InvalidInputException
+    +abstract boolean isExit()
+}
+
+' Placeholder for concrete command classes
+class XYZCommand {
+    +XYZCommand(String description)
+    +void execute(BudgetManager budgetManager) throws InvalidInputException
+    +boolean isExit()
+}
+
+' Relationship between Command and XYZCommand
+Command <|-- XYZCommand
+
+
+
+
+' InputParser class (creates commands)
+class InputParser {
+    +Command parseInput(String userInput)
+}
+
+' InputManager class (manages input and execution)
+class InputManager {
+    -BudgetManager budgetManager
+    -InputParser inputParser
+    +InputManager(BudgetManager budgetManager)
+    +void processInputLoop()
+}
+}
+
+class ParserClasses{
+}
+
+ class BudgetManager {}
+
+' Relationships
+InputManager --> InputParser : uses
+InputParser --> XYZCommand : creates
+XYZCommand --> BudgetManager : interacts with
+InputManager --> BudgetManager : contains
+XYZCommand --> ParserClasses : uses
+@enduml

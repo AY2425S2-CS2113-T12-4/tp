@@ -18,9 +18,25 @@ Budget Buddy uses the following tools for development:
 1. JUnit5 - For unit testing and ensuring code reliability.
 2. Gradle - For efficient build automation and dependency management. 
 
-## Design & implementation
+## Design
+### Input Processing Component
+Here is a partial class diagram of the `Input Processing` component:
+![img_1.png](img_1.png)
+The sequence diagram below illustrates the interactions within the `Input Processing` component, taking the user input:
+`"add 50 c/ Overall d/ cab fares t/ Jan 15 2025 at 11:30"` as an example.
+![img.png](img.png)
+How the `Input Processing` component works:
+1. When a user input is taken in, it is passed into the `processInputLoop()` function of an `InputManager` object.
+2. The user input is then passed into an `InputParser` object that creates and returns a command object that matches the 
+input command (e.g., `AddExpenseCommand`). 
+3. The command object is then executed by the `InputManager`.
+4. The `execute` function then creates a parser object (e.g., `AddParser`) that is called to parse the input and return
+the result in a `String` array.
+5. The command class then calls the corresponding methods in `BudgetManager` to carry out the task (e.g., Adding an 
+expense).
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+## Implementation
 
 ## Product scope
 ### Target user profile
