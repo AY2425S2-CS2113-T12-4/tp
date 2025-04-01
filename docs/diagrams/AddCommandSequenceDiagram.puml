@@ -1,0 +1,40 @@
+@startuml
+
+hide footbox
+actor User
+participant "InputManager" as IM
+participant "InputParser" as IP
+participant "AddExpenseCommand" as AEC
+participant "AddParser" as AP
+participant "BudgetManager" as BM
+
+
+
+User -> IM: Enters "add 50 c/ Overall d/ cab fares t/ Jan 15 2025 at 11:30" command
+activate IM
+IM -> IP: parseInput(userInput)
+activate IP
+IP --> IM: Return AddExpenseCommand object
+deactivate IP
+IM -> AEC: execute(budgetManager)
+activate AEC
+AEC -> AP: new AddParser(description)
+activate AP
+AP -> AP: parse()
+activate AP
+deactivate AP
+AP --> AEC: Return parsed components [amount, category, description, time]
+deactivate AP
+box AEC #LightGreen
+AEC -> BM: addExpenseToBudget(category, amount, description, time)
+activate BM
+BM --> AEC:
+deactivate BM
+AEC --> IM:
+end box
+
+deactivate AEC
+
+IM --> User: Show success message
+deactivate IM
+@enduml

@@ -1,0 +1,2 @@
+CATEGORY:Monthly|LIMIT:0.0
+ALERT:budgetbuddy.model.Alert@69663380
