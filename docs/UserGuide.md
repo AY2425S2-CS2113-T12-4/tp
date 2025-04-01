@@ -73,12 +73,21 @@ Example of usage:
 
 `edit-expense 1 t/ Jan 15 2025 at 11:30`
 
-### Summary of Budget: 'summary-budget'
+### Add Alert: 'alert'
+Sets a budget alert to notify the user when expenses exceed a specific limit. 
+
+Format: `alert <AMOUNT>`
+
+* The `AMOUNT` can be any positive number, if a number too large in entered, it will be displayed as Infinity.
+* The budget alert remains active until it is manually updated or removed
+* To remove the alert, input `alert 0`
+
+### Summary of Budget: `summary`
 View a summarized budget by category, which includes the total expenses and spending limits for each category.
 
 Example of usage: `summary`
 
-### Help: 'help'
+### Help: `help`
 View all available commands in Budget Buddy, including their functions and formats.
 
 Example of usage: `help`
