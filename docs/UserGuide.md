@@ -2,14 +2,19 @@
 
 ## Introduction
 
-{Give a product intro}
+Budget Buddy is designed for students who want to manage their finances efficiently. These users often have limited 
+income, and busy schedules, and need an easy-to-use tool to track their daily expenses, set budgets, and stay 
+financially aware. They may struggle with overspending, forgetfulness, and the challenge of balancing expenses across 
+different categories.
 
 ## Quick Start
 
-{Give steps to get started quickly}
-
 1. Ensure that you have Java 17 or above installed.
-1. Down the latest version of `Duke` from [here](http://link.to/duke).
+2. Download the latest version of `tp.jar` from [here]().
+3. Copy the file to the folder you want to use as the home folder for your address book.
+4. Open a command terminal, cd into the folder you put the jar file in and type the following command:
+`java -jar tp.jar`
+5. A GUI similar to the one below should appear in a few seconds. 
 
 ## Features 
 
@@ -67,6 +72,25 @@ Example of usage:
 `edit-expense 1 a/ 100 d/ bus fares`
 
 `edit-expense 1 t/ Jan 15 2025 at 11:30`
+
+### Add Alert: 'alert'
+Sets a budget alert to notify the user when expenses exceed a specific limit. 
+
+Format: `alert <AMOUNT>`
+
+* The `AMOUNT` can be any positive number, if a number too large in entered, it will be displayed as Infinity.
+* The budget alert remains active until it is manually updated or removed
+* To remove the alert, input `alert 0`
+
+### Summary of Budget: `summary`
+View a summarized budget by category, which includes the total expenses and spending limits for each category.
+
+Example of usage: `summary`
+
+### Help: `help`
+View all available commands in Budget Buddy, including their functions and formats.
+
+Example of usage: `help`
 
 ## FAQ
 
