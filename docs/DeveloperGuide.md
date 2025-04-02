@@ -38,6 +38,30 @@ expense).
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 ## Implementation
 
+### Parser Class
+#### Overview
+The Parser<T> abstract class serves as the base for various command-specific parsers in BudgetBuddy. 
+Each parser extends Parser<T> and implements the parse() method to extract command-specific details.
+
+#### Class Diagram
+![Parser Clas Diagram](diagrams/ParserClassDiagram.jpg)
+
+#### Example Implementation
+The `AddParser` class is responsible for extracting details from the add command. It parses the input string and extracts four main components:
+* Amount 
+* Category 
+* Description 
+* Date/Time
+
+#### Code Flow
+* The constructor initializes the input. 
+* The parse() method validates and extracts details using string splitting operations. 
+* If required tokens (c/, d/, t/) are missing, an InvalidInputException is thrown. 
+* The extracted details are returned as a String[] array.
+
+#### Sequence Diagram
+
+
 ## Product scope
 ### Target user profile
 
