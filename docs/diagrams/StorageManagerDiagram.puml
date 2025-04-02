@@ -1,11 +1,48 @@
 @startuml
-'https://plantuml.com/sequence-diagram
 
-autonumber
+package "budgetbuddy.storage" {
+    class StorageManager {
+        - FILE_PATH: String
+        + save(manager: BudgetManager): void
+        + load(manager: BudgetManager): void
+    }
+}
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+package "budgetbuddy.model" {
+    class BudgetManager {
+        - budgets: HashMap<String, Budget>
+        - alert: Alert
+        + addExpenseToBudget(category: String, amount: double, description: String, time: String): void
+        + setBudgetAlert(amount: double): void
+        + getBudgetAlert(): Alert
+        + getBudgets(): Map<String, Budget>
+    }
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+    class Budget {
+        + getExpenses(): List<Expense>
+        + addExpense(e: Expense): void
+        + getLimit(): double
+    }
+
+    class Expense {
+        + getAmount(): double
+        + getDescription(): String
+        + getDateTimeString(): String
+    }
+
+    class Alert {
+        + setAlert(amount: double): void
+        + checkAlert(totalExpenses: double): void
+        + getAlertAmount(): double
+    }
+}
+
+' Relationships
+StorageManager --> BudgetManager : uses
+StorageManager --> Budget : uses
+StorageManager --> Expense : uses
+BudgetManager --> Budget : manages
+BudgetManager --> Alert : uses
+Budget --> Expense : contains
+
 @enduml

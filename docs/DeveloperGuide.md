@@ -37,6 +37,13 @@ expense).
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 ## Implementation
+### Implementation of Storage Feature
+The `StorageManager` class is responsible for reading from and writing to a local text file.
+It loads all budgets and alerts when the application starts and saves them on every update.
+
+The diagram below illustrates how `StorageManager` interacts with `BudgetManager`, `Budget`, `Expense`, and `Alert`.
+
+![StorageManagerClassDiagram.png](StorageManagerDiagram.png)
 
 ## Product scope
 ### Target user profile
