@@ -156,6 +156,16 @@ public class BudgetManager {
     }
 
     /**
+     * Displays all expenses categorized under Overall budget in a particular
+     * date and time range
+     */
+    public void listPartialExpenses(String start, String end) {
+        assert budgets.containsKey("Overall") : "Error: 'Overall' budget should exist before listing expenses.";
+        Budget overall = budgets.get("Overall");
+        overall.printExpenses(start, end);
+    }
+
+    /**
      * Deletes an expense from the Overall Budget based on the index.
      * Also deletes the same expense from the corresponding category budget.
      *

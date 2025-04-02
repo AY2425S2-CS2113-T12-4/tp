@@ -2,7 +2,9 @@ package budgetbuddy.ui;
 
 import budgetbuddy.model.Budget;
 import budgetbuddy.model.Expense;
+import budgetbuddy.parser.DateTimeParser;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
@@ -171,6 +173,80 @@ public class Ui {
         System.out.println("Expense List:");
         for (int i = expenses.size() - 1; i >= 0; i--) {
             System.out.println((expenses.size() - i) + ". " + expenses.get(i));
+        }
+        printSeparator();
+    }
+
+    /**
+     * Prints a list of all recorded expenses in a date and time range.
+     *
+     * @param expenses A list of expenses to be displayed.
+     */
+
+    public static void printExpensesList(ArrayList expenses, String start, String end) {
+        printSeparator();
+
+        boolean bypassStart = start.isEmpty();
+        //if no start date provided
+        boolean bypassEnd = end.isEmpty();
+        //if no end date provided
+
+        boolean happensAfterStart = false;
+        //if recorded expense happens after user provided start date
+        boolean happensBeforeEnd = false;
+        //if recorded expense happens before user provided end date
+
+
+        LocalDateTime startDate = null;
+        LocalDateTime endDate = null;
+
+
+        try {
+            if (!bypassStart) {
+                startDate = DateTimeParser.parseOrDefault(start, false);
+            }
+            if (!bypassEnd) {
+                endDate = DateTimeParser.parseOrDefault(end, false);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        //if the user provides incorrect date and time formats
+
+
+        System.out.println("Expense List:");
+        for (int i = expenses.size() - 1; i >= 0; i--) {
+            Expense expense = (Expense) expenses.get(i);
+            LocalDateTime expenseDateTime = DateTimeParser.parseOrDefault(expense.getDateTimeString(),
+                    true);
+            //date time of the expense in expenses
+
+            if(!bypassStart) {
+                assert startDate != null;
+                if (expenseDateTime.isAfter(startDate)) {
+                    happensAfterStart = true;
+                    //if happens after date
+                }
+            }else{
+                happensBeforeEnd = true;
+                //when no start date provided
+            }
+
+            if(!bypassEnd){
+                assert endDate != null;
+                if(expenseDateTime.isBefore(endDate)){
+                    happensBeforeEnd = true;
+                    //if happens before end
+                }
+            }else{
+                happensAfterStart = true;
+                //when no end date provided
+            }
+
+            if(happensAfterStart && happensBeforeEnd) {
+                System.out.println((expenses.size() - i) + ". " + expenses.get(i));
+                //only output those expenses which fall in the range
+            }
         }
         printSeparator();
     }

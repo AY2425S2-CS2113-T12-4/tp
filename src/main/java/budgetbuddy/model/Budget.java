@@ -105,6 +105,26 @@ public class Budget {
         }
     }
 
+    /**
+     * Prints all expenses under this budget in reverse order (most recent first) in a particular
+     * date and time range
+     */
+
+    public void printExpenses(String start, String end) {
+
+        if (expenses.isEmpty()) {
+            Ui.printNoExpense();
+
+        }else {
+            Ui.printExpensesList(expenses, start, end);
+        }
+    }
+
+    /**
+     * deletes an expense.
+     * @param index of the expense in list
+     * @throws InvalidInputException when wrong index provided
+     */
     public void deleteExpense(int index) throws InvalidInputException {
         if (index < 1 || index > expenses.size()) {
             throw new InvalidInputException("Invalid index. Please provide a valid expense number.");
