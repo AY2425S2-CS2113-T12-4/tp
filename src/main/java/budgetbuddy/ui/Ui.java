@@ -78,7 +78,8 @@ public class Ui {
         System.out.println("Examples: delete 2, delete 5");
 
         System.out.println("\nView Expenses: list");
-        System.out.println("Format: list");
+        System.out.println("Format: list start/ START_TIME end/ END_TIME");
+        System.out.println("Please Note: START_TIME and END_TIME are both optional");
         System.out.println("Example: list");
 
         System.out.println("\nSet Budget: set-budget");
