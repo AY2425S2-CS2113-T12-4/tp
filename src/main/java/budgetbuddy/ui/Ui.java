@@ -191,9 +191,9 @@ public class Ui {
         boolean bypassEnd = end.isEmpty();
         //if no end date provided
 
-        boolean happensAfterStart = false;
+        //boolean happensAfterStart = false;
         //if recorded expense happens after user provided start date
-        boolean happensBeforeEnd = false;
+        //boolean happensBeforeEnd = false;
         //if recorded expense happens before user provided end date
 
 
@@ -209,7 +209,8 @@ public class Ui {
                 endDate = DateTimeParser.parseOrDefault(end, false);
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.out.println("Error parsing expenses list: " + e.getMessage());
+            //throw new RuntimeException(e);
         }
         //if the user provides incorrect date and time formats
 
@@ -217,37 +218,18 @@ public class Ui {
         System.out.println("Expense List:");
         for (int i = expenses.size() - 1; i >= 0; i--) {
             Expense expense = (Expense) expenses.get(i);
-            LocalDateTime expenseDateTime = DateTimeParser.parseOrDefault(expense.getDateTimeString(),
-                    true);
-            //date time of the expense in expenses
+            LocalDateTime expenseDateTime = DateTimeParser.parseOrDefault(expense.getDateTimeString(), true);
 
-            if(!bypassStart) {
-                assert startDate != null;
-                if (expenseDateTime.isAfter(startDate)) {
-                    happensAfterStart = true;
-                    //if happens after date
-                }
-            }else{
-                happensBeforeEnd = true;
-                //when no start date provided
-            }
+            boolean happensAfterStart = bypassStart || (startDate != null &&
+                    (expenseDateTime.isEqual(startDate) || expenseDateTime.isAfter(startDate)));
+            boolean happensBeforeEnd = bypassEnd || (endDate != null &&
+                    (expenseDateTime.isEqual(endDate) || expenseDateTime.isBefore(endDate)));
 
-            if(!bypassEnd){
-                assert endDate != null;
-                if(expenseDateTime.isBefore(endDate)){
-                    happensBeforeEnd = true;
-                    //if happens before end
-                }
-            }else{
-                happensAfterStart = true;
-                //when no end date provided
-            }
-
-            if(happensAfterStart && happensBeforeEnd) {
+            if (happensAfterStart && happensBeforeEnd) {
                 System.out.println((expenses.size() - i) + ". " + expenses.get(i));
-                //only output those expenses which fall in the range
             }
         }
+
         printSeparator();
     }
 

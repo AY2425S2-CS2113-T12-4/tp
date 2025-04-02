@@ -42,19 +42,21 @@ public class ListCommand extends Command{
         //this is required when finding expenses in a range
 
 
-        for(int i = 0; i<listCommandSplit.length; i++){
-            if(listCommandSplit[i].equalsIgnoreCase("start/")){
+
+        for (int i = 0; i < listCommandSplit.length; i++) {
+            if (listCommandSplit[i].toLowerCase().startsWith("start/")) {
                 hasStart = true;
-                start = listCommandSplit[i+1];
+                start = listCommandSplit[i].substring("start/".length());
+                partialExpensesRequired = true;
+            }
 
-                partialExpensesRequired=true;
-            }if(listCommandSplit[i].equalsIgnoreCase("end/")){
+            if (listCommandSplit[i].toLowerCase().startsWith("end/")) {
                 hasEnd = true;
-                end = listCommandSplit[i+1];
-
-                partialExpensesRequired=true;
+                end = listCommandSplit[i].substring("end/".length());
+                partialExpensesRequired = true;
             }
         }
+
 
         if(hasStart && !hasEnd) {
             start = this.description.split("start/")[1];
@@ -68,6 +70,7 @@ public class ListCommand extends Command{
             end = startToEnd.split("end/")[1];
         }
 
+        //System.out.println(start);
         if (partialExpensesRequired) {
             budgetManager.listPartialExpenses(start.trim(), end.trim());
         } else {

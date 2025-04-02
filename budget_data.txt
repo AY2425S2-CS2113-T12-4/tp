@@ -1,3 +1,4 @@
 CATEGORY:Overall|LIMIT:0.0
-EXPENSE:2.0|foo|Apr 02 2025 at 23:59
-ALERT:budgetbuddy.model.Alert@1a93a7ca
+EXPENSE:20.0|foo|Apr 03 2025 at 00:29
+EXPENSE:30.0|foo|Apr 05 2025 at 12:30
+ALERT:budgetbuddy.model.Alert@73a8dfcc
