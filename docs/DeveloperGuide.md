@@ -59,9 +59,6 @@ The `AddParser` class is responsible for extracting details from the add command
 * If required tokens (c/, d/, t/) are missing, an InvalidInputException is thrown. 
 * The extracted details are returned as a String[] array.
 
-#### Sequence Diagram
-
-
 ## Product scope
 ### Target user profile
 
