@@ -183,9 +183,8 @@ public class Ui {
      */
     public static void printDeleteExpense(ArrayList<Expense> expenses, int index) {
         printSeparator();
-        System.out.println("The following expense has been deleted successfully.");
+        System.out.println("The following expense has been deleted successfully from Overall Budget.");
         System.out.println("-> " + expenses.get(expenses.size() - index));
-        expenses.remove(expenses.size() - index);  // Remove the expense from the list
         printSeparator();
     }
 

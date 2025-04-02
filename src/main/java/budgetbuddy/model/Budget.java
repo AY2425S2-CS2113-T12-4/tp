@@ -109,7 +109,7 @@ public class Budget {
         if (index < 1 || index > expenses.size()) {
             throw new InvalidInputException("Invalid index. Please provide a valid expense number.");
         }
-        Ui.printDeleteExpense(expenses, index);
+        expenses.remove(expenses.size() - index);
     }
 
     public ArrayList<Expense> getExpenses() {
