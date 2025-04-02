@@ -47,6 +47,8 @@ extension and maintenance across the codebase.
 
 #### Class Diagram
 
+![ImplementationAbstractCommandsDiagram.png](ImplementationAbstractCommandsDiagram.png)
+
 #### Example Implementation: AddExpenseCommand 
 
 1. **Initialization:** The constructor of `AddExpenseCommand` takes the user input (a description string) and 
