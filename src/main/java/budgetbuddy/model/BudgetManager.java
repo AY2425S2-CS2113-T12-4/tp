@@ -3,6 +3,7 @@ package budgetbuddy.model;
 import budgetbuddy.exception.InvalidInputException;
 import budgetbuddy.ui.Ui;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -171,9 +172,9 @@ public class BudgetManager {
             throw new InvalidInputException("Invalid index. Please provide a valid expense number.");
         }
 
-        Expense expenseToDelete = overallBudget.getExpenses().get(overallBudget.getExpenses().size() - index);
-        System.out.println("Expense deleted successfully from Overall Budget.");
-        System.out.println("    " + expenseToDelete);
+        ArrayList<Expense> expenses = overallBudget.getExpenses();
+        Expense expenseToDelete = expenses.get(overallBudget.getExpenses().size() - index);
+        Ui.printDeleteExpense(expenses,index);
 
         overallBudget.deleteExpense(index);
         logger.info("Expense at index " + index + " deleted from Overall Budget.");
@@ -191,13 +192,14 @@ public class BudgetManager {
                 if (categoryExpense.equals(expenseToDelete)) {
                     categoryBudget.getExpenses().remove(i);
                     System.out.println("Expense also deleted from category '" + category + "'.");
+                    Ui.printSeparator();
                     logger.info("Expense deleted from category '" + category + "'.");
                     break;
                 }
             }
         }
 
-        System.out.println("----------------------");
+
     }
 
     /**
