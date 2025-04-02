@@ -128,6 +128,19 @@ View a summarized budget by category, which includes the total expenses and spen
 
 Example of usage: `summary`
 
+**Expected output:**
+````
+___________________________________________
+Budget Summary:
+
+Category: Overall
+Total Expenses: $20.0
+Spending Limit: $0.0
+
+___________________________________________
+````
+
+
 ### Checking Budget: `check-budget`
 Displays the budget allocation, amount spent, and remaining balance for a specified category.
 If no category is provided, it displays the Overall Budget.
