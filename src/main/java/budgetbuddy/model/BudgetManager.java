@@ -68,7 +68,7 @@ public class BudgetManager {
                 logger.info("Expense Added: " + expense);
             }
 
-            System.out.println("Expense Added: " + expense);
+            Ui.printAddExpense(expense);
 
             checkBudgetAlert();
         } catch (IllegalArgumentException e) {

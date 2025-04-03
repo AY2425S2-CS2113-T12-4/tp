@@ -45,8 +45,14 @@ Example of usage:
 
 `add 100 c/ Overall d/ bus fares t/`
 
-`add 50 c/ Overall d/ cab fares t/ Jan 15 2025 at 11:30`
 
+**Example:** `add 50 c/ Overall d/ cab fares t/ Jan 15 2025 at 11:30`
+**Expected Output:**
+```
+___________________________________________
+Expense Added: $50.00 spent on cab fares (Jan 15 2025 at 11:30)
+___________________________________________
+```
 ### Deleting an expense: `delete`
 Removes a recorded expense from the Overall Budget and its corresponding category budget using its index.
 This `INDEX` is found from the list command, which displays all recorded expenses.
@@ -112,8 +118,16 @@ Example of usage:
 
 `edit-expense 1 a/ 100 d/ bus fares`
 
-`edit-expense 1 t/ Jan 15 2025 at 11:30`
 
+**Example:** `edit-expense 1 t/ Jan 15 2025 at 11:30`
+
+**Expected Output:**
+```
+___________________________________________
+Got it, the expense at index 1 has been updated!
+Updated expense -> $50.00 spent on cab fares (Jan 15 2025 at 11:30)
+___________________________________________
+```
 ### Add Alert: 'alert'
 Sets a budget alert to notify the user when expenses exceed a specific limit. 
 
