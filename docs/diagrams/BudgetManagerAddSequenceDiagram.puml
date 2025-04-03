@@ -1,0 +1,63 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+hide footbox
+participant "AddCommand" as XYZ
+participant "BudgetManager" as BM
+participant "Budget" as B
+participant "Expense" as E
+
+XYZ -> BM: addExpenseToBudget(category, amount, description, time)
+activate BM
+
+create E
+BM -> E: new Expense(amount, description, time)
+activate E
+E --> BM: return Expense instance
+deactivate E
+
+opt Overall budget does not exist
+    BM -> BM: budgets.put("Overall", new Budget("Overall", 0))
+    activate BM
+    BM -->BM
+    deactivate BM
+end
+
+
+BM -> BM: get "Overall" budget
+activate BM
+BM -->BM
+deactivate BM
+BM -> B: addExpense(expense)
+
+activate B
+
+
+
+alt category exists and is not "Overall"
+    BM -> BM: get category-specific budget
+    activate BM
+    BM -->BM
+    deactivate BM
+    BM -> B: addExpense(expense)
+    B --> BM
+    deactivate B
+
+else category does not exist
+    BM -> BM: log warning about missing category
+    activate BM
+    BM -->BM
+    deactivate BM
+end
+
+BM -> BM: checkBudgetAlert()
+activate BM
+BM -->BM
+deactivate BM
+
+BM -> Ui: Ui.printAddExpense(expense)
+activate Ui
+return print added expense message
+BM --> XYZ
+deactivate BM
+@enduml

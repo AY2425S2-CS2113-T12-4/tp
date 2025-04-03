@@ -22,10 +22,10 @@ Budget Buddy uses the following tools for development:
 
 ### Input Processing Component
 Here is a partial class diagram of the `Input Processing` component:
-![img_1.png](img_1.png)
+![CommandClassDiagram.png](CommandClassDiagram.png)
 The sequence diagram below illustrates the interactions within the `Input Processing` component, taking the user input:
 `"add 50 c/ Overall d/ cab fares t/ Jan 15 2025 at 11:30"` as an example.
-![img.png](img.png)
+![AddCommandSequenceDiagram.png](AddCommandSequenceDiagram.png)
 How the `Input Processing` component works:
 1. When a user input is taken in, it is passed into the `processInputLoop()` function of an `InputManager` object.
 2. The user input is then passed into an `InputParser` object that creates and returns a command object that matches the 
@@ -66,6 +66,20 @@ where the expense is recorded under the specified category.
 5. **Program Flow Control:** The `isExit()` method always returns `false`, indicating that this command does not 
 signal the end of the application’s execution.
 
+### Budget Manager Class
+#### Overview
+The `BudgetManager` class is responsible for managing instances of the `Budget` class, which holds an `ArrayList` of 
+`Expense` objects. It centralizes the core functionalities related to budget management, including setting budgets, 
+adding expenses to specific budgets, and other budget-related operations. This class acts as the interface for 
+interacting with the budget and expense data, ensuring proper handling and organization of the expenses within the 
+system.
+
+#### Class Diagram
+![BudgetManagerClassDiagram.png](BudgetManagerClassDiagram.png)
+
+#### Implementation add functions in Budget Manager
+The diagram below outlines the process of execution when `AddCommand` is executed.
+![BudgetManagerAddSequenceDiagram.png](BudgetManagerAddSequenceDiagram.png)
 
 ### Implementation of Storage Feature
 The `StorageManager` class is responsible for reading from and writing to a local text file.

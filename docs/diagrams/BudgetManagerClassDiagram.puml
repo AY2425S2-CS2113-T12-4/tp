@@ -1,0 +1,77 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+package "BudgetBuddy" {
+package "Budget and Expenses Class Diagram" {
+class BudgetManager {
+    + BudgetManager()
+    + addExpenseToBudget(String category, double amount, String description, String time)
+    + setBudgetAlert(double amount)
+    + checkBudgetAlert()
+    + getBudgets(): Map<String, Budget>
+    + setBudget(String category, double amount)
+    + getTotalExpenses(): double
+    + listAllExpenses()
+    + listPartialExpenses(String start, String end)
+    + deleteExpense(int index) throws InvalidInputException
+    + editExpense(int index, String amount, String description, String dateTime) throws InvalidInputException
+    + checkBudget(String category)
+    + getBudgetAlert(): Alert
+    + findExpense(String keyword)
+    + editBudget(String currentName, double newAmount, String newName) throws InvalidInputException
+}
+
+class Budget {
+    - String category
+    - double limit
+    + Budget(String category, double limit)
+    + setCategory(String category)
+    + getCategory(): String
+    + addExpense(Expense expense)
+    + getTotalExpenses(): double
+    + setLimit(double amount)
+    + getLimit(): double
+    + printExpenses()
+    + printExpenses(String start, String end)
+    + deleteExpense(int index) throws InvalidInputException
+    + getExpenses(): ArrayList<Expense>
+}
+
+class Expense {
+    - static final DateTimeFormatter DATETIME_FORMAT
+    - LocalDateTime dateTime
+    - String description
+    - double amount
+    + Expense(double amount, String description)
+    + Expense(double amount, String description, String dateTimeString)
+    + Expense(double amount, String description, String dateTimeString, Boolean noErrorPrint)
+    + Expense(double amount, String description, LocalDateTime dateTime)
+    + toString(): String
+    + editExpense(String amountStr, String description, String dateTime)
+    + getAmount(): double
+    + getDescription(): String
+    + getDateTimeString(): String
+}
+
+class Alert {
+    - double alertAmount
+    - boolean isActive
+    + Alert()
+    + setAlert(double amount)
+    + checkAlert(double totalExpenses)
+    + getAlertAmount(): double
+    + editAlertAmount(double amount): double
+}
+}
+
+class XYZCommand
+}
+' Associations
+XYZCommand --> BudgetManager
+BudgetManager "1" *-- "1..*" Budget : budgets
+Budget "1..2" *-- "0..*" Expense : expenses
+BudgetManager *--  "1"Alert : alert
+
+
+
+@enduml

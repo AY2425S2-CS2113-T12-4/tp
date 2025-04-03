@@ -1,12 +1,13 @@
 @startuml
-
+hide circle
+skinparam classAttributeIconSize 0
 hide footbox
 actor User
-participant "InputManager" as IM
-participant "InputParser" as IP
-participant "AddExpenseCommand" as AEC
-participant "AddParser" as AP
-participant "BudgetManager" as BM
+participant ":InputManager" as IM
+participant ":InputParser" as IP
+participant ":AddExpenseCommand" as AEC
+participant ":AddParser" as AP
+participant ":BudgetManager" as BM
 
 
 
@@ -14,6 +15,11 @@ User -> IM: Enters "add 50 c/ Overall d/ cab fares t/ Jan 15 2025 at 11:30" comm
 activate IM
 IM -> IP: parseInput(userInput)
 activate IP
+create AEC
+IP -> AEC: initialize with (amount, category, description, time)
+activate AEC
+AEC --> IP
+deactivate AEC
 IP --> IM: Return AddExpenseCommand object
 deactivate IP
 IM -> AEC: execute(budgetManager)
@@ -22,6 +28,7 @@ AEC -> AP: new AddParser(description)
 activate AP
 AP -> AP: parse()
 activate AP
+AP --> AP
 deactivate AP
 AP --> AEC: Return parsed components [amount, category, description, time]
 deactivate AP

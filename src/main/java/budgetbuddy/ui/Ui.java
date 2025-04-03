@@ -264,10 +264,27 @@ public class Ui {
         printSeparator();
     }
 
+    /**
+     * Prints a message indicating that an expense has been successfully updated.
+     *
+     * @param expenses The list of all expenses, which contains the expense that was updated.
+     * @param index The index of the expense in the list that was updated.
+     */
     public static void printExpenseEditedMessage(ArrayList<Expense> expenses, int index) {
         printSeparator();
         System.out.println("Got it, the expense at index " + index + " has been updated!");
         System.out.println("Updated expense -> " + expenses.get(expenses.size() - index));
+        printSeparator();
+    }
+
+    /**
+     * Prints a message indicating that a new expense has been successfully added.
+     *
+     * @param expense The expense that was added.
+     */
+    public static void printAddExpense(Expense expense) {
+        printSeparator();
+        System.out.println("Expense Added: " + expense);
         printSeparator();
     }
 
