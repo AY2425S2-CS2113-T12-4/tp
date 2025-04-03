@@ -37,6 +37,36 @@ expense).
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 ## Implementation
+
+### Command Class
+#### Overview
+The `Command` abstract class serves as the foundation for all command-specific implementations in **BudgetBuddy**. 
+Each command inherits from `Command` and must implement the `execute()` method to define its specific behavior. 
+By using this structure, **BudgetBuddy** enforces a standardized interface for command execution, which simplifies 
+extension and maintenance across the codebase.
+
+#### Class Diagram
+
+![ImplementationAbstractCommandsDiagram.png](ImplementationAbstractCommandsDiagram.png)
+
+#### Example Implementation: AddExpenseCommand 
+
+1. **Initialization:** The constructor of `AddExpenseCommand` takes the user input (a description string) and 
+passes it to the `Command` superclass.
+
+2. **Parsing:** Inside `execute()`, a new `AddParser` is instantiated to parse and validate the input string. 
+The parser splits the input into meaningful tokens (e.g., amount, category, description, and time).
+
+3. **Validation & Extraction:** If any essential tokens are missing (e.g., `c/`, `d/`, `t/` for category, description,
+and time), an `InvalidInputException` is thrown. Otherwise, the tokens are returned in a `String[]` array.
+
+4. **Processing & Execution:** The extracted data is then used to call the `BudgetManager#addExpenseToBudget` method, 
+where the expense is recorded under the specified category.
+
+5. **Program Flow Control:** The `isExit()` method always returns `false`, indicating that this command does not 
+signal the end of the application’s execution.
+
+
 ### Implementation of Storage Feature
 The `StorageManager` class is responsible for reading from and writing to a local text file.
 It loads all budgets and alerts when the application starts and saves them on every update.

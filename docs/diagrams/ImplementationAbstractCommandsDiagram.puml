@@ -1,0 +1,38 @@
+@startuml
+
+' Define the abstract base class
+abstract class Command {
+    - description: String
+    + execute(budgetManager): void
+    + isExit(): boolean
+}
+
+' Define all subclasses
+class AddExpenseCommand
+class AlertCommand
+class CheckBudgetCommand
+class DeleteCommand
+class EditBudgetCommand
+class EditExpenseCommand
+class ExitCommand
+class FindExpenseCommand
+class HelpCommand
+class ListCommand
+class SetBudgetCommand
+class SummaryCommand
+
+' Define inheritance relationships
+Command <|-- AddExpenseCommand
+Command <|-- AlertCommand
+Command <|-- CheckBudgetCommand
+Command <|-- DeleteCommand
+Command <|-- EditBudgetCommand
+Command <|-- EditExpenseCommand
+Command <|-- ExitCommand
+Command <|-- FindExpenseCommand
+Command <|-- HelpCommand
+Command <|-- ListCommand
+Command <|-- SetBudgetCommand
+Command <|-- SummaryCommand
+
+@enduml

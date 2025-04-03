@@ -2,7 +2,9 @@ package budgetbuddy.ui;
 
 import budgetbuddy.model.Budget;
 import budgetbuddy.model.Expense;
+import budgetbuddy.parser.DateTimeParser;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
@@ -76,7 +78,8 @@ public class Ui {
         System.out.println("Examples: delete 2, delete 5");
 
         System.out.println("\nView Expenses: list");
-        System.out.println("Format: list");
+        System.out.println("Format: list start/ START_TIME end/ END_TIME");
+        System.out.println("Please Note: START_TIME and END_TIME are both optional");
         System.out.println("Example: list");
 
         System.out.println("\nSet Budget: set-budget");
@@ -172,6 +175,62 @@ public class Ui {
         for (int i = expenses.size() - 1; i >= 0; i--) {
             System.out.println((expenses.size() - i) + ". " + expenses.get(i));
         }
+        printSeparator();
+    }
+
+    /**
+     * Prints a list of all recorded expenses in a date and time range.
+     *
+     * @param expenses A list of expenses to be displayed.
+     */
+
+    public static void printExpensesList(ArrayList expenses, String start, String end) {
+        printSeparator();
+
+        boolean bypassStart = start.isEmpty();
+        //if no start date provided
+        boolean bypassEnd = end.isEmpty();
+        //if no end date provided
+
+        //boolean happensAfterStart = false;
+        //if recorded expense happens after user provided start date
+        //boolean happensBeforeEnd = false;
+        //if recorded expense happens before user provided end date
+
+
+        LocalDateTime startDate = null;
+        LocalDateTime endDate = null;
+
+
+        try {
+            if (!bypassStart) {
+                startDate = DateTimeParser.parseOrDefault(start, false);
+            }
+            if (!bypassEnd) {
+                endDate = DateTimeParser.parseOrDefault(end, false);
+            }
+        } catch (Exception e) {
+            System.out.println("Error parsing expenses list: " + e.getMessage());
+            //throw new RuntimeException(e);
+        }
+        //if the user provides incorrect date and time formats
+
+
+        System.out.println("Expense List:");
+        for (int i = expenses.size() - 1; i >= 0; i--) {
+            Expense expense = (Expense) expenses.get(i);
+            LocalDateTime expenseDateTime = DateTimeParser.parseOrDefault(expense.getDateTimeString(), true);
+
+            boolean happensAfterStart = bypassStart || (startDate != null &&
+                    (expenseDateTime.isEqual(startDate) || expenseDateTime.isAfter(startDate)));
+            boolean happensBeforeEnd = bypassEnd || (endDate != null &&
+                    (expenseDateTime.isEqual(endDate) || expenseDateTime.isBefore(endDate)));
+
+            if (happensAfterStart && happensBeforeEnd) {
+                System.out.println((expenses.size() - i) + ". " + expenses.get(i));
+            }
+        }
+
         printSeparator();
     }
 
