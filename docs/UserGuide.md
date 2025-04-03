@@ -15,7 +15,18 @@ different categories.
 4. Open a command terminal, cd into the folder you put the jar file in and type the following command:
 `java -jar tp.jar`
 5. A GUI similar to the one below should appear in a few seconds.
-![gui.png](gui.png)
+```
+|                     |
+|  $$$$       $$$$    |
+| $    $     $    $   |
+| $    $     $    $   |
+|  $$$$       $$$$    |
+|_____________________|
+Hello! I'm your Budget Buddy
+What can I do for you?
+Input 'help' if you want to know what I can do!!
+___________________________________________
+```
 
 ## Features 
 
@@ -206,7 +217,7 @@ Updated limit of budget 'Food' to $1000.0
 Renamed budget 'Food' to 'Groceries'
 ```
 
-### Find: `find-expense`
+### Find: `find`
 Searches for expenses in the Overall budget using a keyword. 
 
 **Format:** `find <KEYWORD>`
@@ -241,12 +252,22 @@ View all available commands in Budget Buddy, including their functions and forma
 
 ## FAQ
 
-**Q**: How do I transfer my data to another computer? 
+> **Q**: How do I transfer my data to another computer? 
 
-**A**: {your answer here}
+**A**: You can navigate to your root folder, and find the file `budget_data.txt`. Transfer the file to your other 
+computer and put it in your root folder. 
 
 ## Command Summary
 
-{Give a 'cheat sheet' of commands here}
-
-* Add todo `todo n/TODO_NAME d/DEADLINE`
+| **Command**         | **Format**                                                        |
+|----------------------|-------------------------------------------------------------------|
+| `add`               | `add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <DATE TIME>`      |
+| `delete`            | `delete <INDEX>`                                                  |
+| `list`              | `list`                                                            |
+| `edit-expense`      | `edit-expense <INDEX> a/ <AMOUNT> d/ <DESCRIPTION> t/ <DATE TIME>` |
+| `alert`             | `alert <AMOUNT>`                                                  |
+| `summary`           | `summary`                                                         |
+| `check-budget`      | `check-budget [c/<CATEGORY>]`                                     |
+| `edit-budget`       | `edit-budget old/<CURRENT_NAME> a/<NEW_AMOUNT> c/<NEW_NAME>`      |
+| `find`              | `find <KEYWORD>`                                                  |
+| `help`              | `help`                                                            |
