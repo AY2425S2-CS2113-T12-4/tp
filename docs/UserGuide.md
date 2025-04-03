@@ -59,6 +59,7 @@ capitalized, and HH:mm follows the 24-hour clock format.
 
 
 **Example:** `add 50 c/ Overall d/ cab fares t/ Jan 15 2025 at 11:30`
+
 **Expected Output:**
 ```
 ___________________________________________
@@ -69,13 +70,22 @@ ___________________________________________
 ### Setting a Budget: `set-budget`
 Allows users to define a monthly spending limit. Helps in tracking expenses and avoiding overspending by setting an overall or category-specific budget.
 
-Format: set-budget `AMOUNT`
+Format: `set-budget AMOUNT`
 
-Examples:
+**Example 1:**
+`set-budget 1000`
 
-`set-budget 1000 → Sets a total budget of $1000 for the month.`
+**Expected Output 1:**
+```
+Overall budget set to: $1000.0
+```
+**Example 2:**
+`set-budget c/Food 300`
 
-`set-budget c/Food 300 → Sets a $300 budget for the “Food” category.`
+**Expected Output 2:**
+```
+Budget for category Food set to: $300.0
+```
 
 ### Deleting an expense: `delete`
 Removes a recorded expense from the Overall Budget and its corresponding category budget using its index.
