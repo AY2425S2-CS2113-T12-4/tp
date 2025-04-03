@@ -81,7 +81,7 @@ The Parser<T> abstract class serves as the base for various command-specific par
 Each parser extends Parser<T> and implements the parse() method to extract command-specific details.
 
 #### Class Diagram
-![Parser Clas Diagram](diagrams/ParserClassDiagram.jpg)
+![ParserClassDiagram.png](ParserClassDiagram.png)
 
 #### Example Implementation
 The `AddParser` class is responsible for extracting details from the add command. It parses the input string and extracts four main components:

@@ -1,0 +1,58 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+
+abstract  "{abstract} \n Parser<T>" {
+    # input: String
+    + parse(): T
+}
+
+class "AlertParser" {
+    + AlertParser(input: String)
+    + parse(): Double
+}
+
+class "AddParser" {
+    + AddParser(input: String)
+    + parse(): String[]
+}
+
+class "DeleteParser" {
+    + DeleteParser(input: String)
+    + parse(): Integer
+}
+
+class "CheckBudgetParser" {
+    + CheckBudgetParser(input: String)
+    + parse(): String
+}
+
+class "EditBudgetParser" {
+    + EditBudgetParser(input: String)
+    + parse(): String[]
+}
+
+class "SetBudgetParser" {
+    + SetBudgetParser(input: String)
+    + parse(): String[]
+}
+
+class "FindExpenseParser" {
+    + FindExpenseParser(input: String)
+    + parse(): String
+}
+
+class "EditExpenseParser" {
+    + EditExpenseParser(input: String)
+    + parse(): String[]
+}
+
+"{abstract} \n Parser<T>" <|-- "AlertParser"
+"{abstract} \n Parser<T>" <|-- "AddParser"
+"{abstract} \n Parser<T>" <|-- "DeleteParser"
+"{abstract} \n Parser<T>" <|-- "CheckBudgetParser"
+"{abstract} \n Parser<T>" <|-- "EditBudgetParser"
+"{abstract} \n Parser<T>" <|-- "SetBudgetParser"
+"{abstract} \n Parser<T>" <|-- "FindExpenseParser"
+"{abstract} \n Parser<T>" <|-- "EditExpenseParser"
+@enduml
