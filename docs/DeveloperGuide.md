@@ -19,6 +19,7 @@ Budget Buddy uses the following tools for development:
 2. Gradle - For efficient build automation and dependency management. 
 
 ## Design
+
 ### Input Processing Component
 Here is a partial class diagram of the `Input Processing` component:
 ![img_1.png](img_1.png)
@@ -35,7 +36,6 @@ the result in a `String` array.
 5. The command class then calls the corresponding methods in `BudgetManager` to carry out the task (e.g., Adding an 
 expense).
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 ## Implementation
 
 ### Command Class
@@ -89,6 +89,13 @@ The `AddParser` class is responsible for extracting details from the add command
 * Category 
 * Description 
 * Date/Time
+
+### UI Class
+#### Overview
+Handles all user interactions—displays messages, lists expenses, and shows budgets in a structured format.
+
+#### Class Diagram 
+![UI Class Diagram](diagrams/UIClassDiagram.png)
 
 #### Code Flow
 * The constructor initializes the input. 

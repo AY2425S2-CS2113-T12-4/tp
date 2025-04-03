@@ -1,0 +1,38 @@
+@startuml
+
+hide circle
+skinparam classAttributeIconSize 0
+
+class Ui {
+    + printSeparator() : void
+    + printWelcomeMessage() : void
+    + printGoodbyeMessage() : void
+    + printHelpMessage() : void
+    + printInvalidBudgetAlertWarning() : void
+    + printSetBudgetAlert(alertAmount: double, isEdit: boolean) : void
+    + printRemoveBudgetAlert() : void
+    + printCheckAlert(totalExpenses: double, alertAmount: double) : void
+    + printNoExpense() : void
+    + printExpensesList(expenses: ArrayList) : void
+    + printExpensesList(expenses: ArrayList, start: String, end: String) : void
+    + printDeleteExpense(expenses: ArrayList<Expense>, index: int) : void
+    + printBudgetSummary(budgets: Map<String, Budget>) : void
+    + printExpenseEditedMessage(expenses: ArrayList<Expense>, index: int) : void
+}
+
+class Expense {
+    <<from budgetbuddy.model>>
+}
+
+class Budget {
+    <<from budgetbuddy.model>>
+}
+
+class DateTimeParser {
+    <<from budgetbuddy.parser>>
+}
+
+Ui --> Expense : uses
+Ui --> Budget : uses
+Ui --> DateTimeParser : uses
+@enduml
