@@ -1,8 +1,9 @@
 @startuml
-class Ui {
-    - SEPARATOR : String = "___________________________________________"
-    - scanner : Scanner
 
+hide circle
+skinparam classAttributeIconSize 0
+
+class Ui {
     + printSeparator() : void
     + printWelcomeMessage() : void
     + printGoodbyeMessage() : void
