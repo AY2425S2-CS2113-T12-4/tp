@@ -37,7 +37,7 @@ Adds a new item to the list of expenses. Users can choose to leave `CATEGORY` an
 
 **Format:** `add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <DATE TIME>`
 
-* * The `AMOUNT` can be any positive number, if a number too large in entered, it will be displayed as `Infinity`.
+* The `AMOUNT` can be any positive number, if a number too large in entered, it will be displayed as `Infinity`.
 * The `CATEGORY` can be in natural language format. If it does not exist, the expense defaults to the **Overall Budget**.
 * The `DESCRIPTION` can be in natural language format.  
 * The `CATEGORY` and `DESCRIPTION` cannot contain `d/` and `t/`
@@ -116,13 +116,40 @@ optional but requiring minimally one.
   - If an incorrect date format is provided, the **current date and time** will be used instead.
 * Users can omit `a/`, `c/` **or** `t/` but cannot omit all three.
 
-**Example of usage:**
+**Example 1:**
 
 `edit-expense 1 a/ 200`
 
+**Expected Output 1:**
+
+```
+___________________________________________
+Got it, the expense at index 1 has been updated!
+Updated expense -> $200.00 spent on apple juice (Jan 18 2025 at 11:20)
+___________________________________________
+```
+
+**Example 2:**
 `edit-expense 1 a/ 100 d/ bus fares`
 
+**Expected Output 2:**
+```
+___________________________________________
+Got it, the expense at index 1 has been updated!
+Updated expense -> $100.00 spent on bus fares (Jan 18 2025 at 11:20)
+___________________________________________
+```
+
+**Example 3:**
 `edit-expense 1 t/ Jan 15 2025 at 11:30`
+
+**Expected Outcome 3:**
+```
+___________________________________________
+Got it, the expense at index 1 has been updated!
+Updated expense -> $100.00 spent on bus fares (Jan 30 2025 at 11:25)
+___________________________________________
+```
 
 ### Add Alert: 'alert'
 Sets a budget alert to notify the user when expenses exceed a specific limit. 
@@ -132,6 +159,23 @@ Sets a budget alert to notify the user when expenses exceed a specific limit.
 * The `AMOUNT` can be any positive number, if a number too large in entered, it will be displayed as Infinity.
 * The budget alert remains active until it is manually updated or removed
 * To remove the alert, input `alert 0`
+
+**Example 1:**
+`alert 100`
+
+**Expected Outcome 1:**
+```
+___________________________________________
+Budget alert set at $100.0. You will be notified if expenses exceed this amount.
+___________________________________________
+```
+
+**Example 2:**
+```
+___________________________________________
+Budget alert has been removed.
+___________________________________________
+```
 
 ### Summary of Budget: `summary`
 View a summarized budget by category, which includes the total expenses and spending limits for each category.
@@ -249,6 +293,45 @@ No matching expenses found for keyword: food
 View all available commands in Budget Buddy, including their functions and formats.
 
 **Example:** `help`
+
+*Expected Outcome:**
+```
+___________________________________________
+Available Commands:
+
+Add Expense: add
+Format: add AMOUNT c/ CATEGORY d/ DESCRIPTION t/ TIME <MMM dd yyyy 'at' hh:mm
+Please Note: id dateTime format is incorrect, current system time would be used instead
+Examples: add 15.50 c/Food d/Lunch t/Oct 05 2025 at 12:30, 
+       add 40 c/Transport d/Taxi Ride t/Oct 10 2025 at 14:35
+
+Delete Expense: delete
+Format: delete INDEX
+Examples: delete 2, delete 5
+
+View Expenses: list
+Format: list start/ START_TIME end/ END_TIME
+Please Note: START_TIME and END_TIME are both optional
+Example: list
+
+Set Budget: set-budget
+Format: set-budget AMOUNT | set-budget c/CATEGORY AMOUNT
+Examples: set-budget 1000, set-budget c/Food 300
+
+Check Budget: check-budget
+Format: check-budget [c/CATEGORY]
+Examples: check-budget, check-budget c/Groceries
+
+Set Budget Alert: alert
+Format: alert AMOUNT
+Examples: alert 500, alert 0
+
+View Spending Summary: summary
+Format: summary [c/CATEGORY]
+Examples: summary, summary c/Food
+___________________________________________
+
+```
 
 ## FAQ
 
