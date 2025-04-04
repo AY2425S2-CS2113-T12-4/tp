@@ -1,4 +1,4 @@
-# User Guide
+# User Guide - Budget Buddy
 
 ## Introduction
 
@@ -7,10 +7,28 @@ income, and busy schedules, and need an easy-to-use tool to track their daily ex
 financially aware. They may struggle with overspending, forgetfulness, and the challenge of balancing expenses across 
 different categories.
 
+### Table of Content 
+- [Introduction](#introduction)
+- [Quick Start](#quick-start)
+- [Features](#features)
+  - [Adding an Expense: `add`](#adding-an-expense-add)
+  - [Deleting an Expense: `delete`](#deleting-an-expense-delete)
+  - [Listing all Expenses: `list`](#listing-all-expenses-list)
+  - [Editing an Expense: `edit-expense`](#editing-an-expense-edit-expense)
+  - [Setting a Budget: `set-budget`](#setting-a-budget-set-budget)
+  - [Checking Budget: `check-budget`](#checking-budget-check-budget)
+  - [Editing Budget: `edit-budget`](#editing-budget-edit-budget)
+  - [Summary of Budget: `summary`](#summary-of-budget-summary)
+  - [Add Alert: `alert`](#add-alert-alert)
+  - [Find: `find`](#find-find)
+  - [Help: `help`](#help-help)
+- [FAQ](#faq)
+- [Command Summary](#command-summary)
+
 ## Quick Start
 
 1. Ensure that you have Java 17 or above installed.
-2. Download the latest version of `tp.jar` from [here]().
+2. Download the latest version of `tp.jar` from [here](https://github.com/AY2425S2-CS2113-T12-4/tp/releases).
 3. Copy the file to the folder you want to use as the home folder for your address book.
 4. Open a command terminal, cd into the folder you put the jar file in and type the following command:
 `java -jar tp.jar`
@@ -30,9 +48,7 @@ ___________________________________________
 
 ## Features 
 
-{Give detailed description of each feature}
-
-### Adding an expense: `add`
+### Adding an e xpense: `add`
 Adds a new item to the list of expenses. Users can choose to leave `CATEGORY` and `DATE TIME` blank, in which case:
  - The expense will default to the **Overall Budget** if `CATEGORY` is not provided or cannot be found.
  - The `DATE TIME` will default to the **current date and time** if left blank or formatted incorrectly.
@@ -68,9 +84,10 @@ ___________________________________________
 ```
 
 ### Setting a Budget: `set-budget`
-Allows users to define a monthly spending limit. Helps in tracking expenses and avoiding overspending by setting an overall or category-specific budget.
+Allows users to define a monthly spending limit. Helps in tracking expenses and avoiding overspending by setting an
+overall or category-specific budget.
 
-Format: `set-budget AMOUNT`
+**Format:** `set-budget <AMOUNT>`
 
 **Example 1:**
 `set-budget 1000`
@@ -79,6 +96,7 @@ Format: `set-budget AMOUNT`
 ```
 Overall budget set to: $1000.0
 ```
+
 **Example 2:**
 `set-budget c/Food 300`
 
@@ -181,7 +199,7 @@ Updated expense -> $100.00 spent on bus fares (Jan 30 2025 at 11:25)
 ___________________________________________
 ```
 
-### Add Alert: 'alert'
+### Add Alert: `alert`
 Sets a budget alert to notify the user when expenses exceed a specific limit. 
 
 **Format:** `alert <AMOUNT>`
