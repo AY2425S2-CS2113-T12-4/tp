@@ -22,6 +22,7 @@ different categories.
   - [Add Alert: `alert`](#add-alert-alert)
   - [Find: `find`](#find-find)
   - [Help: `help`](#help-help)
+  - [Bye: `bye`](#bye-bye)
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
 
@@ -406,6 +407,21 @@ ___________________________________________
 
 ```
 
+### Bye: `bye`
+Exits the program.
+**Format:** `bye`
+* The program will save all data before exiting.
+
+*Example:* `bye`
+
+**Expected Output:**
+```
+___________________________________________
+Thank you for using Budget Buddy.
+Goodbye!
+___________________________________________
+```
+
 ## FAQ
 
 > **Q**: How do I transfer my data to another computer? 
@@ -440,16 +456,17 @@ computer and put it in your root folder.
 
 ## Command Summary
 
-| Command        | Format                                                                 |
-|----------------|-----------------------------------------------------------------------|
-| **add**        | `add <AMOUNT> c/<CATEGORY> d/<DESCRIPTION> t/<DATE_TIME>`            |
-| **delete**     | `delete <INDEX>`                                                     |
-| **list**       | `list`                                                               |
-| **edit-expense** | `edit-expense <INDEX> [a/<AMOUNT>] [d/<DESCRIPTION>] [t/<DATE_TIME>]`|
-| **set-budget** | `set-budget <AMOUNT>` or `set-budget c/<CATEGORY> <AMOUNT>`          |
-| **check-budget** | `check-budget [c/<CATEGORY>]`                                      |
-| **edit-budget** | `edit-budget old/<CURRENT_NAME> [a/<NEW_AMOUNT>] [c/<NEW_NAME>]`   |
-| **summary**    | `summary`                                                            |
-| **alert**      | `alert <AMOUNT>`                                                     |
-| **find**       | `find <KEYWORD>`                                                     |
-| **help**       | `help`                                                               |
+| Command          | Format                                                                |
+|------------------|-----------------------------------------------------------------------|
+| **add**          | `add <AMOUNT> c/<CATEGORY> d/<DESCRIPTION> t/<DATE_TIME>`             |
+| **delete**       | `delete <INDEX>`                                                      |
+| **list**         | `list`                                                                |
+| **edit-expense** | `edit-expense <INDEX> [a/<AMOUNT>] [d/<DESCRIPTION>] [t/<DATE_TIME>]` |
+| **set-budget**   | `set-budget <AMOUNT>` or `set-budget c/<CATEGORY> <AMOUNT>`           |
+| **check-budget** | `check-budget [c/<CATEGORY>]`                                         |
+| **edit-budget**  | `edit-budget old/<CURRENT_NAME> [a/<NEW_AMOUNT>] [c/<NEW_NAME>]`      |
+| **summary**      | `summary`                                                             |
+| **alert**        | `alert <AMOUNT>`                                                      |
+| **find**         | `find <KEYWORD>`                                                      |
+| **help**         | `help`                                                                |
+| **bye**          | `bye`                                                                 |
