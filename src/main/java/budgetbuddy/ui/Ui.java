@@ -33,7 +33,6 @@ public class Ui {
      * and prompt the user for input.</p>
      */
     public void printWelcomeMessage() {
-        // System.out.println(" _____________________ ");
         System.out.println("|                     |");
         System.out.println("|  $$$$       $$$$    |");
         System.out.println("| $    $     $    $   |");
@@ -259,6 +258,7 @@ public class Ui {
             Budget budget = budgets.get(category);
             System.out.println("\nCategory: " + category);
             System.out.println("Total Expenses: $" + budget.getTotalExpenses());
+            System.out.println("Remaining Budget: $" + budget.getRemainingBudget());
             System.out.println("Spending Limit: $" + budget.getLimit());
         }
         printSeparator();
