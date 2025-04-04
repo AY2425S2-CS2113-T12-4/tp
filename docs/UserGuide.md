@@ -33,6 +33,7 @@ different categories.
 4. Open a command terminal, cd into the folder you put the jar file in and type the following command:
 `java -jar tp.jar`
 5. A GUI similar to the one below should appear in a few seconds.
+
 ```
 |                     |
 |  $$$$       $$$$    |
@@ -48,7 +49,7 @@ ___________________________________________
 
 ## Features 
 
-### Adding an e xpense: `add`
+### Adding an Expense: `add`
 Adds a new item to the list of expenses. Users can choose to leave `CATEGORY` and `DATE TIME` blank, in which case:
  - The expense will default to the **Overall Budget** if `CATEGORY` is not provided or cannot be found.
  - The `DATE TIME` will default to the **current date and time** if left blank or formatted incorrectly.
@@ -67,45 +68,38 @@ capitalized, and HH:mm follows the 24-hour clock format.
   - If an incorrect date format is provided, the **current date and time** will be used instead.
 * Users **must still include `c/` and `t/` even if leaving them blank**.
 
-**Example of usage**: 
-
+**Example 1:**
 `add 200 c/ d/ food t/`
 
+**Expected Output 1:**
+```
+___________________________________________
+Expense Added: $200.00 spent on food (Apr 04 2025 at 23:12)
+___________________________________________
+```
+
+**Example 2:**
 `add 100 c/ Overall d/ bus fares t/`
 
+**Expected Output 2:**
+```
+___________________________________________
+Expense Added: $100.00 spent on bus fares (Apr 04 2025 at 23:13)
+___________________________________________
+```
 
-**Example:** `add 50 c/ Overall d/ cab fares t/ Jan 15 2025 at 11:30`
 
-**Expected Output:**
+**Example 3:** 
+`add 50 c/ Overall d/ cab fares t/ Jan 15 2025 at 11:30`
+
+**Expected Output 3:**
 ```
 ___________________________________________
 Expense Added: $50.00 spent on cab fares (Jan 15 2025 at 11:30)
 ___________________________________________
 ```
 
-### Setting a Budget: `set-budget`
-Allows users to define a monthly spending limit. Helps in tracking expenses and avoiding overspending by setting an
-overall or category-specific budget.
-
-**Format:** `set-budget <AMOUNT>`
-
-**Example 1:**
-`set-budget 1000`
-
-**Expected Output 1:**
-```
-Overall budget set to: $1000.0
-```
-
-**Example 2:**
-`set-budget c/Food 300`
-
-**Expected Output 2:**
-```
-Budget for category Food set to: $300.0
-```
-
-### Deleting an expense: `delete`
+### Deleting an Expense: `delete`
 Removes a recorded expense from the Overall Budget and its corresponding category budget using its index.
 This `INDEX` is found from the list command, which displays all recorded expenses.
 
@@ -126,7 +120,7 @@ Expense also deleted from category 'Food'.
 ___________________________________________
 ```
 
-### Listing All Expenses: `list`
+### Listing all Expenses: `list`
 Displays all recorded expenses under the Overall Budget, including their amount, description, and date/time.
 
 **Format:** `list`
@@ -136,7 +130,7 @@ Displays all recorded expenses under the Overall Budget, including their amount,
 
 **Example:** `list`
 
-**Expected Output:**
+**Expected Output 1:**
 ```
 ___________________________________________
 Expense List:
@@ -146,7 +140,14 @@ Expense List:
 ___________________________________________
 ```
 
-### Editing an expense: `edit-expense`
+**Expected Output 2:**
+```
+___________________________________________
+No expenses recorded.
+___________________________________________
+```
+
+### Editing an Expense: `edit-expense`
 Edit an item on the list of expenses. Expense `AMOUNT`, `DESCRIPTION` or `DATE TIME` can be edited, with all three being 
 optional but requiring minimally one.
 
@@ -199,49 +200,28 @@ Updated expense -> $100.00 spent on bus fares (Jan 30 2025 at 11:25)
 ___________________________________________
 ```
 
-### Add Alert: `alert`
-Sets a budget alert to notify the user when expenses exceed a specific limit. 
 
-**Format:** `alert <AMOUNT>`
+### Setting a Budget: `set-budget`
+Allows users to define a monthly spending limit. Helps in tracking expenses and avoiding overspending by setting an
+overall or category-specific budget.
 
-* The `AMOUNT` can be any positive number, if a number too large in entered, it will be displayed as Infinity.
-* The budget alert remains active until it is manually updated or removed
-* To remove the alert, input `alert 0`
+**Format:** `set-budget <AMOUNT>`
 
 **Example 1:**
-`alert 100`
+`set-budget 1000`
 
-**Expected Outcome 1:**
+**Expected Output 1:**
 ```
-___________________________________________
-Budget alert set at $100.0. You will be notified if expenses exceed this amount.
-___________________________________________
+Overall budget set to: $1000.0
 ```
 
 **Example 2:**
+`set-budget c/Food 300`
+
+**Expected Output 2:**
 ```
-___________________________________________
-Budget alert has been removed.
-___________________________________________
+Budget for category Food set to: $300.0
 ```
-
-### Summary of Budget: `summary`
-View a summarized budget by category, which includes the total expenses and spending limits for each category.
-
-Example of usage: `summary`
-
-**Expected output:**
-````
-___________________________________________
-Budget Summary:
-
-Category: Overall
-Total Expenses: $20.0
-Spending Limit: $0.0
-
-___________________________________________
-````
-
 
 ### Checking Budget: `check-budget`
 Displays the budget allocation, amount spent, and remaining balance for a specified category.
@@ -309,6 +289,51 @@ Updated limit of budget 'Food' to $1000.0
 Renamed budget 'Food' to 'Groceries'
 ```
 
+### Summary of Budget: `summary`
+View a summarized budget by category, which includes the total expenses and spending limits for each category.
+
+Example of usage: `summary`
+
+**Expected output:**
+````
+___________________________________________
+Budget Summary:
+
+Category: Overall
+Total Expenses: $20.0
+Spending Limit: $0.0
+
+___________________________________________
+````
+
+### Add Alert: `alert`
+Sets a budget alert to notify the user when expenses exceed a specific limit.
+
+**Format:** `alert <AMOUNT>`
+
+* The `AMOUNT` can be any positive number, if a number too large in entered, it will be displayed as Infinity.
+* The budget alert remains active until it is manually updated or removed
+* To remove the alert, input `alert 0`
+
+**Example 1:**
+`alert 100`
+
+**Expected Outcome 1:**
+```
+___________________________________________
+Budget alert set at $100.0. You will be notified if expenses exceed this amount.
+___________________________________________
+```
+
+**Example 2:** `alert 0`
+
+**Expected Outcome 2:**
+```
+___________________________________________
+Budget alert has been removed.
+___________________________________________
+```
+
 ### Find: `find`
 Searches for expenses in the Overall budget using a keyword. 
 
@@ -342,7 +367,7 @@ View all available commands in Budget Buddy, including their functions and forma
 
 **Example:** `help`
 
-*Expected Outcome:**
+**Expected Outcome:**
 ```
 ___________________________________________
 Available Commands:
@@ -386,19 +411,45 @@ ___________________________________________
 > **Q**: How do I transfer my data to another computer? 
 
 **A**: You can navigate to your root folder, and find the file `budget_data.txt`. Transfer the file to your other 
-computer and put it in your root folder. 
+computer and put it in your root folder.
+
+> **Q**: How do I add an expense without a category?
+
+**A**: Use 'add 10.50 c/ d/Lunch t/' - it will default to "Overall" category and current time.
+
+> **Q**: Why does my date/time reset to current time?
+
+**A**: Required format: 'MMM dd yyyy at HH:mm' (e.g. 'Jan 15 2025 at 14:30').
+
+> **Q**: How to delete multiple expenses?
+
+**A**: Run 'delete' for each index (e.g. 'delete 3' then 'delete 5').
+
+> **Q**: What happens if I exceed my budget?
+
+**A**: Set alerts with 'alert 500'. Check funds with 'check-budget'.
+
+> **Q**: Why does 'find coffee' return nothing?
+ 
+**A**: Searches match exact keywords (try 'find cafe').
+
+> **Q**: Can I use decimal amounts? 
+ 
+**A**: Yes! (e.g. 'add 4.99', 'set-budget 200.50').
+
 
 ## Command Summary
 
-| **Command**         | **Format**                                                        |
-|----------------------|-------------------------------------------------------------------|
-| `add`               | `add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <DATE TIME>`      |
-| `delete`            | `delete <INDEX>`                                                  |
-| `list`              | `list`                                                            |
-| `edit-expense`      | `edit-expense <INDEX> a/ <AMOUNT> d/ <DESCRIPTION> t/ <DATE TIME>` |
-| `alert`             | `alert <AMOUNT>`                                                  |
-| `summary`           | `summary`                                                         |
-| `check-budget`      | `check-budget [c/<CATEGORY>]`                                     |
-| `edit-budget`       | `edit-budget old/<CURRENT_NAME> a/<NEW_AMOUNT> c/<NEW_NAME>`      |
-| `find`              | `find <KEYWORD>`                                                  |
-| `help`              | `help`                                                            |
+| Command        | Format                                                                 |
+|----------------|-----------------------------------------------------------------------|
+| **add**        | `add <AMOUNT> c/<CATEGORY> d/<DESCRIPTION> t/<DATE_TIME>`            |
+| **delete**     | `delete <INDEX>`                                                     |
+| **list**       | `list`                                                               |
+| **edit-expense** | `edit-expense <INDEX> [a/<AMOUNT>] [d/<DESCRIPTION>] [t/<DATE_TIME>]`|
+| **set-budget** | `set-budget <AMOUNT>` or `set-budget c/<CATEGORY> <AMOUNT>`          |
+| **check-budget** | `check-budget [c/<CATEGORY>]`                                      |
+| **edit-budget** | `edit-budget old/<CURRENT_NAME> [a/<NEW_AMOUNT>] [c/<NEW_NAME>]`   |
+| **summary**    | `summary`                                                            |
+| **alert**      | `alert <AMOUNT>`                                                     |
+| **find**       | `find <KEYWORD>`                                                     |
+| **help**       | `help`                                                               |
