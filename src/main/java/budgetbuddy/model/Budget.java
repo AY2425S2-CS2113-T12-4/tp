@@ -136,5 +136,25 @@ public class Budget {
         return expenses;
     }
 
+    /**
+     * Calculates the remaining budget by subtracting total expenses from the budget limit.
+     * @return The remaining budget amount as a double
+     * @throws IllegalStateException if no budget has been set (limit = 0)
+     */
+    public double getRemainingBudget() throws IllegalStateException, ArithmeticException {
+        // Check if budget is set
+        if (limit <= 0) {
+            return 0.0;
+        }
 
+        double totalExpenses = getTotalExpenses();
+        double remaining = limit - totalExpenses;
+
+        // Check for arithmetic overflow
+        if (Double.isInfinite(remaining)) {
+            throw new ArithmeticException("Budget calculation overflow - amounts too large");
+        }
+
+        return remaining;
+    }
 }
