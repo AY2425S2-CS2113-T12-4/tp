@@ -144,7 +144,7 @@ public class Budget {
     public double getRemainingBudget() throws IllegalStateException, ArithmeticException {
         // Check if budget is set
         if (limit <= 0) {
-            throw new IllegalStateException("Budget limit not set or is invalid (must be positive)");
+            return 0.0;
         }
 
         double totalExpenses = getTotalExpenses();
