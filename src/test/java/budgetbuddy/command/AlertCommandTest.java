@@ -8,9 +8,6 @@ import org.junit.jupiter.api.Test;
 import budgetbuddy.model.BudgetManager;
 import budgetbuddy.exception.InvalidInputException;
 
-
-import static org.junit.jupiter.api.Assertions.*;
-
 public class AlertCommandTest {
 
     private BudgetManager budgetManager;
