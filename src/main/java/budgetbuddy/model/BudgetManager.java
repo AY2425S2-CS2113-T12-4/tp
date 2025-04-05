@@ -358,4 +358,9 @@ public class BudgetManager {
         logger.info("Budget edited: Name - " + newName + ", Limit - " + newAmount);
     }
 
+    public void removeBudgetAlert() {
+        alert.removeAlert();
+        System.out.println("Budget alert removed.");
+        logger.info("Budget alert removed.");
+    }
 }
