@@ -388,12 +388,11 @@ View all available commands in Budget Buddy, including their functions and forma
 
 **Expected Outcome:**
 ```
-___________________________________________
 Available Commands:
 
 Add Expense: add
-Format: add AMOUNT c/ CATEGORY d/ DESCRIPTION t/ TIME <MMM dd yyyy 'at' hh:mm
-Please Note: id dateTime format is incorrect, current system time would be used instead
+Format: add AMOUNT c/ CATEGORY d/ DESCRIPTION t/ TIME <MMM dd yyyy 'at' hh:mm>
+Please Note: If dateTime format is incorrect, current system time will be used
 Examples: add 15.50 c/Food d/Lunch t/Oct 05 2025 at 12:30, 
        add 40 c/Transport d/Taxi Ride t/Oct 10 2025 at 14:35
 
@@ -401,10 +400,16 @@ Delete Expense: delete
 Format: delete INDEX
 Examples: delete 2, delete 5
 
-View Expenses: list
-Format: list start/ START_TIME end/ END_TIME
-Please Note: START_TIME and END_TIME are both optional
+List Expenses: list
+Format: list
+Please Note: Shows all expenses in chronological order
 Example: list
+
+Edit Expense: edit-expense
+Format: edit-expense INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TIME]
+Please Note: At least one edit field must be provided
+Examples: edit-expense 1 a/25.00, 
+       edit-expense 2 d/Dinner t/Nov 15 2025 at 19:00
 
 Set Budget: set-budget
 Format: set-budget AMOUNT | set-budget c/CATEGORY AMOUNT
@@ -414,15 +419,33 @@ Check Budget: check-budget
 Format: check-budget [c/CATEGORY]
 Examples: check-budget, check-budget c/Groceries
 
-Set Budget Alert: alert
+Edit Budget: edit-budget
+Format: edit-budget old/CURRENT_NAME [a/NEW_AMOUNT] [c/NEW_NAME]
+Please Note: At least one edit field must be provided
+Examples: edit-budget old/Food a/500, 
+       edit-budget old/Food c/Groceries
+
+Budget Summary: summary
+Format: summary
+Example: summary
+
+Set Alert: alert
 Format: alert AMOUNT
+Please Note: Use 'alert 0' to remove alert
 Examples: alert 500, alert 0
 
-View Spending Summary: summary
-Format: summary [c/CATEGORY]
-Examples: summary, summary c/Food
-___________________________________________
+Delete Alert: delete-alert
+Format: delete-alert
+Example: delete-alert
 
+Find Expenses: find
+Format: find KEYWORD
+Example: find coffee
+
+Exit Program: bye
+Format: bye
+Example: bye
+___________________________________________
 ```
 
 ### Bye: `bye`
