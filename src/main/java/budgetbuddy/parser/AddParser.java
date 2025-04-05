@@ -28,9 +28,15 @@ public class AddParser extends Parser<String[]> {
         int dIndex = line.indexOf("d/");
         int tIndex = line.indexOf("t/");
 
-        if (cIndex == -1) missingFields.add("c/");
-        if (dIndex == -1) missingFields.add("d/");
-        if (tIndex == -1) missingFields.add("t/");
+        if (cIndex == -1) {
+            missingFields.add("c/");
+        }
+        if (dIndex == -1) {
+            missingFields.add("d/");
+        }
+        if (tIndex == -1) {
+            missingFields.add("t/");
+        }
 
         if (!missingFields.isEmpty()) {
             throw new InvalidInputException("Missing " + String.join(", ", missingFields));
@@ -44,11 +50,15 @@ public class AddParser extends Parser<String[]> {
         // Split components
         String[] splitAmountCategory = line.split("c/", 2);
         String amount = splitAmountCategory[0].trim();
-        if (amount.isEmpty()) missingFields.add("amount");
+        if (amount.isEmpty()) {
+            missingFields.add("amount");
+        }
 
         String[] splitCategoryDescription = splitAmountCategory[1].split("d/", 2);
         String description = splitCategoryDescription[1].split("t/", 2)[0].trim();
-        if (description.isEmpty()) missingFields.add("description");
+        if (description.isEmpty()) {
+            missingFields.add("description");
+        }
 
         if (!missingFields.isEmpty()) {
             throw new InvalidInputException("Missing " + String.join(", ", missingFields));
