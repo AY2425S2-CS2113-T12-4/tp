@@ -39,6 +39,7 @@ public class Alert {
 
     /**
      * Checks if total expenses exceed the alert amount.
+     * if expenses hits exactly alert amount Hit Alert is triggered.
      *
      * @param totalExpenses The current total expenses.
      */
