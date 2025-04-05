@@ -44,8 +44,12 @@ public class Alert {
      */
     public void checkAlert(double totalExpenses) {
         assert totalExpenses >= 0 : "Total expenses cannot be negative";
-        if (isActive && totalExpenses > alertAmount) {
-            Ui.printCheckAlert(totalExpenses, alertAmount);
+        if (isActive) {
+            if (totalExpenses > alertAmount) {
+                Ui.printCheckAlert(totalExpenses, alertAmount);
+            } else if (totalExpenses == alertAmount) {
+                Ui.printHitAlert(totalExpenses);
+            }
         }
     }
 
