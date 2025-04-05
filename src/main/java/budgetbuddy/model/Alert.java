@@ -81,4 +81,10 @@ public class Alert {
 
         return amount;
     }
+
+    public void removeAlert() {
+        this.alertAmount = 0;
+        this.isActive = false;
+        Ui.printRemoveBudgetAlert();
+    }
 }

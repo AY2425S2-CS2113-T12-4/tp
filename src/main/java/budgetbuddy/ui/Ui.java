@@ -54,6 +54,7 @@ public class Ui {
         printSeparator();
         System.out.println("Thank you for using Budget Buddy.");
         System.out.println("Goodbye!");
+        printSeparator();
     }
 
     /**
@@ -67,19 +68,25 @@ public class Ui {
         System.out.println("Available Commands:");
 
         System.out.println("\nAdd Expense: add");
-        System.out.println("Format: add AMOUNT c/ CATEGORY d/ DESCRIPTION t/ TIME <MMM dd yyyy 'at' hh:mm");
-        System.out.println("Please Note: id dateTime format is incorrect, current system time would be used instead");
+        System.out.println("Format: add AMOUNT c/ CATEGORY d/ DESCRIPTION t/ TIME <MMM dd yyyy 'at' hh:mm>");
+        System.out.println("Please Note: If dateTime format is incorrect, current system time will be used");
         System.out.println("Examples: add 15.50 c/Food d/Lunch t/Oct 05 2025 at 12:30, " +
-                "\n"+"       add 40 c/Transport d/Taxi Ride t/Oct 10 2025 at 14:35");
+                "\n          add 40 c/Transport d/Taxi Ride t/Oct 10 2025 at 14:35");
 
         System.out.println("\nDelete Expense: delete");
         System.out.println("Format: delete INDEX");
         System.out.println("Examples: delete 2, delete 5");
 
-        System.out.println("\nView Expenses: list");
-        System.out.println("Format: list start/ START_TIME end/ END_TIME");
-        System.out.println("Please Note: START_TIME and END_TIME are both optional");
+        System.out.println("\nList Expenses: list");
+        System.out.println("Format: list");
+        System.out.println("Please Note: Shows all expenses in chronological order");
         System.out.println("Example: list");
+
+        System.out.println("\nEdit Expense: edit-expense");
+        System.out.println("Format: edit-expense INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TIME]");
+        System.out.println("Please Note: At least one edit field must be provided");
+        System.out.println("Examples: edit-expense 1 a/25.00, " +
+                "\n          edit-expense 2 d/Dinner t/Nov 15 2025 at 19:00");
 
         System.out.println("\nSet Budget: set-budget");
         System.out.println("Format: set-budget AMOUNT | set-budget c/CATEGORY AMOUNT");
@@ -89,13 +96,32 @@ public class Ui {
         System.out.println("Format: check-budget [c/CATEGORY]");
         System.out.println("Examples: check-budget, check-budget c/Groceries");
 
-        System.out.println("\nSet Budget Alert: alert");
+        System.out.println("\nEdit Budget: edit-budget");
+        System.out.println("Format: edit-budget old/CURRENT_NAME [a/NEW_AMOUNT] [c/NEW_NAME]");
+        System.out.println("Please Note: At least one edit field must be provided");
+        System.out.println("Examples: edit-budget old/Food a/500, " +
+                "\n          edit-budget old/Food c/Groceries");
+
+        System.out.println("\nBudget Summary: summary");
+        System.out.println("Format: summary");
+        System.out.println("Example: summary");
+
+        System.out.println("\nSet Alert: alert");
         System.out.println("Format: alert AMOUNT");
+        System.out.println("Please Note: Use 'alert 0' to remove alert");
         System.out.println("Examples: alert 500, alert 0");
 
-        System.out.println("\nView Spending Summary: summary");
-        System.out.println("Format: summary [c/CATEGORY]");
-        System.out.println("Examples: summary, summary c/Food");
+        System.out.println("\nDelete Alert: delete-alert");
+        System.out.println("Format: delete-alert");
+        System.out.println("Example: delete-alert");
+
+        System.out.println("\nFind Expenses: find");
+        System.out.println("Format: find KEYWORD");
+        System.out.println("Example: find coffee");
+
+        System.out.println("\nExit Program: bye");
+        System.out.println("Format: bye");
+        System.out.println("Example: bye");
 
         printSeparator();
     }
@@ -288,4 +314,99 @@ public class Ui {
         printSeparator();
     }
 
+    public static void printSetOverallBudget(double budget) {
+        printSeparator();
+        System.out.println("Overall Budget set to: $" + budget);
+        printSeparator();
+    }
+
+    public static void printSetCategoryBudget(String category, double budget) {
+        printSeparator();
+        System.out.println("Budget for " + category + " set to: $" + budget);
+        printSeparator();
+    }
+
+    public static void printDeleteExpenseCategory(String category) {
+        printSeparator();
+        System.out.println("Expense also deleted from category '" + category + "'.");
+        printSeparator();
+    }
+
+    /**
+     * Prints the budget summary for a specific category or overall budget.
+     * @param category The budget category to check (empty string for overall budget)
+     * @param totalBudget The Budget object containing the budget information
+     */
+    public static void printCheckBudget(String category, double totalBudget, double spent, double remaining) {
+        printSeparator();
+        if (category == null || category.trim().isEmpty()) {
+            System.out.println("Overall Budget:");
+        } else {
+            System.out.println("Budget for " + category);
+        }
+
+        System.out.println("\nTotal Budget: $" + String.format("%.2f", totalBudget));
+        System.out.println("Spent: $" + String.format("%.2f", spent));
+        System.out.println("Remaining: $" + String.format("%.2f", remaining));
+        printSeparator();
+    }
+
+    public static void printBudgetNotFound(String category){
+        printSeparator();
+        System.out.println("Budget category '" + category + "' not found.");
+        printSeparator();
+    }
+
+    /**
+     * Prints the header for expense search results
+     * @param keyword The search keyword used
+     */
+    public static void printSearchHeader(String keyword) {
+        printSeparator();
+        System.out.println("Expenses Matching: '" + keyword + "'");
+    }
+
+    /**
+     * Prints a single matching expense with index
+     * @param index The 1-based index of the expense
+     * @param expense The expense to print
+     */
+    public static void printMatchingExpense(int index, Expense expense) {
+        System.out.println(index + ". " + expense);
+    }
+
+    /**
+     * Prints message when no expenses are found
+     * @param keyword The search keyword used
+     */
+    public static void printNoMatchesFound(String keyword) {
+        System.out.println("No matching expenses found for keyword: " + keyword);
+        printSeparator();
+    }
+
+    /**
+     * Prints the budget limit update confirmation with separator lines.
+     * Displays the current budget name and its new spending limit.
+     *
+     * @param currentName The name of the budget being updated (cannot be null or empty)
+     * @param newLimit The new spending limit amount (must be positive)
+     */
+    public static void printUpdateBudgetLimit(String currentName, double newLimit) {
+        printSeparator();
+        System.out.println("Budget limit for " + currentName + " updated to: $" + newLimit);
+        printSeparator();
+    }
+
+    /**
+     * Prints the budget rename confirmation with separator lines.
+     * Shows both the original and new budget category names.
+     *
+     * @param oldName The original budget category name (cannot be null or empty)
+     * @param newName The new budget category name (cannot be null or empty)
+     */
+    public static void printRenamedBudget(String oldName, String newName) {
+        printSeparator();
+        System.out.println("Budget category '" + oldName + "' renamed to '" + newName + "'.");
+        printSeparator();
+    }
 }

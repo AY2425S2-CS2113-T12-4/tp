@@ -2,18 +2,19 @@ package budgetbuddy.parser;
 
 import budgetbuddy.command.AddExpenseCommand;
 import budgetbuddy.command.AlertCommand;
+import budgetbuddy.command.CheckBudgetCommand;
 import budgetbuddy.command.Command;
-import budgetbuddy.command.ExitCommand;
-import budgetbuddy.command.SummaryCommand;
-import budgetbuddy.command.ListCommand;
+import budgetbuddy.command.DeleteAlertCommand;
+import budgetbuddy.command.DeleteCommand;
+import budgetbuddy.command.EditAlertCommand;
 import budgetbuddy.command.EditBudgetCommand;
 import budgetbuddy.command.EditExpenseCommand;
-import budgetbuddy.command.EditAlertCommand;
-import budgetbuddy.command.DeleteCommand;
-import budgetbuddy.command.HelpCommand;
-import budgetbuddy.command.SetBudgetCommand;
+import budgetbuddy.command.ExitCommand;
 import budgetbuddy.command.FindExpenseCommand;
-import budgetbuddy.command.CheckBudgetCommand;
+import budgetbuddy.command.HelpCommand;
+import budgetbuddy.command.ListCommand;
+import budgetbuddy.command.SetBudgetCommand;
+import budgetbuddy.command.SummaryCommand;
 import budgetbuddy.exception.InvalidInputException;
 
 import java.util.NoSuchElementException;
@@ -56,8 +57,8 @@ public class InputParser {
         case "edit-expense" -> new EditExpenseCommand(userInput);
         case "edit-budget" -> new EditBudgetCommand(userInput);
         case "edit-alert" -> new EditAlertCommand(userInput);
-        default -> throw new InvalidInputException("Please try again with one of the valid commands:" +
-                    "\nadd, alert, summary, list, delete, set-budget, help, find, edit-expense, bye");
+        case "delete-alert" -> new DeleteAlertCommand(userInput);
+        default -> throw new InvalidInputException("Please enter 'help' for a list of commands.");
         };
     }
 
