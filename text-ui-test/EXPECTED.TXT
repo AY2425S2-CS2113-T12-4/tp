@@ -7,6 +7,6 @@
 Hello! I'm your Budget Buddy
 What can I do for you?
 Input 'help' if you want to know what I can do!!
-___________________________________________ 
+___________________________________________
 Invalid input format: Please enter 'help' for a list of commands.
 No input found, exiting...
