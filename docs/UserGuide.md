@@ -20,6 +20,7 @@ different categories.
   - [Editing Budget: `edit-budget`](#editing-budget-edit-budget)
   - [Summary of Budget: `summary`](#summary-of-budget-summary)
   - [Add Alert: `alert`](#add-alert-alert)
+  - [Delete Alert: `delete-alert`](#delete-alert-delete-alert)
   - [Find: `find`](#find-find)
   - [Help: `help`](#help-help)
   - [Bye: `bye`](#bye-bye)
@@ -329,6 +330,23 @@ ___________________________________________
 **Example 2:** `alert 0`
 
 **Expected Outcome 2:**
+```
+___________________________________________
+Budget alert has been removed.
+___________________________________________
+```
+
+### Delete Alert: `delete-alert`
+Removes the budget alert set by the user.
+
+**Format:** `delete-alert`
+
+* The alert will be removed, and the user will no longer receive notifications when expenses exceed the set limit.
+* This command is a placeholder and does not require any additional parameters.
+
+**Example:** `delete-alert`
+
+**Expected Output:**
 ```
 ___________________________________________
 Budget alert has been removed.
