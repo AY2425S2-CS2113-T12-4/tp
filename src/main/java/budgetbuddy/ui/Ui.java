@@ -180,6 +180,17 @@ public class Ui {
     }
 
     /**
+     * Prints a message when total expenses hit the alert threshold exactly.
+     *
+     * @param totalExpenses The current total expenses, equal to alert amount.
+     */
+    public static void printHitAlert(double totalExpenses) {
+        printSeparator();
+        System.out.println("Notice: You have hit your budget alert limit of $" + totalExpenses);
+        printSeparator();
+    }
+
+    /**
      * Prints a message when no expenses have been recorded yet.
      *
      * <p>This method informs the user if there are no expenses in the system.</p>

@@ -17,8 +17,13 @@ with ease.
 ### Budget Alert Feature
 * **Summary**:  
   Implemented the `Alert` class and integrated it into the `BudgetManager` to allow users to set a custom expense alert threshold.
+* Enhancements:
+  Improved the Alert system to also notify users when their total expenses exactly match the alert threshold (e.g., budget is $500 and expenses are $500), with a dedicated warning message. Exceeding the threshold still triggers the standard over-budget alert.
 * **Justification**:  
   Helps users manage overspending by notifying them when their total expenses exceed a predefined limit, promoting better financial discipline.
+
+
+
 
 ### Developer Guide
 * Documented the storage logic with a UML class diagram.

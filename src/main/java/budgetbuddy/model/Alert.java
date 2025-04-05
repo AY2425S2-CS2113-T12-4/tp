@@ -39,13 +39,18 @@ public class Alert {
 
     /**
      * Checks if total expenses exceed the alert amount.
+     * if expenses hits exactly alert amount Hit Alert is triggered.
      *
      * @param totalExpenses The current total expenses.
      */
     public void checkAlert(double totalExpenses) {
         assert totalExpenses >= 0 : "Total expenses cannot be negative";
-        if (isActive && totalExpenses > alertAmount) {
-            Ui.printCheckAlert(totalExpenses, alertAmount);
+        if (isActive) {
+            if (totalExpenses > alertAmount) {
+                Ui.printCheckAlert(totalExpenses, alertAmount);
+            } else if (totalExpenses == alertAmount) {
+                Ui.printHitAlert(totalExpenses);
+            }
         }
     }
 
