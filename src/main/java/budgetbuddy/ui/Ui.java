@@ -17,7 +17,7 @@ import java.util.Scanner;
  */
 public class Ui {
     private static final String SEPARATOR =
-            "___________________________________________________________________________";  // Separator for formatting
+            "___________________________________________";  // Separator for formatting
     private Scanner scanner;  // Scanner to capture user input
 
     /**
