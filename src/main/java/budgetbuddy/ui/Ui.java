@@ -335,7 +335,7 @@ public class Ui {
     /**
      * Prints the budget summary for a specific category or overall budget.
      * @param category The budget category to check (empty string for overall budget)
-     * @param budget The Budget object containing the budget information
+     * @param totalBudget The Budget object containing the budget information
      */
     public static void printCheckBudget(String category, double totalBudget, double spent, double remaining) {
         printSeparator();
@@ -351,4 +351,62 @@ public class Ui {
         printSeparator();
     }
 
+    public static void printBudgetNotFound(String category){
+        printSeparator();
+        System.out.println("Budget category '" + category + "' not found.");
+        printSeparator();
+    }
+
+    /**
+     * Prints the header for expense search results
+     * @param keyword The search keyword used
+     */
+    public static void printSearchHeader(String keyword) {
+        printSeparator();
+        System.out.println("Expenses Matching: '" + keyword + "'");
+    }
+
+    /**
+     * Prints a single matching expense with index
+     * @param index The 1-based index of the expense
+     * @param expense The expense to print
+     */
+    public static void printMatchingExpense(int index, Expense expense) {
+        System.out.println(index + ". " + expense);
+    }
+
+    /**
+     * Prints message when no expenses are found
+     * @param keyword The search keyword used
+     */
+    public static void printNoMatchesFound(String keyword) {
+        System.out.println("No matching expenses found for keyword: " + keyword);
+        printSeparator();
+    }
+
+    /**
+     * Prints the budget limit update confirmation with separator lines.
+     * Displays the current budget name and its new spending limit.
+     *
+     * @param currentName The name of the budget being updated (cannot be null or empty)
+     * @param newLimit The new spending limit amount (must be positive)
+     */
+    public static void printUpdateBudgetLimit(String currentName, double newLimit) {
+        printSeparator();
+        System.out.println("Budget limit for " + currentName + " updated to: $" + newLimit);
+        printSeparator();
+    }
+
+    /**
+     * Prints the budget rename confirmation with separator lines.
+     * Shows both the original and new budget category names.
+     *
+     * @param oldName The original budget category name (cannot be null or empty)
+     * @param newName The new budget category name (cannot be null or empty)
+     */
+    public static void printRenamedBudget(String oldName, String newName) {
+        printSeparator();
+        System.out.println("Budget category '" + oldName + "' renamed to '" + newName + "'.");
+        printSeparator();
+    }
 }

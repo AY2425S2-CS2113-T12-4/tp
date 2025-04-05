@@ -129,7 +129,7 @@ public class BudgetManager {
                     budgets.get(category).setLimit(amount);
                     logger.info("Updated budget for category " + category + " to: $" + amount);
                 }
-            Ui.printSetCategoryBudget(category, amount);
+                Ui.printSetCategoryBudget(category, amount);
             }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -263,7 +263,7 @@ public class BudgetManager {
             Ui.printCheckBudget("", totalBudget, spent, remaining);
         } else {
             if (!budgets.containsKey(category)) {
-                System.out.println("Budget category '" + category + "' not found.");
+                Ui.printBudgetNotFound(category);
                 logger.warning("Budget category '" + category + "' not found.");
                 return;
             }
@@ -289,28 +289,26 @@ public class BudgetManager {
     public void findExpense(String keyword) {
         assert keyword != null && !keyword.trim().isEmpty() : "Error: Keyword should not be null or empty.";
 
-        if (!budgets.containsKey("Overall")) {
-            System.out.println("No Overall budget found.");
-            return;
-        }
-
         Budget overallBudget = budgets.get("Overall");
         boolean found = false;
 
-        System.out.println("------- Expenses Matching: '" + keyword + "' -------");
+
+
+        Ui.printSearchHeader(keyword);
         for (int i = 0; i < overallBudget.getExpenses().size(); i++) {
             Expense expense = overallBudget.getExpenses().get(i);
             if (expense.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
-                System.out.println((i + 1) + ". " + expense);
+                Ui.printMatchingExpense(i + 1, expense);
                 found = true;
             }
         }
 
         if (!found) {
-            System.out.println("No matching expenses found for keyword: " + keyword);
+            Ui.printNoMatchesFound(keyword);
+            return;
         }
 
-        System.out.println("-------------------------------------");
+        Ui.printSeparator();
     }
 
     /**
@@ -331,7 +329,7 @@ public class BudgetManager {
         // Update the budget limit if specified
         if (newAmount >= 0) {
             budgetToEdit.setLimit(newAmount);
-            System.out.println("Updated limit of budget '" + currentName + "' to $" + newAmount);
+            Ui.printUpdateBudgetLimit(currentName, newAmount);
         }
 
         // Rename the budget if a new name is provided and different from the current one
@@ -339,7 +337,7 @@ public class BudgetManager {
             budgets.remove(currentName);
             budgetToEdit.setCategory(newName);
             budgets.put(newName, budgetToEdit);
-            System.out.println("Renamed budget '" + currentName + "' to '" + newName + "'");
+            Ui.printRenamedBudget(currentName, newName);
         }
 
         logger.info("Budget edited: Name - " + newName + ", Limit - " + newAmount);
