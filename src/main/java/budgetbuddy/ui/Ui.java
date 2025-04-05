@@ -16,7 +16,8 @@ import java.util.Scanner;
  * displaying commands, showing expenses, and providing budget summaries.</p>
  */
 public class Ui {
-    private static final String SEPARATOR = "___________________________________________";  // Separator for formatting
+    private static final String SEPARATOR =
+            "__________________________________________";  // Separator for formatting
     private Scanner scanner;  // Scanner to capture user input
 
     /**
@@ -308,9 +309,16 @@ public class Ui {
      *
      * @param expense The expense that was added.
      */
-    public static void printAddExpense(Expense expense) {
+    public static void printAddExpense(Expense expense, String category, boolean addedToCategory, String message) {
         printSeparator();
         System.out.println("Expense Added: " + expense);
+        if (category != null && !category.isEmpty()) {
+            if (!message.isEmpty()) {
+                System.out.println(message);
+            } else if (addedToCategory) {
+                System.out.println("Successfully added to category budget");
+            }
+        }
         printSeparator();
     }
 
@@ -408,5 +416,22 @@ public class Ui {
         printSeparator();
         System.out.println("Budget category '" + oldName + "' renamed to '" + newName + "'.");
         printSeparator();
+    }
+
+    /**
+     * Prints an error message with a separator line.
+     *
+     * @param errorMessage The error message to be displayed.
+     */
+    public static void printError(String errorMessage) {
+        printSeparator();
+        System.out.println("Error: " + errorMessage);
+        printSeparator();
+    }
+
+    public static void printWrongTimeFormat(){
+        printSeparator();
+        System.out.println("Wrong time format used. " + "Will use system current dateTime instead.");
+        System.out.println("Format guide: \"MMM dd yyyy 'at' HH:mm\"");
     }
 }

@@ -46,35 +46,40 @@ public class BudgetManager {
         assert amount > 0 : "Error: Expense amount should be positive.";
 
         try {
-            //instantiate a new expense
+            // Instantiate a new expense
             Expense expense = new Expense(amount, description, time);
+            boolean addedToCategory = false;
+            String message = "";
 
-
+            // Handle Overall budget
             if (!budgets.containsKey("Overall")) {
                 budgets.put("Overall", new Budget("Overall", 0));
                 logger.warning("Overall budget was missing. Initialized a new Overall budget.");
-
                 assert budgets.get("Overall") != null : "Overall budget should be initialized.";
             }
             budgets.get("Overall").addExpense(expense);
 
+            // Handle specific category if provided
             if (category != null && !category.trim().isEmpty() && !category.equals("Overall")) {
                 if (!budgets.containsKey(category)) {
-                    System.out.println("Budget category '" + category + "' not found. Added to Overall Budget.");
-                    logger.warning("Budget category '" + category + "' not found. Added to Overall Budget.");
+                    message = "Budget category '" + category + "' not found. Added to Overall Budget.";
+                    logger.warning(message);
                 } else {
                     budgets.get(category).addExpense(expense);
+                    addedToCategory = true;
                 }
                 logger.info("Expense Added: " + expense);
             }
 
-            Ui.printAddExpense(expense);
+            // Call UI with all relevant information
+            Ui.printAddExpense(expense, category, addedToCategory, message);
 
             checkBudgetAlert();
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            Ui.printError(e.getMessage()); // Move error printing to UI as well
         }
     }
+
 
 
     /**
