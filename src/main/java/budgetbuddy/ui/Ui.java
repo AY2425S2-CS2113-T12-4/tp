@@ -43,7 +43,6 @@ public class Ui {
         System.out.println("Hello! I'm your Budget Buddy");
         System.out.println("What can I do for you?");
         System.out.println("Input 'help' if you want to know what I can do!!");
-        printSeparator();
     }
 
     /**
