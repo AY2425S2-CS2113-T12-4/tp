@@ -1,5 +1,7 @@
 package budgetbuddy.parser;
 
+import budgetbuddy.ui.Ui;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -44,10 +46,7 @@ public class DateTimeParser {
             dateTimeParsed = parsedDateTime;
         } catch (DateTimeParseException e) {
             if (!noErrorPrint) {
-                //when noErrorPrint is false, then only we will print this message
-                System.out.println("Sorry wrong dateTime format used. " +
-                        "Will use system current dateTime instead.");
-                System.out.println("Format guide: \"MMM dd yyyy 'at' HH:mm\"");
+                Ui.printWrongTimeFormat();
             }
             LocalDateTime systemNow = LocalDateTime.now();
             dateTimeParsed = systemNow;
