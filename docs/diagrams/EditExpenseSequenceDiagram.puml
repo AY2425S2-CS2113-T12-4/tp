@@ -1,0 +1,48 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+hide footbox
+
+participant ":EditExpenseCommand" as Command
+participant ":BudgetManager" as Manager
+participant ":Budget" as Budget
+participant ":Expense" as Expense
+participant ":Ui" as Ui
+
+
+activate Command
+
+
+
+
+Command -> Manager: editExpense(index, amount, desc, dateTime)
+activate Manager
+
+
+Manager -> Budget: getExpenses()
+activate Budget
+Budget --> Manager: List<Expense>
+deactivate Budget
+
+
+
+Manager -> Expense: editExpense(amount, desc, dateTime)
+activate Expense
+Expense --> Manager
+deactivate Expense
+
+
+Manager -> Ui: printExpenseEditedMessage(expenses, index)
+activate Ui
+Ui --> Manager: Display expense edited message
+deactivate Ui
+
+Manager -> Manager: checkBudgetAlert()
+activate Manager
+Manager --> Manager
+deactivate Manager
+
+Manager --> Command
+deactivate Manager
+
+@enduml

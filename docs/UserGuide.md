@@ -128,31 +128,35 @@ Adds a recurring expense to the list of expenses based on the given frequency an
 `add-recurring 20 c/Food d/Lunch t/Apr 24 2025 at 12:00 f/30 i/5`
 
 **Expected Output:**
-`Adding recurring expense to budget... 
+```
+Adding recurring expense to budget... 
 Hooray! Added recurring expense(s) to budget. 
 Here is the list:
 1.$20.00 spent on Lunch (Apr 24 2025 at 12:00)
 2.$20.00 spent on Lunch (May 24 2025 at 12:00)
 3.$20.00 spent on Lunch (Jun 23 2025 at 12:00)
 4.$20.00 spent on Lunch (Jul 23 2025 at 12:00)
-5.$20.00 spent on Lunch (Aug 22 2025 at 12:00)`
+5.$20.00 spent on Lunch (Aug 22 2025 at 12:00)
+```
 
 #### Example 2:
 `add-recurring 15.75 c/Transport d/Bus Pass t/Jan 01 2026 at 09:00 f/15 i/3`
 
 **Expected Output:**
-`Adding recurring expense to budget... 
+```
+Adding recurring expense to budget... 
 Hooray! Added recurring expense(s) to budget. 
 Here is the list:
 1.$15.75 spent on Bus Pass (Jan 01 2026 at 09:00)
 2.$15.75 spent on Bus Pass (Jan 16 2026 at 09:00)
-3.$15.75 spent on Bus Pass (Jan 31 2026 at 09:00)`
-
+3.$15.75 spent on Bus Pass (Jan 31 2026 at 09:00)
+```
 #### Error Example (Invalid Format):
 `add-recurring 20 c/Food d/Lunch t/Apr 2025 f/10 i/5`
 
 **Expected Output: (in this example, current system time is Mar 10 2025, 12:00)**
-`Wrong time format used. Will use system current dateTime instead.
+```
+Wrong time format used. Will use system current dateTime instead.
 Format guide: "MMM dd yyyy at HH:mm" 
 Adding recurring expense to budget... 
 Hooray! Added recurring expense(s) to budget. 
@@ -161,7 +165,8 @@ $20.00 spent on Lunch (Mar 10 2025 at 12:00)
 $20.00 spent on Lunch (Mar 20 2025 at 12:00)
 $20.00 spent on Lunch (Mar 30 2025 at 12:00)
 $20.00 spent on Lunch (Apr 10 2025 at 12:00)
-$20.00 spent on Lunch (Apr 20 2025 at 12:00)`
+$20.00 spent on Lunch (Apr 20 2025 at 12:00)
+```
 
 ### Deleting an Expense: `delete`
 Removes a recorded expense from the Overall Budget and its corresponding category budget using its index.

@@ -259,6 +259,7 @@ public class BudgetManager {
         Expense expenseToEdit = overallBudget.getExpenses().get(overallBudget.getExpenses().size() - index);
         expenseToEdit.editExpense(amount, description, dateTime);
         Ui.printExpenseEditedMessage(overallBudget.getExpenses(), index);
+        checkBudgetAlert();
     }
 
     /**

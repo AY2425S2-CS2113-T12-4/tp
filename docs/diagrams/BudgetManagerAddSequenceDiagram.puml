@@ -2,11 +2,12 @@
 hide circle
 skinparam classAttributeIconSize 0
 hide footbox
-participant "AddCommand" as XYZ
-participant "BudgetManager" as BM
-participant "Budget" as B
-participant "Expense" as E
+participant ":AddCommand" as XYZ
+participant ":BudgetManager" as BM
+participant ":Budget" as B
+participant ":Expense" as E
 
+activate XYZ
 XYZ -> BM: addExpenseToBudget(category, amount, description, time)
 activate BM
 
@@ -55,8 +56,8 @@ activate BM
 BM -->BM
 deactivate BM
 
-BM -> Ui: Ui.printAddExpense(expense)
-activate Ui
+BM -> ":Ui": Ui.printAddExpense(expense)
+activate ":Ui"
 return print added expense message
 BM --> XYZ
 deactivate BM
