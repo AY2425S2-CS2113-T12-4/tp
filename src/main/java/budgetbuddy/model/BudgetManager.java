@@ -142,6 +142,17 @@ public class BudgetManager {
     }
 
     /**
+     * Checks if a specific category exists in the budget manager.
+     *
+     * @param category The name of the budget category to check.
+     * @return true if the category exists, false otherwise.
+     */
+    public boolean categoryExists(String category) {
+        return budgets.containsKey(category);
+    }
+
+
+    /**
      * Calculates the total expenses across all budgets.
      *
      * @return The sum of all expenses.

@@ -308,15 +308,22 @@ public class Ui {
     public static void printBudgetSummary(Map<String, Budget> budgets) {
         printSeparator();
         System.out.println("Budget Summary:");
-        for (String category : budgets.keySet()) {
-            Budget budget = budgets.get(category);
-            System.out.println("\nCategory: " + category);
-            System.out.println("Total Expenses: $" + budget.getTotalExpenses());
-            System.out.println("Remaining Budget: $" + budget.getRemainingBudget());
-            System.out.println("Spending Limit: $" + budget.getLimit());
+
+        if (budgets.isEmpty()) {
+            System.out.println("No budgets found.");
+        } else {
+            for (String category : budgets.keySet()) {
+                Budget budget = budgets.get(category);
+                System.out.println("\nCategory: " + category);
+                System.out.println("Total Expenses: $" + budget.getTotalExpenses());
+                System.out.println("Remaining Budget: $" + budget.getRemainingBudget());
+                System.out.println("Spending Limit: $" + budget.getLimit());
+            }
         }
+
         printSeparator();
     }
+
 
     /**
      * Prints a message indicating that an expense has been successfully updated.
