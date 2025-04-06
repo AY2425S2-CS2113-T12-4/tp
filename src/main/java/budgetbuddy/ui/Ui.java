@@ -119,9 +119,15 @@ public class Ui {
         System.out.println("Examples: edit-budget old/Food a/500, " +
                 "\n          edit-budget old/Food c/Groceries");
 
+
         System.out.println("\nBudget Summary: summary");
-        System.out.println("Format: summary");
-        System.out.println("Example: summary");
+        System.out.println("Format: summary [c/ CATEGORY1 c/CATEGORY2 ...]");
+        System.out.println("- Shows summary for specified categories.");
+        System.out.println("- If none specified, shows all.");
+        System.out.println("- No need to separate categories with commas.");
+        System.out.println("Examples: summary");
+        System.out.println("          summary c/Food c/Transport");
+
 
         System.out.println("\nSet Alert: alert");
         System.out.println("Format: alert AMOUNT");
