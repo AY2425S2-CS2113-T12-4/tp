@@ -58,7 +58,7 @@ Adds a new item to the list of expenses. Users can choose to leave `CATEGORY` an
 
 **Format:** `add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <DATE TIME>`
 
-* The `AMOUNT` can be any positive number, if a number too large in entered, it will be displayed as `Infinity`.
+* The `AMOUNT` can be any positive number, with a limit set to $10,000. 
 * The `CATEGORY` can be in natural language format. If it does not exist, the expense defaults to the **Overall Budget**.
 * The `DESCRIPTION` can be in natural language format.  
 * The `CATEGORY` and `DESCRIPTION` cannot contain `d/` and `t/`
@@ -276,6 +276,8 @@ overall or category-specific budget.
 
 **Format:** `set-budget <AMOUNT>`
 
+* The `AMOUNT` can be any positive number less than 100000.
+
 **Example 1:**
 `set-budget 1000`
 
@@ -330,8 +332,8 @@ Modifies an existing budget by updating its limit, name, or both.
 
 **Format:** `edit-budget old/<CURRENT_NAME> a/<NEW_AMOUNT> c/<NEW_NAME>`
 
-* `CURRENT_NAME` must be an existing budget name. 
-* `NEW_AMOUNT` is optional but must be a positive number to update the budget limit. 
+* `CURRENT_NAME` must be an existing budget name. To edit overall budget, use `old/Overall`. 
+* `NEW_AMOUNT` is optional but must be a positive number less than 100000 to update the budget limit. 
 * `NEW_NAME` is optional but must be non-empty if provided. 
 * If `NEW_NAME` is provided, the budget will be renamed accordingly.
 * At least one of the two, new amount or new name  must be specified.
@@ -340,22 +342,37 @@ Modifies an existing budget by updating its limit, name, or both.
 
 **Expected Output 1:**
 ```
+__________________________________________
 Updated limit of budget 'Food' to $500.0
+__________________________________________
 ```
 
 **Example 2:** `edit-budget old/Food c/Groceries`
 
 **Expected Output 2:**
 ```
+__________________________________________
 Renamed budget 'Food' to 'Groceries'
+__________________________________________
 ```
 
 **Example 3:** `edit-budget old/Food a/500 c/Groceries`
 
 **Expected Output 3:**
 ```
+__________________________________________
 Updated limit of budget 'Food' to $1000.0
 Renamed budget 'Food' to 'Groceries'
+__________________________________________
+```
+
+**Example 4:** `edit-budget old/Overall a/500`
+
+**Expected Output 4:**
+```
+__________________________________________
+Budget limit for Overall updated to: $1232.0
+__________________________________________
 ```
 
 ### Summary of Budget: `summary`

@@ -254,7 +254,7 @@ Many students struggle with money management, leading to overspending and financ
 |Version| As a ...                                                 | I want to ...                                         | So that I can ...                                                               |
 |--------|----------------------------------------------------------|-------------------------------------------------------|---------------------------------------------------------------------------------|
 |v1.0| financially conscious student                            | log my daily expenses                                 | track my spending habits effectively.                                           |
-|v1.0| busy student                                             | categorise my expenses                                | see where most of my money is spent.                                            |
+|v1.0| budget conscious student                                 | categorise my expenses                                | see where most of my money is spent.                                            |
 |v1.0| student on limited budget                                | set a overall budget                                  | I can manage my finances and avoid overspending.                                |
 |v1.0| forgetful student with hectic schedule                   | see the portion of my budget I have used              | be more financially aware.                                                      |
 |v1.0| time-strapped student managing multiple responsibilities | view a summary of my finances                         | quickly understand my financial situation.                                      |
