@@ -76,9 +76,11 @@ public class BudgetManager {
 
             checkBudgetAlert();
             checkBudgetLimit("Overall");
-            assert category != null;
-            String trimmedCategory = category.trim();
-            checkBudgetLimit(trimmedCategory);
+            if (category != null) {
+                assert category != null;
+                String trimmedCategory = category.trim();
+                checkBudgetLimit(trimmedCategory);
+            }
         } catch (IllegalArgumentException e) {
             Ui.printError(e.getMessage()); // Move error printing to UI as well
         }
@@ -406,10 +408,13 @@ public class BudgetManager {
      * @param category the name of the budget category to check
      */
     public void checkBudgetLimit(String category) {
-        if (category.isEmpty()) {
+        if (category == null || category.isEmpty()) {
             return;
         }
         Budget budget = budgets.get(category);
+        if (budget == null) {
+            return;
+        }
         budget.checkLimit();
     }
 }

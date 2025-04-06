@@ -166,8 +166,10 @@ public class Budget {
      * <p>
      * If a limit is set (non-zero), this method compares the total expenses against the limit:
      * <ul>
-     *     <li>If the total expenses exceed the limit, a warning message is printed via {@code Ui.printBudgetExceeded}.</li>
-     *     <li>If the total expenses exactly match the limit, a notification is printed via {@code Ui.printBudgetReached}.</li>
+     *     <li>If the total expenses exceed the limit, a warning message is printed via
+     *     {@code Ui.printBudgetExceeded}.</li>
+     *     <li>If the total expenses exactly match the limit, a notification is printed via
+     *     {@code Ui.printBudgetReached}.</li>
      *     <li>If the limit is zero, no check or output is performed.</li>
      * </ul>
      */
