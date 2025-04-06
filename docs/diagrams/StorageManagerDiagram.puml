@@ -1,5 +1,8 @@
 @startuml
 
+hide circle
+skinparam classAttributeIconSize 0
+
 package "budgetbuddy.storage" {
     class StorageManager {
         - FILE_PATH: String

@@ -1,0 +1,51 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+hide footbox
+
+actor User
+participant ":InputManager" as IM
+participant ":InputParser" as IP
+participant ":SetBudgetCommand" as SBC
+participant ":SetBudgetParser" as SBP
+participant ":BudgetManager" as BM
+participant ":UI" as UI
+
+User -> IM: Enters "set-budget c/Food 300"
+activate IM
+IM -> IP: parseInput(userInput)
+activate IP
+create SBC
+IP -> SBC: initialize with (description)
+activate SBC
+SBC --> IP
+deactivate SBC
+IP --> IM: Return SetBudgetCommand object
+deactivate IP
+IM -> SBC: execute(budgetManager)
+activate SBC
+SBC -> SBP: new SetBudgetParser(description)
+activate SBP
+SBP -> SBP: parse()
+activate SBP
+SBP --> SBP
+deactivate SBP
+SBP --> SBC: Return [category, amount]
+deactivate SBP
+box SBC #LightBlue
+SBC -> BM: setBudget(category, amount)
+activate BM
+BM -> UI: showSuccessMessage(amount)
+activate UI
+UI --> BM: Success message displayed
+deactivate UI
+BM --> SBC:
+deactivate BM
+SBC --> IM:
+end box
+
+deactivate SBC
+
+IM --> User: Show success message
+deactivate IM
+@enduml

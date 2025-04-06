@@ -1,0 +1,71 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+hide footbox
+
+actor User
+participant ":InputManager" as IM
+participant ":InputParser" as IP
+participant ":SummaryCommand" as SC
+participant ":SummaryParser" as SP
+participant ":BudgetManager" as BM
+participant ":BudgetSummary" as BS
+participant ":UI" as UI
+
+User -> IM: Enters "summary"
+activate IM
+IM -> IP: parseInput(userInput)
+activate IP
+create SC
+IP -> SC: initialize with (description)
+activate SC
+SC --> IP
+deactivate SC
+IP --> IM: Return SummaryCommand object
+deactivate IP
+IM -> SC: execute(budgetManager)
+activate SC
+SC -> SP: new SummaryParser(description, budgetManager)
+activate SP
+SP -> SP: parse()
+activate SP
+
+alt No categories specified
+    SP -> SC: Return empty array (summary across all categories)
+    deactivate SP
+else Categories provided
+    SP -> BM: categoryExists(category)
+    activate BM
+    BM --> SP: categoryExists result
+    deactivate BM
+    SP -> SC: Return categories
+    deactivate SP
+end
+
+box SC #LightYellow
+SC -> BM: create BudgetSummary(budgetManager)
+activate BM
+BM -> BS: new BudgetSummary(budgetManager)
+activate BS
+BS -> BS: summariseBudget()
+deactivate BS
+
+alt Specific categories provided
+    SC -> BS: summariseBudget(categories)
+    activate BS
+    BS --> SC
+    deactivate BS
+end
+
+SC -> UI: printBudgetSummary()
+activate UI
+UI --> SC: summary displayed
+deactivate UI
+
+deactivate BM
+SC --> IM:
+end box
+deactivate SC
+IM --> User: Show summary result
+deactivate IM
+@enduml
