@@ -94,7 +94,8 @@ public class AddRecurringParser extends Parser<String[]> {
         }
 
         // Validate frequency and iterations
-        int frequency, iterations;
+        int frequency;
+        int iterations;
 
         try {
             frequency = Integer.parseInt(frequencyStr);
