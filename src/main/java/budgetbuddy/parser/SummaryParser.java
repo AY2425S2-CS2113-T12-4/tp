@@ -1,29 +1,50 @@
 package budgetbuddy.parser;
 
 import budgetbuddy.exception.InvalidInputException;
+import budgetbuddy.model.BudgetManager;
 
-public class SummaryParser {
-    private static final String CATEGORY_PREFIX = "c/";
+import java.util.ArrayList;
+import java.util.List;
 
-    public static String parse(String input) throws InvalidInputException {
+/**
+ * Parses the "summary" command to extract one or more category names.
+ * If no category is specified, returns an empty array to indicate summary across all categories.
+ */
+public class SummaryParser extends Parser<String[]> {
+
+    private final BudgetManager budgetManager;
+
+    public SummaryParser(String input, BudgetManager budgetManager) {
+        super(input);
+        this.budgetManager = budgetManager;
+    }
+
+    @Override
+    public String[] parse() throws InvalidInputException {
         String trimmedInput = input.trim();
 
-        // Handle empty input or just "summary"
-        if (trimmedInput.isEmpty() || trimmedInput.equals("summary")) {
-            return null;
+        // Handle case where only "summary" is passed with no categories
+        if (trimmedInput.equals("summary")) {
+            return new String[0]; // summary across all categories
         }
 
-        // Check for valid category format
-        if (!trimmedInput.startsWith("summary " + CATEGORY_PREFIX)) {
-            throw new InvalidInputException("Use: summary [c/CATEGORY]");
+        // Expecting format like: summary c/Food c/Transport
+        String[] tokens = trimmedInput.substring("summary".length()).trim().split("c/");
+        List<String> categoryList = new ArrayList<>();
+
+        for (String token : tokens) {
+            String category = token.trim();
+            if (category.isEmpty()) {
+                continue;
+            }
+
+            if (!budgetManager.categoryExists(category)) {
+                throw new InvalidInputException("Category '" + category + "' does not exist.");
+            }
+
+            categoryList.add(category);
         }
 
-        // Extract category
-        String categoryPart = trimmedInput.substring(("summary " + CATEGORY_PREFIX).length()).trim();
-        if (categoryPart.isEmpty()) {
-            throw new InvalidInputException("Category cannot be empty. Use: summary c/CATEGORY");
-        }
-
-        return categoryPart;
+        return categoryList.toArray(new String[0]);
     }
 }

@@ -354,21 +354,62 @@ Renamed budget 'Food' to 'Groceries'
 ```
 
 ### Summary of Budget: `summary`
-View a summarized budget by category, which includes the total expenses and spending limits for each category.
 
-Example of usage: `summary`
+View a summarized budget across all categories or for selected ones. 
+The summary includes the total expenses, remaining budget, and spending limit for each category.
 
-**Expected output:**
+If no category is specified, the summary will cover **all existing budgets**.
+If specific categories are included using the `c/` marker, only those categories will be shown.
+
+**Format:**
+`summary [c/<CATEGORY1> c/<CATEGORY2>... ]`
+
+- If a specified category does not exist, an error will be shown.
+- Commas **should not** be placed between categories.
+
+**Example 1 (summary across all budgets):**
+`summary`
+
+**Expected Output 1:**
+```
+___________________________________________
+Budget Summary:
+Category: Overall 
+Total Expenses: $300.00
+Remaining Budget: $200.00 
+Spending Limit: $500.00
+
+Category: Food 
+Total Expenses: $120.00 
+Remaining Budget: $30.00 
+Spending Limit: $150.00
+___________________________________________
+```
+
+**Example 2 (summary of specific categories):**
+`summary c/Food c/Transport`
+
+**Expected Output 2:**
 ````
 ___________________________________________
 Budget Summary:
 
-Category: Overall
-Total Expenses: $20.0
-Spending Limit: $0.0
+Category: Food 
+Total Expenses: $120.00 
+Remaining Budget: $30.00 
+Spending Limit: $150.00
 
+Category: Transport 
+Total Expenses: $50.00 
+Remaining Budget: $100.00 
+Spending Limit: $150.00
 ___________________________________________
 ````
+**Error Example (invalid category):**
+`summary c/Repairs`
+
+**Expected Output:**
+`Invalid Input Exception: Category 'Repairs' does not exist.`
 
 ### Add Alert: `alert`
 Sets a budget alert to notify the user when expenses exceed a specific limit.

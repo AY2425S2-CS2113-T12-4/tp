@@ -2,6 +2,7 @@ package budgetbuddy.model;
 
 import budgetbuddy.ui.Ui;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -12,19 +13,29 @@ public class BudgetSummary {
 
     private final BudgetManager budgetManager;
 
-    /**
-     * Instantiate the class with a BudgetManager to access its private variable "budgets".
-     * @param budgetManager is taken in the Duke class (main class).
-     */
     public BudgetSummary(BudgetManager budgetManager) {
         this.budgetManager = budgetManager;
     }
 
     /**
-     * This is the method called to get the summary printed.
+     * Summarizes all budgets.
      */
     public void summariseBudget() {
-        Map<String, Budget> budgets = budgetManager.getBudgets(); // Access the budgets map
+        Map<String, Budget> budgets = budgetManager.getBudgets();
         Ui.printBudgetSummary(budgets);
+    }
+
+    /**
+     * Summarizes only specified categories.
+     */
+    public void summariseBudget(String[] categories) {
+        Map<String, Budget> filtered = new HashMap<>();
+        for (String cat : categories) {
+            Budget b = budgetManager.getBudgets().get(cat);
+            if (b != null) {
+                filtered.put(cat, b);
+            }
+        }
+        Ui.printBudgetSummary(filtered);
     }
 }
