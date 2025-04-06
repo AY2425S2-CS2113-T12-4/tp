@@ -75,11 +75,16 @@ public class BudgetManager {
             Ui.printAddExpense(expense, category, addedToCategory, message);
 
             checkBudgetAlert();
+            checkBudgetLimit("Overall");
+            if (category != null) {
+                assert category != null;
+                String trimmedCategory = category.trim();
+                checkBudgetLimit(trimmedCategory);
+            }
         } catch (IllegalArgumentException e) {
             Ui.printError(e.getMessage()); // Move error printing to UI as well
         }
     }
-
 
 
     /**
@@ -91,12 +96,13 @@ public class BudgetManager {
     public void setBudgetAlert(double amount) {
         assert amount >= 0 : "Error: Budget amount should not be negative.";
         alert.setAlert(amount);
+        checkBudgetAlert();
     }
 
     /**
      * Checks if total expenses exceed the alert limit.
      */
-    private void checkBudgetAlert() {
+    public void checkBudgetAlert() {
         double totalExpenses = getTotalExpenses();
         alert.checkAlert(totalExpenses); // Alert system will notify if limit is exceeded
     }
@@ -126,6 +132,8 @@ public class BudgetManager {
                     budgets.put("Overall", new Budget("Overall", amount));
                 }
                 Ui.printSetOverallBudget(amount);
+                checkBudgetAlert();
+                checkBudgetLimit("Overall");
             } else {
                 if (!budgets.containsKey(category)) {
                     budgets.put(category, new Budget(category, amount));
@@ -135,6 +143,7 @@ public class BudgetManager {
                     logger.info("Updated budget for category " + category + " to: $" + amount);
                 }
                 Ui.printSetCategoryBudget(category, amount);
+                checkBudgetLimit(category);
             }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -200,7 +209,7 @@ public class BudgetManager {
 
         ArrayList<Expense> expenses = overallBudget.getExpenses();
         Expense expenseToDelete = expenses.get(overallBudget.getExpenses().size() - index);
-        Ui.printDeleteExpense(expenses,index);
+        Ui.printDeleteExpense(expenses, index);
 
         overallBudget.deleteExpense(index);
         logger.info("Expense at index " + index + " deleted from Overall Budget.");
@@ -227,22 +236,21 @@ public class BudgetManager {
 
     /**
      * Edits an existing expense in the Overall budget.
-     *
+     * <p>
      * This method allows users to modify an expense at a specific index in the Overall budget.
      * It updates the expense's amount, description, and date/time, provided they meet the necessary conditions.
      * If no Overall budget is found, or the index is invalid, an exception is thrown.
      * The method will then call the `editExpense` method to update the selected expense and print a confirmation
      * message.
      *
-     * @param index The index of the expense to edit, where the first expense in the list is 1.
-     *              The index must be a valid number between 1 and the size of the expense list.
-     * @param amount A string representing the new amount of the expense. If the string is valid and positive,
-     *               it updates the amount of the expense.
+     * @param index       The index of the expense to edit, where the first expense in the list is 1.
+     *                    The index must be a valid number between 1 and the size of the expense list.
+     * @param amount      A string representing the new amount of the expense. If the string is valid and positive,
+     *                    it updates the amount of the expense.
      * @param description A string representing the new description of the expense. If the string is not empty,
      *                    it updates the description.
-     * @param dateTime A string representing the new date and time of the expense. If the string is valid,
-     *                 it updates the date/time; otherwise, it remains unchanged.
-     *
+     * @param dateTime    A string representing the new date and time of the expense. If the string is valid,
+     *                    it updates the date/time; otherwise, it remains unchanged.
      * @throws InvalidInputException If no Overall budget is found or if the provided index is invalid.
      */
     public void editExpense(int index, String amount, String description, String dateTime)
@@ -257,9 +265,28 @@ public class BudgetManager {
         }
 
         Expense expenseToEdit = overallBudget.getExpenses().get(overallBudget.getExpenses().size() - index);
+        String category = "";
+        for (Map.Entry<String, Budget> entry : budgets.entrySet()) {
+            category = entry.getKey();
+            Budget categoryBudget = entry.getValue();
+
+            if (category.equals("Overall")) {
+                continue;
+            }
+
+            for (int i = 0; i < categoryBudget.getExpenses().size(); i++) {
+                Expense categoryExpense = categoryBudget.getExpenses().get(i);
+                if (categoryExpense.equals(expenseToEdit)) {
+                    break;
+                }
+            }
+        }
+
         expenseToEdit.editExpense(amount, description, dateTime);
         Ui.printExpenseEditedMessage(overallBudget.getExpenses(), index);
         checkBudgetAlert();
+        checkBudgetLimit("Overall");
+        checkBudgetLimit(category);
     }
 
     /**
@@ -310,7 +337,6 @@ public class BudgetManager {
         boolean found = false;
 
 
-
         Ui.printSearchHeader(keyword);
         for (int i = 0; i < overallBudget.getExpenses().size(); i++) {
             Expense expense = overallBudget.getExpenses().get(i);
@@ -347,6 +373,7 @@ public class BudgetManager {
         if (newAmount >= 0) {
             budgetToEdit.setLimit(newAmount);
             Ui.printUpdateBudgetLimit(currentName, newAmount);
+            checkBudgetLimit(currentName);
         }
 
         // Rename the budget if a new name is provided and different from the current one
@@ -360,8 +387,34 @@ public class BudgetManager {
         logger.info("Budget edited: Name - " + newName + ", Limit - " + newAmount);
     }
 
+    /**
+     * Removes the current budget alert from the system.
+     * <p>
+     * This method calls {@code removeAlert()} on the {@code alert} object to clear any existing
+     * budget-related alerts and logs the removal action.
+     */
     public void removeBudgetAlert() {
         alert.removeAlert();
         logger.info("Budget alert removed.");
+    }
+
+    /**
+     * Checks whether the budget for a specified category has reached or exceeded its limit.
+     * <p>
+     * If the provided category is not empty and exists in the {@code budgets} map,
+     * this method calls {@code checkLimit()} on the corresponding {@code Budget} instance
+     * to trigger any necessary alerts or warnings.
+     *
+     * @param category the name of the budget category to check
+     */
+    public void checkBudgetLimit(String category) {
+        if (category == null || category.isEmpty()) {
+            return;
+        }
+        Budget budget = budgets.get(category);
+        if (budget == null) {
+            return;
+        }
+        budget.checkLimit();
     }
 }

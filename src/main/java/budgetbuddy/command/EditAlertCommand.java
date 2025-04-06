@@ -25,6 +25,7 @@ public class EditAlertCommand extends Command {
         AlertParser parser = new AlertParser(description);
         double newAmount = parser.parse();
         budgetManager.getBudgetAlert().editAlertAmount(newAmount);
+        budgetManager.checkBudgetAlert();
     }
 
     /**

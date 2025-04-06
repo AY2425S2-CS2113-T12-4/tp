@@ -83,8 +83,8 @@ public class Ui {
         System.out.println("- If date/time format is incorrect, the current system time will be used");
         System.out.println("- FREQUENCY is in days (e.g., 30 = every 30 days)");
         System.out.println("- ITERATIONS is the number of times to repeat the expense");
-        System.out.println("- Maximum frequency allowed:"+
-                AddRecurringExpenseCommand.MAX_FREQUENCY_ADD_RECURRING+" days");
+        System.out.println("- Maximum frequency allowed:" +
+                AddRecurringExpenseCommand.MAX_FREQUENCY_ADD_RECURRING + " days");
         System.out.println("- Maximum iterations allowed:"
                 + AddRecurringExpenseCommand.MAX_ITERATIONS_ADD_RECURRING + " 10");
         System.out.println("Examples: add-recurring 20 c/Food d/Lunch t/Apr 24 2025 at 12:00 f/30 i/5");
@@ -164,7 +164,7 @@ public class Ui {
      * Prints a message confirming the setting of a budget alert.
      *
      * @param alertAmount The alert threshold amount.
-     * @param isEdit A boolean indicating if this is an edit to an existing alert.
+     * @param isEdit      A boolean indicating if this is an edit to an existing alert.
      */
     public static void printSetBudgetAlert(double alertAmount, boolean isEdit) {
         printSeparator();
@@ -192,7 +192,7 @@ public class Ui {
      * Prints a warning if the total expenses exceed the budget alert threshold.
      *
      * @param totalExpenses The total expenses incurred by the user.
-     * @param alertAmount The threshold set for the budget alert.
+     * @param alertAmount   The threshold set for the budget alert.
      */
     public static void printCheckAlert(double totalExpenses, double alertAmount) {
         printSeparator();
@@ -297,7 +297,7 @@ public class Ui {
      * Prints a message confirming the deletion of an expense.
      *
      * @param expenses A list of all expenses.
-     * @param index The index of the expense to be deleted.
+     * @param index    The index of the expense to be deleted.
      */
     public static void printDeleteExpense(ArrayList<Expense> expenses, int index) {
         printSeparator();
@@ -335,7 +335,7 @@ public class Ui {
      * Prints a message indicating that an expense has been successfully updated.
      *
      * @param expenses The list of all expenses, which contains the expense that was updated.
-     * @param index The index of the expense in the list that was updated.
+     * @param index    The index of the expense in the list that was updated.
      */
     public static void printExpenseEditedMessage(ArrayList<Expense> expenses, int index) {
         printSeparator();
@@ -382,7 +382,8 @@ public class Ui {
 
     /**
      * Prints the budget summary for a specific category or overall budget.
-     * @param category The budget category to check (empty string for overall budget)
+     *
+     * @param category    The budget category to check (empty string for overall budget)
      * @param totalBudget The Budget object containing the budget information
      */
     public static void printCheckBudget(String category, double totalBudget, double spent, double remaining) {
@@ -399,7 +400,7 @@ public class Ui {
         printSeparator();
     }
 
-    public static void printBudgetNotFound(String category){
+    public static void printBudgetNotFound(String category) {
         printSeparator();
         System.out.println("Budget category '" + category + "' not found.");
         printSeparator();
@@ -407,6 +408,7 @@ public class Ui {
 
     /**
      * Prints the header for expense search results
+     *
      * @param keyword The search keyword used
      */
     public static void printSearchHeader(String keyword) {
@@ -416,7 +418,8 @@ public class Ui {
 
     /**
      * Prints a single matching expense with index
-     * @param index The 1-based index of the expense
+     *
+     * @param index   The 1-based index of the expense
      * @param expense The expense to print
      */
     public static void printMatchingExpense(int index, Expense expense) {
@@ -425,6 +428,7 @@ public class Ui {
 
     /**
      * Prints message when no expenses are found
+     *
      * @param keyword The search keyword used
      */
     public static void printNoMatchesFound(String keyword) {
@@ -437,7 +441,7 @@ public class Ui {
      * Displays the current budget name and its new spending limit.
      *
      * @param currentName The name of the budget being updated (cannot be null or empty)
-     * @param newLimit The new spending limit amount (must be positive)
+     * @param newLimit    The new spending limit amount (must be positive)
      */
     public static void printUpdateBudgetLimit(String currentName, double newLimit) {
         printSeparator();
@@ -469,9 +473,50 @@ public class Ui {
         printSeparator();
     }
 
-    public static void printWrongTimeFormat(){
+    /**
+     * Prints a message indicating that the provided time format is incorrect.
+     * <p>
+     * The method also displays the correct format guide and informs the user that the system's current
+     * date and time will be used instead.
+     * <p>
+     * Expected format: {@code "MMM dd yyyy 'at' HH:mm"} (e.g., Jan 31 2025 at 14:30)
+     */
+    public static void printWrongTimeFormat() {
         printSeparator();
         System.out.println("Wrong time format used. " + "Will use system current dateTime instead.");
         System.out.println("Format guide: \"MMM dd yyyy 'at' HH:mm\"");
+        printSeparator();
+    }
+
+    /**
+     * Prints a warning message when the total expenses have exceeded the budget limit for a given category.
+     *
+     * @param totalExpense the total amount of expenses recorded
+     * @param limit        the budget limit set for the category
+     * @param category     the name of the budget category
+     */
+    public static void printBudgetExceeded(double totalExpense, double limit, String category) {
+        printSeparator();
+        String formattedTotalExpense = String.format("$%,.2f", totalExpense);
+        String formattedLimit = String.format("$%,.2f", limit);
+        System.out.println("Warning: Your total expenses (" + formattedTotalExpense + ") have exceeded the budget " +
+                "limit for the '" + category + "' category (limit: " + formattedLimit + ")");
+        printSeparator();
+    }
+
+    /**
+     * Prints a warning message when the total expenses have exactly reached the budget limit for a given category.
+     *
+     * @param totalExpense the total amount of expenses recorded
+     * @param limit        the budget limit set for the category
+     * @param category     the name of the budget category
+     */
+    public static void printBudgetReached(double totalExpense, double limit, String category) {
+        printSeparator();
+        String formattedTotalExpense = String.format("$%,.2f", totalExpense);
+        String formattedLimit = String.format("$%,.2f", limit);
+        System.out.println("Warning: Your total expenses (" + formattedTotalExpense + ") have reached the budget " +
+                "limit for the '" + category + "' category (limit: " + formattedLimit + ")");
+        printSeparator();
     }
 }
