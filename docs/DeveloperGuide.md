@@ -3,7 +3,22 @@
 ## Table of Contents
 
 - [Acknowledgements](#acknowledgements)
-- [Design and implementation](#design-and-implementation)
+- [Design](#design)
+  - [Architecture](#architecture)
+  - [UI](#ui)
+  - [Logic](#logic)
+  - [Model](#model)
+  - [Storage](#storage)
+- [Implementation](#implementation)
+  - [Adding an expense](#add-expense)
+  - [Deleting an expense](#delete-expense)
+  - [Finding an expense](#find-expense)
+  - [Setting a Budget](#set-budget)
+  - [Editing a Budget](#edit-budget)
+  - [Checking a Budget](#check-budget)
+  - [Adding an alert](#add-alert)
+  - [Editing an alert](#edit-alert)
+  - [Summary](#summary)
 - [Product scope](#product-scope)
     - [Target user profile](#target-user-profile)
     - [Value proposition](#value-proposition)
@@ -20,23 +35,88 @@ Budget Buddy uses the following tools for development:
 
 ## Design
 
-### Input Processing Component
-Here is a partial class diagram of the `Input Processing` component:
-![CommandClassDiagram.png](CommandClassDiagram.png)
-The sequence diagram below illustrates the interactions within the `Input Processing` component, taking the user input:
-`"add 50 c/ Overall d/ cab fares t/ Jan 15 2025 at 11:30"` as an example.
-![AddCommandSequenceDiagram.png](AddCommandSequenceDiagram.png)
-How the `Input Processing` component works:
+### Architecture
+![High Level Architecture](High_Level_Architecture.png)
+
+The architecture diagram above presents a high-level overview of the major components in the Budget Buddy and how they interact with each other.
+
+Given below is an overview of the main components of Budget Buddy and how they interact
+
+**Main Components:**
+`Budget Buddy` class is the entry point and acts as the central controller of the application. It is responsible for:
+  1. Application Launch:
+     * Initialises all core components:
+       * `BudgetManager` for logic and data modeling
+       * `StorageManager` for loading and saving data
+       * `InputManager` and `Ui` for managing user interaction
+     * Loads data from local file (budget_data.txt) via `StorageManager` to populate internal structures like expenses, budgets and alerts
+  2. Application Shutdown:
+     * Ensures that the current state of the application (budgets, expenses, alerts) is persisted to the file system. 
+     * Properly terminates the input loop and saves data before exiting.
+
+The rest of the application is split into 4 components:
+1. `Ui` - Handles user input and output
+2. `Logic` - Parses user inputs and executes user commands
+3. `Model` - Stores and manages data
+4. `Storage` - Reads and writes data to local file system
+
+#### User Flow
+
+Below are the high-level steps of the user-flow:
+1. The application starts and loads existing data from the file system using `StorageManager`. 
+2. The user enters a command through the CLI interface handled by the `Ui` component. 
+3. The input is passed to the `Parser`, which identifies and returns a specific `Command` object.
+4. Each `Command` class delegates parsing to its own command-specific `Parser` to extract required parameters.
+5. The `Command` is executed, performing logic operations on the core data via `BudgetManager`. 
+6. Results or feedback are sent back to the user through the `Ui`. 
+7. Steps 2 to 7 repeat for each new user command. 
+8. Upon exiting, the application saves all updated data using `StorageManager`.
+
+### UI
+
+The UI component is responsible for managing all user interactions through the command-line interface (CLI). It is split into two distinct classes to separate concerns:
+* `Ui` – handles all output to the user. 
+* `InputManager` – handles user input and command processing.
+
+#### Ui Class
+Handles all user interactions—displays messages, lists expenses, and shows budgets in a structured format.
+
+ **Class Diagram**
+
+![UI Class Diagram](diagrams/UIClassDiagram.png)
+
+**Functionality**
+* Called by the `BudgetBuddy` to display the welcome and goodbye messages. 
+* Used by `Command` classes to provide user feedback after executing operations (e.g., expense added, budget edited, summary shown). 
+* Used by `model` classes like `Alert` or `BudgetManager` to display warning messages, summaries, or formatted data. 
+* Invoked by InputManager when invalid input is detected, through InvalidInputException.
+
+#### InputManager Class
+Processes user input in a loop, parses commands, and triggers their execution.
+
+**Class Diagram**
+![Input Manager Class Diagram](CommandClassDiagram.png)
+
+**Code Flow**
+The code flow below is also demonstrated with the sequence diagram in the [Logic](#logic) Section
 1. When a user input is taken in, it is passed into the `processInputLoop()` function of an `InputManager` object.
-2. The user input is then passed into an `InputParser` object that creates and returns a command object that matches the 
-input command (e.g., `AddExpenseCommand`). 
+2. The user input is then passed into an `InputParser` object that creates and returns a command object that matches the
+   input command (e.g., `AddExpenseCommand`).
 3. The command object is then executed by the `InputManager`.
 4. The `execute` function then creates a parser object (e.g., `AddParser`) that is called to parse the input and return
-the result in a `String` array.
-5. The command class then calls the corresponding methods in `BudgetManager` to carry out the task (e.g., Adding an 
-expense).
+   the result in a `String` array.
+5. The command class then calls the corresponding methods in `BudgetManager` to carry out the task (e.g., Adding an
+   expense).
+### Logic
+The Logic component is responsible for interpreting user input and executing the corresponding actions within the system. It forms the core of Budget Buddy's command-driven architecture.
+This component consists of two main parts:
+* `Parser` classes: Responsible for analyzing raw user input and extracting command-specific parameters. Each command type has its own parser subclass (e.g., AddParser, DeleteParser). 
+* `Command` classes: Represent actions that can be performed. Each user command (e.g., add, edit, list) is implemented as a separate Command subclass that encapsulates its own logic.
 
-## Implementation
+The sequence diagram below illustrates this high-level interaction between the Logic components during the lifecycle of a single command.
+![Logic Sequence Diagram](diagrams/LogicSequenceDiagram.png)
+Note: The Command and Parser classes mentioned above are specific to the user input (For example: AddExpenseCommand and AddParser).
+Below is a more detailed breakdown of each class and its role within the system:
 
 ### Command Class
 #### Overview
@@ -66,32 +146,9 @@ where the expense is recorded under the specified category.
 5. **Program Flow Control:** The `isExit()` method always returns `false`, indicating that this command does not 
 signal the end of the application’s execution.
 
-### Budget Manager Class
-#### Overview
-The `BudgetManager` class is responsible for managing instances of the `Budget` class, which holds an `ArrayList` of 
-`Expense` objects. It centralizes the core functionalities related to budget management, including setting budgets, 
-adding expenses to specific budgets, and other budget-related operations. This class acts as the interface for 
-interacting with the budget and expense data, ensuring proper handling and organization of the expenses within the 
-system.
-
-#### Class Diagram
-![BudgetManagerClassDiagram.png](BudgetManagerClassDiagram.png)
-
-#### Implementation add functions in Budget Manager
-The diagram below outlines the process of execution when `AddCommand` is executed.
-![BudgetManagerAddSequenceDiagram.png](BudgetManagerAddSequenceDiagram.png)
-
-### Implementation of Storage Feature
-The `StorageManager` class is responsible for reading from and writing to a local text file.
-It loads all budgets and alerts when the application starts and saves them on every update.
-
-The diagram below illustrates how `StorageManager` interacts with `BudgetManager`, `Budget`, `Expense`, and `Alert`.
-
-![StorageManagerClassDiagram.png](StorageManagerDiagram.png)
-
 ### Parser Class
 #### Overview
-The Parser<T> abstract class serves as the base for various command-specific parsers in BudgetBuddy. 
+The Parser<T> abstract class serves as the base for various command-specific parsers in BudgetBuddy.
 Each parser extends Parser<T> and implements the parse() method to extract command-specific details.
 
 #### Class Diagram
@@ -99,23 +156,55 @@ Each parser extends Parser<T> and implements the parse() method to extract comma
 
 #### Example Implementation
 The `AddParser` class is responsible for extracting details from the add command. It parses the input string and extracts four main components:
-* Amount 
-* Category 
-* Description 
+* Amount
+* Category
+* Description
 * Date/Time
 
-### UI Class
-#### Overview
-Handles all user interactions—displays messages, lists expenses, and shows budgets in a structured format.
+### Model
+#### Budget Manager Class
+**Overview**
+The `BudgetManager` class is responsible for managing instances of the `Budget` class, which holds an `ArrayList` of 
+`Expense` objects. It centralizes the core functionalities related to budget management, including setting budgets, 
+adding expenses to specific budgets, and other budget-related operations. This class acts as the interface for 
+interacting with the budget and expense data, ensuring proper handling and organization of the expenses within the 
+system.
 
-#### Class Diagram 
-![UI Class Diagram](diagrams/UIClassDiagram.png)
+**Class Diagram**
 
-#### Code Flow
-* The constructor initializes the input. 
-* The parse() method validates and extracts details using string splitting operations. 
-* If required tokens (c/, d/, t/) are missing, an InvalidInputException is thrown. 
-* The extracted details are returned as a String[] array.
+![BudgetManagerClassDiagram.png](BudgetManagerClassDiagram.png)
+
+### Storage
+The `StorageManager` class is responsible for reading from and writing to a local text file.
+It loads all budgets and alerts when the application starts and saves them on every update.
+
+The diagram below illustrates how `StorageManager` interacts with `BudgetManager`, `Budget`, `Expense`, and `Alert`.
+![StorageManagerClassDiagram.png](StorageManagerDiagram.png)
+
+## Implementation
+
+### Add Expense
+The diagram below outlines the process of execution when `AddCommand` is executed.
+![BudgetManagerAddSequenceDiagram.png](BudgetManagerAddSequenceDiagram.png)
+
+### Delete Expense
+The diagram below outlines the process of execution when `DeleteCommand` is executed.
+![Delete Expense Sequence Diagram](/docs/diagrams/DeleteExpenseSequenceDiagram.png)
+### Find Expense
+
+### Set Budget
+
+### Edit Budget
+The diagram below outlines the process of execution when `EditBudgetCommand` is executed.
+![Edit Budget Sequence Diagram](/docs/diagrams/EditBudgetSequenceDiagram.png)
+### Check Budget
+![Check Budget Sequence Diagram](/docs/diagrams/CheckBudgetCommandSequenceDiagram.png)
+### Add Alert
+
+### Edit Alert
+
+### Summary
+
 
 ## Product scope
 ### Target user profile

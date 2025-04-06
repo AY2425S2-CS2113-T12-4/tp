@@ -1,0 +1,31 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+
+class InputManager {
+    - budgetManager: BudgetManager
+    - inputParser: InputParser
+    + InputManager(budgetManager: BudgetManager)
+    + processInputLoop(): void
+}
+
+class InputParser {
+    + parseInput(input: String): Command
+}
+
+class Command {
+    + execute(budgetManager: BudgetManager): void
+    + isExit(): boolean
+}
+
+class BudgetManager
+
+class InvalidInputException
+
+InputManager --> "1" InputParser
+InputManager --> "1" BudgetManager
+InputParser --> "1" Command : returns
+InputManager --> Command : executes
+Command --> BudgetManager : modifies
+InputManager --> InvalidInputException : handles
+@enduml

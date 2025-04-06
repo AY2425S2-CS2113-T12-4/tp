@@ -1,0 +1,59 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+hide footbox
+
+actor User
+participant ":InputManager" as IM
+participant ":InputParser" as IP
+participant ":Command" as C
+participant ":Parser" as P
+participant ":BudgetManager" as BM
+
+User -> IM: user input
+activate IM
+IM -> IP: parseInput(userInput)
+activate IP
+
+create C
+IP -> C: create Command(userInput)
+activate C
+C --> IP
+deactivate C
+
+IP --> IM: return Command object
+deactivate IP
+
+IM -> C: execute(budgetManager)
+activate C
+
+destroy IP
+
+create P
+C -> P: new Parser(description)
+activate P
+P --> C
+deactivate P
+
+C -> P: parse()
+activate P
+
+P --> C: return parsed components
+deactivate P
+
+box C #LightGreen
+C -> BM: run BudgetManager logic with parsed inputs
+activate BM
+BM --> C
+deactivate BM
+C --> IM
+deactivate C
+IM --> User: Feedback
+end box
+
+
+destroy C
+destroy P
+
+deactivate IM
+@enduml
