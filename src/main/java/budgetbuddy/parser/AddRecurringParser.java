@@ -49,7 +49,7 @@ public class AddRecurringParser extends Parser<String[]> {
         if (iIndex == -1){
             missingFields.add("i/");
         }
-        
+
 
         if (!missingFields.isEmpty()) {
             throw new InvalidInputException("Missing required markers: " + String.join(", ", missingFields));
