@@ -9,6 +9,46 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
 
+/**
+ * Handles the "add-recurring" command for Budget Buddy.
+ * <p>
+ * This command allows the user to add a recurring expense to the budget. The user can specify:
+ * <ul>
+ *     <li>The expense amount</li>
+ *     <li>Category (e.g., Food, Transport, Overall)</li>
+ *     <li>Description</li>
+ *     <li>Start date and time</li>
+ *     <li>Recurring frequency (in days)</li>
+ *     <li>Number of iterations (how many times to add the expense)</li>
+ * </ul>
+ * <p>
+ * The expected format for the date and time is:
+ * <pre>
+ * MMM dd yyyy at HH:mm
+ * </pre>
+ * For example:
+ * <pre>
+ * Apr 24 2025 at 12:00
+ * </pre>
+ * If the provided date format is invalid, the system will use the current date and time as a fallback.
+ * <p>
+ * Constraints:
+ * <ul>
+ *     <li>Maximum frequency: 1000 days</li>
+ *     <li>Maximum iterations: 10</li>
+ * </ul>
+ * <p>
+ * Output during repeated expense addition is temporarily suppressed to avoid console clutter.
+ * Once complete, a confirmation message and the full expense list will be displayed.
+ *
+ * Example usage:
+ * <pre>
+ * add-recurring 20 c/Food d/Lunch t/Apr 24 2025 at 12:00 f/30 i/5
+ * </pre>
+ *
+ * @author juneja999
+ */
+
 public class AddRecurringExpenseCommand extends Command {
 
     //these are the constraints we are adding to this command
@@ -18,6 +58,7 @@ public class AddRecurringExpenseCommand extends Command {
     public AddRecurringExpenseCommand(String description){
         super(description);
     }
+
 
     @Override
     public void execute(BudgetManager budgetManager) throws InvalidInputException{
@@ -57,6 +98,7 @@ public class AddRecurringExpenseCommand extends Command {
         PrintStream orignalOut = System.out;
         System.setOut(new PrintStream(OutputStream.nullOutputStream())); //redirecting print lines
 
+        // SHOULD SUPPRESS ERROR MESSAGES ALSO?
         for(int i=0; i<recurringIterations; i++){
 
             //after the first iteration, we successively add time for the expenses

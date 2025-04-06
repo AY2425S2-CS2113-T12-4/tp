@@ -1,5 +1,6 @@
 package budgetbuddy.ui;
 
+import budgetbuddy.command.AddRecurringExpenseCommand;
 import budgetbuddy.model.Budget;
 import budgetbuddy.model.Expense;
 import budgetbuddy.parser.DateTimeParser;
@@ -73,6 +74,21 @@ public class Ui {
         System.out.println("Please Note: If dateTime format is incorrect, current system time will be used");
         System.out.println("Examples: add 15.50 c/Food d/Lunch t/Oct 05 2025 at 12:30, " +
                 "\n          add 40 c/Transport d/Taxi Ride t/Oct 10 2025 at 14:35");
+
+        System.out.println("\nAdd Recurring Expense: add-recurring");
+        System.out.println("Format: add-recurring AMOUNT c/ CATEGORY d/ DESCRIPTION t/ TIME" +
+                " f/ FREQUENCY i/ ITERATIONS");
+        System.out.println("Please Note:");
+        System.out.println("- TIME must follow the format: MMM dd yyyy 'at' HH:mm (e.g., Apr 24 2025 at 12:00)");
+        System.out.println("- If date/time format is incorrect, the current system time will be used");
+        System.out.println("- FREQUENCY is in days (e.g., 30 = every 30 days)");
+        System.out.println("- ITERATIONS is the number of times to repeat the expense");
+        System.out.println("- Maximum frequency allowed:"+
+                AddRecurringExpenseCommand.MAX_FREQUENCY_ADD_RECURRING+" days");
+        System.out.println("- Maximum iterations allowed:"
+                + AddRecurringExpenseCommand.MAX_ITERATIONS_ADD_RECURRING + " 10");
+        System.out.println("Examples: add-recurring 20 c/Food d/Lunch t/Apr 24 2025 at 12:00 f/30 i/5");
+
 
         System.out.println("\nDelete Expense: delete");
         System.out.println("Format: delete INDEX");
