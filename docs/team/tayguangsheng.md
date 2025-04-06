@@ -1,15 +1,15 @@
 # Tay Guang Sheng - Project Portfolio Page
 
 ## Overview
-Budget Buddy enables students to manage their finances effortlessly by offering a simple and intuitive platform to track
-expenses, set budgets, and gain financial insights. With real-time updates, spending alerts, and budget summaries, 
-Budget Buddy helps students build better financial habits, avoid overspending, and make informed financial decisions 
-with ease.
+Budget Buddy enables students to take charge of their finances with an easy-to-use platform for tracking expenses, 
+setting budgets, and gaining valuable financial insights. With real-time updates, spending alerts, and budget summaries,
+Budget Buddy helps students build healthier financial habits, prevent overspending, and make informed financial choices 
+effortlessly.
 
 ## Summary of Contributions
 
 ### User Interface
-* <u>Summary</u>:
+* Summary:
   * Designed the user interface to provide a seamless and user-friendly experience, enabling students to efficiently 
   track expenses, set budgets, and receive budget alert. It make it simple for users to input, view, and understand 
   their budget details. 

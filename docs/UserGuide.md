@@ -110,7 +110,7 @@ Adds a recurring expense to the list of expenses based on the given frequency an
 `add-recurring <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <START DATE TIME> f/ <FREQUENCY_IN_DAYS> i/ <ITERATIONS>`
 
 
-- The `AMOUNT` must be a positive number. If the number is too large, it will be displayed as `Infinity`.
+- The `AMOUNT` must be a positive number. The amount limit is set to $10,000.
 - The `CATEGORY` can be any valid budget category. If it doesn't exist, the expense is added under the **Overall Budget**.
 - The `DESCRIPTION` is in natural language format. It cannot contain markers like `t/`, `f/`, or `i/`.
 - The `START DATE TIME` must follow the format `MMM dd yyyy at HH:mm`, where:
@@ -223,7 +223,7 @@ optional but requiring minimally one.
 **Format:** `edit-expense <INDEX> a/ <AMOUNT> d/ <DESCRIPTION> t/ <DATE TIME>`
 
 * The `INDEX` refers to the index of the expense when the `list` function is used.
-* The `AMOUNT` can be any positive number, if a number too large in entered, it will be displayed as `Infinity`.
+* The `AMOUNT` can be any positive number less than 100000.
 * The `DESCRIPTION` can be in natural language format.
 * The `DESCRIPTION` cannot contain `d/` and `t/`
 * The `DATE TIME` has to follow the format of `MMM dd yyyy at HH:mm`, where **only** the first letter of `MMM` is
