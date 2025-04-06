@@ -1,0 +1,63 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+hide footbox
+
+participant "DeleteCommand" as DC
+participant "BudgetManager" as BM
+participant "Budget" as OB
+participant "Ui" as UI
+
+DC -> BM: deleteExpense(index)
+activate BM
+
+alt "Overall" budget does not exist
+    BM -> BM: throw InvalidInputException
+end
+
+BM -> BM: budgets.get("Overall")
+activate BM
+BM --> BM
+deactivate BM
+
+BM -> OB: getExpenses()
+activate OB
+OB --> BM: expenses
+deactivate OB
+
+BM -> OB: expense.get(index)
+activate OB
+OB --> BM: expenseToDelete
+deactivate OB
+
+BM -> UI: printDeleteExpense(expenses, index)
+activate UI
+UI --> BM
+deactivate UI
+
+BM -> OB: deleteExpense(index)
+activate OB
+OB --> BM
+deactivate OB
+
+loop For each category budget other than "Overall" Budget
+        loop For each expense in category
+            alt expense matches
+                BM -> OB: remove(index)
+                OB --> BM
+
+                BM -> UI: printDeleteExpenseCategory(category)
+                activate UI
+                UI --> BM
+                deactivate UI
+
+                break
+            end
+        end
+    end
+end
+
+
+BM --> DC
+deactivate BM
+@enduml

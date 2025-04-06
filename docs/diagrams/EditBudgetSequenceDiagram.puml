@@ -1,0 +1,58 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+hide footbox
+
+participant "EditBudgetCommand" as EBC
+participant "BudgetManager" as BM
+participant "Budget" as B
+participant "Ui" as UI
+
+EBC -> BM: editBudget(currentName, newAmount, newName)
+activate BM
+
+alt budget not found
+    BM -> BM: throw InvalidInputException
+end
+
+BM -> BM: budgets.get(currentName)
+activate BM
+BM-->BM: budgetToEdit
+deactivate BM
+alt reseting the limit requeired
+  BM -> B: setLimit(newAmount)
+  activate B
+  B --> BM
+  deactivate B
+
+BM -> UI: printUpdateBudgetLimit(currentName, newAmount)
+activate UI
+UI --> BM
+deactivate UI
+end
+
+alt renaming required
+    BM -> BM: budgets.remove(currentName)
+    activate BM
+    BM --> BM
+    deactivate BM
+
+    BM -> B: setCategory(newName)
+    activate B
+    B --> BM
+    deactivate B
+
+    BM -> BM: budgets.put(newName, budgetToEdit)
+    activate BM
+    BM --> BM
+    deactivate BM
+
+    BM -> UI: printRenamedBudget(currentName, newName)
+    activate UI
+    UI --> BM
+    deactivate UI
+end
+
+BM --> EBC
+deactivate BM
+@enduml
