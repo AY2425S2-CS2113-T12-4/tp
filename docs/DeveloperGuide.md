@@ -191,6 +191,7 @@ The diagram below outlines the process of execution when `AddCommand` is execute
 ### Edit Expense
 The diagram below outlines the process of execution when `EditExpenseCommand` is executed.
 ![EditExpenseSequenceDiagram.png](diagrams/EditExpenseSequenceDiagram.png)
+
 ### Delete Expense
 The diagram below outlines the process of execution when `DeleteCommand` is executed.
 ![DeleteExpenseSequenceDiagram](/docs/diagrams/DeleteExpenseSequenceDiagram.png)
