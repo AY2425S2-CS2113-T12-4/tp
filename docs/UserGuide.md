@@ -101,6 +101,68 @@ Expense Added: $50.00 spent on cab fares (Jan 15 2025 at 11:30)
 ___________________________________________
 ```
 
+### Adding a Recurring Expense: `add-recurring`
+
+Adds a recurring expense to the list of expenses based on the given frequency and number of iterations. Each entry is treated as a separate expense added to the system.
+
+**Format:**
+
+`add-recurring <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <START DATE TIME> f/ <FREQUENCY_IN_DAYS> i/ <ITERATIONS>`
+
+
+- The `AMOUNT` must be a positive number. If the number is too large, it will be displayed as `Infinity`.
+- The `CATEGORY` can be any valid budget category. If it doesn't exist, the expense is added under the **Overall Budget**.
+- The `DESCRIPTION` is in natural language format. It cannot contain markers like `t/`, `f/`, or `i/`.
+- The `START DATE TIME` must follow the format `MMM dd yyyy at HH:mm`, where:
+  - Only the first letter of `MMM` is capitalized (e.g., `Apr 24 2025 at 12:00`)
+  - `HH:mm` follows the 24-hour clock format
+  - If the date is incorrectly formatted, the current system date and time will be used instead.
+- The `FREQUENCY` (`f/`) specifies the number of days between each recurrence.
+- The `ITERATIONS` (`i/`) specifies how many times the expense should recur.
+- Maximum frequency allowed is **1000 days**.
+- Maximum number of iterations allowed is **10**.
+
+---
+
+#### Example 1:
+`add-recurring 20 c/Food d/Lunch t/Apr 24 2025 at 12:00 f/30 i/5`
+
+**Expected Output:**
+`Adding recurring expense to budget... 
+Hooray! Added recurring expense(s) to budget. 
+Here is the list:
+1.$20.00 spent on Lunch (Apr 24 2025 at 12:00)
+2.$20.00 spent on Lunch (May 24 2025 at 12:00)
+3.$20.00 spent on Lunch (Jun 23 2025 at 12:00)
+4.$20.00 spent on Lunch (Jul 23 2025 at 12:00)
+5.$20.00 spent on Lunch (Aug 22 2025 at 12:00)`
+
+#### Example 2:
+`add-recurring 15.75 c/Transport d/Bus Pass t/Jan 01 2026 at 09:00 f/15 i/3`
+
+**Expected Output:**
+`Adding recurring expense to budget... 
+Hooray! Added recurring expense(s) to budget. 
+Here is the list:
+1.$15.75 spent on Bus Pass (Jan 01 2026 at 09:00)
+2.$15.75 spent on Bus Pass (Jan 16 2026 at 09:00)
+3.$15.75 spent on Bus Pass (Jan 31 2026 at 09:00)`
+
+#### Error Example (Invalid Format):
+`add-recurring 20 c/Food d/Lunch t/Apr 2025 f/10 i/5`
+
+**Expected Output: (in this example, current system time is Mar 10 2025, 12:00)**
+`Wrong time format used. Will use system current dateTime instead.
+Format guide: "MMM dd yyyy at HH:mm" 
+Adding recurring expense to budget... 
+Hooray! Added recurring expense(s) to budget. 
+Here is the list:
+$20.00 spent on Lunch (Mar 10 2025 at 12:00)
+$20.00 spent on Lunch (Mar 20 2025 at 12:00)
+$20.00 spent on Lunch (Mar 30 2025 at 12:00)
+$20.00 spent on Lunch (Apr 10 2025 at 12:00)
+$20.00 spent on Lunch (Apr 20 2025 at 12:00)`
+
 ### Deleting an Expense: `delete`
 Removes a recorded expense from the Overall Budget and its corresponding category budget using its index.
 This `INDEX` is found from the list command, which displays all recorded expenses.
