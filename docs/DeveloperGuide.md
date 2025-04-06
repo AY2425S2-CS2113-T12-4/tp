@@ -95,7 +95,7 @@ Handles all user interactions—displays messages, lists expenses, and shows bud
 Processes user input in a loop, parses commands, and triggers their execution.
 
 **Class Diagram**
-![Input Manager Class Diagram](CommandClassDiagram.png)
+![Input Manager Class Diagram](diagrams/CommandClassDiagram.png)
 
 **Code Flow**
 The code flow below is also demonstrated with the sequence diagram in the [Logic](#logic) Section
@@ -172,7 +172,7 @@ system.
 
 **Class Diagram**
 
-![BudgetManagerClassDiagram.png](BudgetManagerClassDiagram.png)
+![BudgetManagerClassDiagram.png](diagrams/BudgetManagerClassDiagram.png)
 
 ### Storage
 The `StorageManager` class is responsible for reading from and writing to a local text file.
@@ -185,8 +185,11 @@ The diagram below illustrates how `StorageManager` interacts with `BudgetManager
 
 ### Add Expense
 The diagram below outlines the process of execution when `AddCommand` is executed.
-![BudgetManagerAddSequenceDiagram.png](BudgetManagerAddSequenceDiagram.png)
+![BudgetManagerAddSequenceDiagram.png](/docs/diagrams/BudgetManagerAddSequenceDiagram.png)
 
+### Edit Expense
+The diagram below outlines the process of execution when `EditExpenseCommand` is executed.
+![EditExpenseSequenceDiagram.png](diagrams/EditExpenseSequenceDiagram.png)
 ### Delete Expense
 The diagram below outlines the process of execution when `DeleteCommand` is executed.
 ![Delete Expense Sequence Diagram](/docs/diagrams/DeleteExpenseSequenceDiagram.png)
@@ -246,7 +249,7 @@ Many students struggle with money management, leading to overspending and financ
 |v1.0| forgetful student with hectic schedule                   | see the portion of my budget I have used              | be more financially aware.                                                      |
 |v1.0| time-strapped student managing multiple responsibilities | view a summary of my finances                         | quickly understand my financial situation.                                      |
 |v1.0| student prone to overspending                            | receive alerts when I am close to exceeding my budget | adjust my spending.                                                             |
-|v2.0| user                                                     | find a to-do item by name                             | locate a to-do without having to go through the entire list.                    |
+|v2.0| user                                                     | find an expense item by description                   | locate a to-do without having to go through the entire list.                    |
 |v2.0| careless student                                         | edit previously inputted expenses                     | update the details of the expenses without deleting and creating a new expense. |
 |v2.0| new user                                                 | learn about the functionalities of the program        | fully utilize what the application has to offer                                 |
 

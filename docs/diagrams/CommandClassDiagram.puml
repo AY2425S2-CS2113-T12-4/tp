@@ -4,7 +4,7 @@ hide circle
 skinparam classAttributeIconSize 0
 
 package "BudgetBuddy"{
-package "InputProcessingLogic"{
+package "Input Processing Logic"{
 abstract class "{abstract} \n Command" {
     -String description
     +Command(String description)
