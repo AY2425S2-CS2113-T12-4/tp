@@ -1,6 +1,22 @@
 package budgetbuddy.parser;
 
-import budgetbuddy.command.*;
+import budgetbuddy.command.Command;
+import budgetbuddy.command.AddExpenseCommand;
+import budgetbuddy.command.AddRecurringExpenseCommand;
+import budgetbuddy.command.AlertCommand;
+import budgetbuddy.command.CheckBudgetCommand;
+import budgetbuddy.command.DeleteAlertCommand;
+import budgetbuddy.command.DeleteCommand;
+import budgetbuddy.command.EditAlertCommand;
+import budgetbuddy.command.EditBudgetCommand;
+import budgetbuddy.command.EditExpenseCommand;
+import budgetbuddy.command.ExitCommand;
+import budgetbuddy.command.FindExpenseCommand;
+import budgetbuddy.command.HelpCommand;
+import budgetbuddy.command.ListCommand;
+import budgetbuddy.command.SetBudgetCommand;
+import budgetbuddy.command.SummaryCommand;
+
 import budgetbuddy.exception.InvalidInputException;
 
 import java.util.NoSuchElementException;
