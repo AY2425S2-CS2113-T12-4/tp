@@ -18,7 +18,7 @@ public class Budget {
      * Constructs a Budget object with the given category and spending limit.
      *
      * @param category The name of the budget category (e.g., "Food", "Transport").
-     * @param limit The spending limit for the budget.
+     * @param limit    The spending limit for the budget.
      */
     public Budget(String category, double limit) {
 
@@ -60,7 +60,7 @@ public class Budget {
      *
      * @param expense The expense to add to this budget.
      */
-    public void addExpense (Expense expense) {
+    public void addExpense(Expense expense) {
         expenses.add(expense);
     }
 
@@ -83,6 +83,7 @@ public class Budget {
             throw new IllegalArgumentException("Budget limit cannot be negative.");
         }
         this.limit = amount;
+
     }
 
     /**
@@ -100,7 +101,7 @@ public class Budget {
     public void printExpenses() {
         if (expenses.isEmpty()) {
             Ui.printNoExpense();
-        }else {
+        } else {
             Ui.printExpensesList(expenses);
         }
     }
@@ -115,13 +116,14 @@ public class Budget {
         if (expenses.isEmpty()) {
             Ui.printNoExpense();
 
-        }else {
+        } else {
             Ui.printExpensesList(expenses, start, end);
         }
     }
 
     /**
      * deletes an expense.
+     *
      * @param index of the expense in list
      * @throws InvalidInputException when wrong index provided
      */
@@ -138,6 +140,7 @@ public class Budget {
 
     /**
      * Calculates the remaining budget by subtracting total expenses from the budget limit.
+     *
      * @return The remaining budget amount as a double
      * @throws IllegalStateException if no budget has been set (limit = 0)
      */
@@ -156,5 +159,26 @@ public class Budget {
         }
 
         return remaining;
+    }
+
+    /**
+     * Checks whether the total expenses for this budget category have reached or exceeded the set limit.
+     * <p>
+     * If a limit is set (non-zero), this method compares the total expenses against the limit:
+     * <ul>
+     *     <li>If the total expenses exceed the limit, a warning message is printed via {@code Ui.printBudgetExceeded}.</li>
+     *     <li>If the total expenses exactly match the limit, a notification is printed via {@code Ui.printBudgetReached}.</li>
+     *     <li>If the limit is zero, no check or output is performed.</li>
+     * </ul>
+     */
+    public void checkLimit() {
+        double totalExpenses = this.getTotalExpenses();
+        if (this.limit != 0) {
+            if (totalExpenses > limit) {
+                Ui.printBudgetExceeded(totalExpenses, limit, category);
+            } else if (totalExpenses == limit) {
+                Ui.printBudgetReached(totalExpenses, limit, category);
+            }
+        }
     }
 }

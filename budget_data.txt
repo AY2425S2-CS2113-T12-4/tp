@@ -1,3 +1,0 @@
-CATEGORY:Overall|LIMIT:0.0
-CATEGORY:test|LIMIT:1000.0
-ALERT:budgetbuddy.model.Alert@6d5380c2
