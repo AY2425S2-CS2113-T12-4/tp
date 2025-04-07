@@ -35,16 +35,15 @@ public class StorageManager {
                     writer.newLine();
                 }
             }
-            writer.write("ALERT:" + manager.getBudgetAlert());
-            writer.newLine();
+            if (manager.getBudgetAlert().isActive()) {
+                writer.write("ALERT:" + manager.getBudgetAlert().getAlertAmount());
+                writer.newLine();
+            }
         } catch (IOException e) {
             System.out.println("Error saving budget data: " + e.getMessage());
         }
     }
 
-    /**
-     * Loads budgets and alert amount from a file into the BudgetManager.
-     */
     public static void load(BudgetManager manager) {
         File file = new File(FILE_PATH);
         if (!file.exists()) {
@@ -56,29 +55,40 @@ public class StorageManager {
             Budget currentBudget = null;
 
             while ((line = reader.readLine()) != null) {
-                if (line.startsWith("CATEGORY:")) {
-                    String[] parts = line.split("\\|LIMIT:");
-                    String category = parts[0].substring(9);
-                    double limit = Double.parseDouble(parts[1]);
-                    currentBudget = new Budget(category, limit);
-                    manager.getBudgets().put(category, currentBudget);
-                } else if (line.startsWith("EXPENSE:") && currentBudget != null) {
-                    String[] parts = line.substring(8).split("\\|");
-                    double amount = Double.parseDouble(parts[0]);
-                    String description = parts[1];
-                    String timeStamp = parts[2];
-                    Expense e = new Expense(amount, description, timeStamp, true);
-                    currentBudget.addExpense(e);
-                } else if (line.startsWith("ALERT:")) {
-                    double alertAmount = Double.parseDouble(line.substring(6));
-                    manager.setBudgetAlert(alertAmount);
+                try {
+                    if (line.startsWith("CATEGORY:")) {
+                        String[] parts = line.split("\\|LIMIT:");
+                        String category = parts[0].substring(9);
+                        double limit = Double.parseDouble(parts[1]);
+                        currentBudget = new Budget(category, limit);
+                        manager.getBudgets().put(category, currentBudget);
+
+                    } else if (line.startsWith("EXPENSE:") && currentBudget != null) {
+                        String[] parts = line.substring(8).split("\\|");
+                        if (parts.length < 3) {
+                            throw new IllegalArgumentException("Incomplete expense line");
+                        }
+                        double amount = Double.parseDouble(parts[0]);
+                        String description = parts[1];
+                        String timeStamp = parts[2];
+                        Expense e = new Expense(amount, description, timeStamp, true);
+                        currentBudget.addExpense(e);
+
+                    } else if (line.startsWith("ALERT:")) {
+                        double alertAmount = Double.parseDouble(line.substring(6));
+                        manager.setBudgetAlert(alertAmount);
+                    }
+                } catch (Exception e) {
+                    System.out.println("Skipping corrupted line: \"" + line + "\" (" + e.getMessage() + ")");
+                    // Optionally: log to a file or count skipped lines
                 }
             }
-        } catch (IOException | NumberFormatException e) {
-            System.out.println("Error loading budget data: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error reading budget data: " + e.getMessage());
         }
     }
 }
+
 
 
 
