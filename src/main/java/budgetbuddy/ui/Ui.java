@@ -71,6 +71,11 @@ public class Ui {
 
         System.out.println("\nAdd Expense: add");
         System.out.println("Format: add AMOUNT c/ CATEGORY d/ DESCRIPTION t/ TIME <MMM dd yyyy 'at' hh:mm>");
+        System.out.println("- M: Month (**Only the first alphabet of month should be capitalised**) \n" +
+                "- d: Day\n" +
+                "- y: Year\n" +
+                "- H: Hour\n" +
+                "- m: Minute");
         System.out.println("Please Note: If dateTime format is incorrect, current system time will be used");
         System.out.println("Examples: add 15.50 c/Food d/Lunch t/Oct 05 2025 at 12:30, " +
                 "\n          add 40 c/Transport d/Taxi Ride t/Oct 10 2025 at 14:35");
@@ -79,13 +84,18 @@ public class Ui {
         System.out.println("Format: add-recurring AMOUNT c/ CATEGORY d/ DESCRIPTION t/ TIME" +
                 " f/ FREQUENCY i/ ITERATIONS");
         System.out.println("Please Note:");
-        System.out.println("- TIME must follow the format: MMM dd yyyy 'at' HH:mm (e.g., Apr 24 2025 at 12:00)");
-        System.out.println("- If date/time format is incorrect, the current system time will be used");
-        System.out.println("- FREQUENCY is in days (e.g., 30 = every 30 days)");
-        System.out.println("- ITERATIONS is the number of times to repeat the expense");
-        System.out.println("- Maximum frequency allowed:" +
+        System.out.println("TIME must follow the format: MMM dd yyyy 'at' HH:mm (e.g., Apr 24 2025 at 12:00)");
+        System.out.println("M: Month (**Only the first alphabet of month should be capitalised**) \n" +
+                "- d: Day\n" +
+                "- y: Year\n" +
+                "- H: Hour\n" +
+                "- m: Minute");
+        System.out.println("If date/time format is incorrect, the current system time will be used");
+        System.out.println("FREQUENCY is in days (e.g., 30 = every 30 days)");
+        System.out.println("ITERATIONS is the number of times to repeat the expense");
+        System.out.println("Maximum frequency allowed:" +
                 AddRecurringExpenseCommand.MAX_FREQUENCY_ADD_RECURRING + " days");
-        System.out.println("- Maximum iterations allowed:"
+        System.out.println("Maximum iterations allowed:"
                 + AddRecurringExpenseCommand.MAX_ITERATIONS_ADD_RECURRING + " 10");
         System.out.println("Examples: add-recurring 20 c/Food d/Lunch t/Apr 24 2025 at 12:00 f/30 i/5");
 
@@ -96,9 +106,16 @@ public class Ui {
 
         System.out.println("\nView Expenses: list");
         System.out.println("Format: list start/ START_TIME end/ END_TIME");
+        System.out.println("- M: Month (**Only the first alphabet of month should be capitalised**) \n" +
+                "- d: Day\n" +
+                "- y: Year\n" +
+                "- H: Hour\n" +
+                "- m: Minute");
         System.out.println("Please Note: START_TIME and END_TIME are both optional");
-        System.out.println("Example: list , list start/Apr 24 2025 at 12:00 ," +
-                " list start/Apr 24 2025 at 12:00 end/May 01 2025 at 12:00");
+        System.out.println("If date/time format is incorrect, the current system time will be used");
+        System.out.println("Example: list"+"\n         list start/Apr 24 2025 at 12:00 ," +
+                " \n         list start/Apr 24 2025 at 12:00 end/May 01 2025 at 12:00");
+
 
         System.out.println("\nEdit Expense: edit-expense");
         System.out.println("Format: edit-expense INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TIME]");
