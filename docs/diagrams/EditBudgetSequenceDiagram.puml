@@ -3,15 +3,15 @@ hide circle
 skinparam classAttributeIconSize 0
 hide footbox
 
-participant "EditBudgetCommand" as EBC
-participant "BudgetManager" as BM
-participant "Budget" as B
-participant "Ui" as UI
+participant ":EditBudgetCommand" as EBC
+participant ":BudgetManager" as BM
+participant ":Budget" as B
+participant ":Ui" as UI
 
 EBC -> BM: editBudget(currentName, newAmount, newName)
 activate BM
 
-alt budget not found
+opt budget not found
     BM -> BM: throw InvalidInputException
 end
 
@@ -19,7 +19,7 @@ BM -> BM: budgets.get(currentName)
 activate BM
 BM-->BM: budgetToEdit
 deactivate BM
-alt reseting the limit requeired
+opt reseting the limit requeired
   BM -> B: setLimit(newAmount)
   activate B
   B --> BM
@@ -31,7 +31,7 @@ UI --> BM
 deactivate UI
 end
 
-alt renaming required
+opt renaming required
     BM -> BM: budgets.remove(currentName)
     activate BM
     BM --> BM

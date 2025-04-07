@@ -3,10 +3,10 @@ hide circle
 skinparam classAttributeIconSize 0
 hide footbox
 
-participant "CheckBudgetCommand" as CBC
-participant "BudgetManager" as BM
-participant "Budget" as B
-participant "Ui" as UI
+participant ":CheckBudgetCommand" as CBC
+participant ":BudgetManager" as BM
+participant ":Budget" as B
+participant ":Ui" as UI
 
 CBC -> BM: checkBudget(category)
 activate BM

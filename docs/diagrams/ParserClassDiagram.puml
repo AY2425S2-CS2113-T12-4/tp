@@ -1,4 +1,5 @@
 @startuml
+left to right direction
 hide circle
 skinparam classAttributeIconSize 0
 
@@ -47,6 +48,11 @@ class "EditExpenseParser" {
     + parse(): String[]
 }
 
+class "ListParser" {
+    + ListParser(input: String)
+    + parse(): String[]
+}
+
 "{abstract} \n Parser<T>" <|-- "AlertParser"
 "{abstract} \n Parser<T>" <|-- "AddParser"
 "{abstract} \n Parser<T>" <|-- "DeleteParser"
@@ -55,4 +61,5 @@ class "EditExpenseParser" {
 "{abstract} \n Parser<T>" <|-- "SetBudgetParser"
 "{abstract} \n Parser<T>" <|-- "FindExpenseParser"
 "{abstract} \n Parser<T>" <|-- "EditExpenseParser"
+"{abstract} \n Parser<T>" <|-- "ListParser"
 @enduml
