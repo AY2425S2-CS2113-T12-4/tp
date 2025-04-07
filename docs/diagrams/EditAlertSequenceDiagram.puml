@@ -25,14 +25,47 @@ deactivate IP
 
 IM -> EAC: execute(budgetManager)
 activate EAC
+create AP
 EAC -> AP: new AlertParser(description)
 activate AP
-AP -> AP: parse()
+AP-->EAC
+deactivate AP
+EAC -> AP: parse()
+activate AP
 AP --> EAC: Return new amount
 deactivate AP
-EAC -> BM: getBudgetAlert().editAlertAmount(amount)
+EAC -> BM: getBudgetAlert()
+activate BM
+BM -> A: editAlertAmount(amount)
 activate A
 A -> UI: printSetBudgetAlert(amount, true)
+activate UI
+UI --> A
+deactivate UI
+A--> BM
+deactivate A
+BM--> EAC
+deactivate BM
+EAC -> BM: checkBudgetAlert()
+activate BM
+BM -> A:checkAlert(totalExpenses)
+activate A
+opt Total expenses exceed alert amount
+A -> UI: printCheckAlert(totalExpenses, alertAmount)
+activate UI
+UI --> A
+deactivate UI
+else Total expenses equals alert amount
+A -> UI: pprintHitAlert(totalExpenses)
+activate UI
+UI --> A
+deactivate UI
+end
+A --> BM
+deactivate A
+BM--> EAC
+deactivate BM
+
 deactivate A
 EAC --> IM
 deactivate EAC

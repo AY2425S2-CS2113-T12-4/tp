@@ -3,15 +3,17 @@ hide circle
 skinparam classAttributeIconSize 0
 hide footbox
 
-participant "DeleteCommand" as DC
-participant "BudgetManager" as BM
-participant "Budget" as OB
-participant "Ui" as UI
+participant ":DeleteCommand" as DC
+participant ":BudgetManager" as BM
+participant ":Budget" as OB
+participant ":Ui" as UI
+
+activate DC
 
 DC -> BM: deleteExpense(index)
 activate BM
 
-alt "Overall" budget does not exist
+opt "Overall" budget does not exist
     BM -> BM: throw InvalidInputException
 end
 
@@ -42,7 +44,7 @@ deactivate OB
 
 loop For each category budget other than "Overall" Budget
         loop For each expense in category
-            alt expense matches
+            opt expense matches
                 BM -> OB: remove(index)
                 OB --> BM
 

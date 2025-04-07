@@ -23,14 +23,17 @@ deactivate SBC
 IP --> IM: Return SetBudgetCommand object
 deactivate IP
 IM -> SBC: execute(budgetManager)
+
 activate SBC
+create SBP
 SBC -> SBP: new SetBudgetParser(description)
 activate SBP
-SBP -> SBP: parse()
-activate SBP
-SBP --> SBP
+SBP --> SBC
 deactivate SBP
+SBC -> SBP: parse()
+activate SBP
 SBP --> SBC: Return [category, amount]
+deactivate SBP
 deactivate SBP
 box SBC #LightBlue
 SBC -> BM: setBudget(category, amount)

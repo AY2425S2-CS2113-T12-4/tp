@@ -24,14 +24,18 @@ IP --> IM: Return FindExpenseCommand object
 deactivate IP
 IM -> FEC: execute(budgetManager)
 activate FEC
+create FEP
+
 FEC -> FEP: new FindExpenseParser(description)
 activate FEP
-FEP -> FEP: parse()
-activate FEP
-FEP --> FEP
+FEP --> FEC
 deactivate FEP
+
+FEC -> FEP: parse()
+activate FEP
 FEP --> FEC: Return keyword
 deactivate FEP
+
 box FEC #LightYellow
 FEC -> BM: findExpense(keyword)
 activate BM
@@ -41,7 +45,7 @@ UI --> BM: header printed
 deactivate UI
 
 loop For each expense in Overall budget
-   alt expense description contains keyword
+   opt expense description contains keyword
       BM -> UI: printMatchingExpense(expenseIndex, expense)
       activate UI
       UI --> BM: expense printed

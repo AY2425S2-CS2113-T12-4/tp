@@ -8,6 +8,7 @@ participant ":BudgetManager" as BM
 participant ":Budget" as B
 participant ":Ui" as UI
 
+activate CBC
 CBC -> BM: checkBudget(category)
 activate BM
 
@@ -15,6 +16,7 @@ alt category is empty or blank
     BM -> BM: budgets.get("Overall")
     activate BM
     note right of BM: Retrieve Overall budget
+    BM --> BM
     deactivate BM
 
     BM -> B: getLimit()
@@ -24,7 +26,7 @@ alt category is empty or blank
 
     BM -> B: getTotalExpenses()
     activate B
-    B --> BM: spent
+    B --> BM: Return total amount spent
     deactivate B
 
     BM -> UI: printCheckBudget("", totalBudget, spent, remaining)
@@ -33,17 +35,18 @@ alt category is empty or blank
     deactivate UI
 
 else category provided
-    alt category does not exist
+    opt category does not exist
         BM -> UI: printBudgetNotFound(category)
         activate UI
         UI --> BM
         deactivate UI
-        deactivate BM
-        return
-    else category exists
+
+        BM --> CBC
+        end
         BM -> BM: budgets.get(category)
         activate BM
         note right of BM: Retrieve category budget
+        BM --> BM
         deactivate BM
 
         BM -> B: getLimit()
@@ -53,14 +56,14 @@ else category provided
 
         BM -> B: getTotalExpenses()
         activate B
-        B --> BM: spent
+        B --> BM: Return total amount spent
         deactivate B
 
         BM -> UI: printCheckBudget(category, totalBudget, spent, remaining)
         activate UI
         UI --> BM
         deactivate UI
-    end
+
 end
 
 BM --> CBC

@@ -8,6 +8,7 @@ participant ":BudgetManager" as BM
 participant ":Budget" as B
 participant ":Ui" as UI
 
+activate EBC
 EBC -> BM: editBudget(currentName, newAmount, newName)
 activate BM
 
@@ -19,7 +20,7 @@ BM -> BM: budgets.get(currentName)
 activate BM
 BM-->BM: budgetToEdit
 deactivate BM
-opt reseting the limit requeired
+opt resetting the limit required
   BM -> B: setLimit(newAmount)
   activate B
   B --> BM
