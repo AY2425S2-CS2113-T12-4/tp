@@ -77,9 +77,14 @@ public class Expense {
         // Initialize fields.
         this.description = description;
         this.amount = amount;
-        // Use the DateTimeUtil to parse the provided string.
-        this.dateTime = budgetbuddy.parser.DateTimeParser.parseOrDefault(dateTimeString,false);
-        //we want to print error messages here, if applicable.Hence, noErrorPrint is false
+
+        if (dateTimeString == "") {
+            this.dateTime = LocalDateTime.now();
+        } else {
+            // Use the DateTimeUtil to parse the provided string.
+            this.dateTime = budgetbuddy.parser.DateTimeParser.parseOrDefault(dateTimeString, false);
+            //we want to print error messages here, if applicable.Hence, noErrorPrint is false
+        }
     }
 
     /**
