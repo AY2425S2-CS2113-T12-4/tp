@@ -11,6 +11,7 @@ import budgetbuddy.exception.InvalidInputException;
 public class ListCommand extends Command{
 
     public ListCommand(String description) {
+
         super(description);
     }
 
@@ -27,54 +28,55 @@ public class ListCommand extends Command{
      */
     @Override
     public void execute(BudgetManager budgetManager) throws InvalidInputException {
-        boolean hasStart = false;
-        boolean hasEnd = false;
+        boolean hasStart = description.contains("start/");
+        boolean hasEnd = description.contains("end/");
+        boolean partialExpensesRequired = hasStart || hasEnd;
+
         String start = "";
         String end = "";
 
-        String[] listCommandSplit = this.description.split(" ");
+        boolean invalidStart = false;
+        boolean invalidEnd = false;
 
-        // Extract start and end times
-        for (String part : listCommandSplit) {
-            String lowerPart = part.toLowerCase();
-            if (lowerPart.startsWith("start/")) {
-                hasStart = true;
-                start = part.substring("start/".length()).trim();
-            } else if (lowerPart.startsWith("end/")) {
-                hasEnd = true;
-                end = part.substring("end/".length()).trim();
+        if (hasStart) {
+            String[] splitStart = description.split("start/", 2);
+            if (splitStart.length < 2 || splitStart[1].isBlank() || splitStart[1].trim().startsWith("end/")) {
+                invalidStart = true;
+            } else {
+                start = splitStart[1].split("end/")[0].trim();
             }
         }
 
-        // Validate the inputs
-        if (hasStart || hasEnd) {
-            // Handle missing partner time
-            if (hasStart && !hasEnd) {
-                throw new InvalidInputException("Missing end time. Please use format: " +
-                        "list start/MMM dd yyyy 'at' HH:mm end/MMM dd yyyy 'at' HH:mm");
+        if (hasEnd) {
+            String[] splitEnd = description.split("end/", 2);
+            if (splitEnd.length < 2 || splitEnd[1].isBlank()) {
+                invalidEnd = true;
+            } else {
+                end = splitEnd[1].trim();
             }
-            if (!hasStart && hasEnd) {
-                throw new InvalidInputException("Missing start time. Please use format: " +
-                        "list start/MMM dd yyyy 'at' HH:mm end/MMM dd yyyy 'at' HH:mm");
-            }
+        }
 
-            // Handle empty times
-            if (start.isEmpty() && end.isEmpty()) {
-                throw new InvalidInputException("Both start and end times are empty. " +
-                        "Please specify times in format: MMM dd yyyy 'at' HH:mm");
+        if ((invalidStart || invalidEnd) && partialExpensesRequired) {
+            System.err.print("Warning:");
+            if (invalidStart) {
+                System.err.print(" start/ marker is empty.");
             }
-            if (start.isEmpty()) {
-                throw new InvalidInputException("Start time cannot be empty. Format: MMM dd yyyy 'at' HH:mm");
+            if (invalidEnd) {
+                System.err.print(" end/ marker is empty.");
             }
-            if (end.isEmpty()) {
-                throw new InvalidInputException("End time cannot be empty. Format: MMM dd yyyy 'at' HH:mm");
-            }
+            System.err.println(" Showing full list.");
+            budgetManager.listAllExpenses();
+            return;
+        }
 
+        if (partialExpensesRequired) {
             budgetManager.listPartialExpenses(start, end);
         } else {
             budgetManager.listAllExpenses();
         }
     }
+
+
 
     /**
      * Returns {@code false} as this command does not signify the end of the program.

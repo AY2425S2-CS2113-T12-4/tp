@@ -94,10 +94,11 @@ public class Ui {
         System.out.println("Format: delete INDEX");
         System.out.println("Examples: delete 2, delete 5");
 
-        System.out.println("\nList Expenses: list");
-        System.out.println("Format: list");
-        System.out.println("Please Note: Shows all expenses in chronological order");
-        System.out.println("Example: list");
+        System.out.println("\nView Expenses: list");
+        System.out.println("Format: list start/ START_TIME end/ END_TIME");
+        System.out.println("Please Note: START_TIME and END_TIME are both optional");
+        System.out.println("Example: list , list start/Apr 24 2025 at 12:00 ," +
+                " list start/Apr 24 2025 at 12:00 end/May 01 2025 at 12:00");
 
         System.out.println("\nEdit Expense: edit-expense");
         System.out.println("Format: edit-expense INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TIME]");
@@ -223,6 +224,7 @@ public class Ui {
         printSeparator();
     }
 
+
     /**
      * Prints a list of all recorded expenses.
      *
@@ -242,13 +244,12 @@ public class Ui {
      *
      * @param expenses A list of expenses to be displayed.
      */
-
     public static void printExpensesList(ArrayList expenses, String start, String end) {
         printSeparator();
 
-        boolean bypassStart = start.isEmpty();
+        boolean bypassStart = start.isBlank();
         //if no start date provided
-        boolean bypassEnd = end.isEmpty();
+        boolean bypassEnd = end.isBlank();
         //if no end date provided
 
         //boolean happensAfterStart = false;
@@ -292,6 +293,7 @@ public class Ui {
 
         printSeparator();
     }
+
 
     /**
      * Prints a message confirming the deletion of an expense.
