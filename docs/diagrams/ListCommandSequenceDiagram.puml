@@ -1,0 +1,54 @@
+@startuml
+
+hide footbox
+actor User
+
+participant "InputManager" as InputManager
+participant "InputParser" as InputParser
+participant "ListCommand" as ListCommand
+participant "BudgetManager" as BudgetManager
+participant "Budget" as Budget
+participant "Ui" as Ui
+participant "DateTimeParser" as DateTimeParser
+
+User -> InputManager : enter "list" command
+activate InputManager
+InputManager -> InputParser : parseInput("list")
+activate InputParser
+InputParser --> InputManager : ListCommand
+deactivate InputParser
+
+InputManager -> ListCommand : execute(budgetManager)
+activate ListCommand
+
+alt start/end markers present
+    ListCommand -> DateTimeParser : parseOrDefault(start, true)
+    activate DateTimeParser
+    DateTimeParser --> ListCommand : startDate
+    deactivate DateTimeParser
+
+    ListCommand -> DateTimeParser : parseOrDefault(end, true)
+    activate DateTimeParser
+    DateTimeParser --> ListCommand : endDate
+    deactivate DateTimeParser
+
+    ListCommand -> BudgetManager : listPartialExpenses(start, end)
+    activate BudgetManager
+    BudgetManager -> Budget : printExpenses(start, end)
+    activate Budget
+    Budget -> Ui : printExpensesList(expenses, start, end)
+    deactivate Budget
+    deactivate BudgetManager
+
+else no start/end markers
+    ListCommand -> BudgetManager : listAllExpenses()
+    activate BudgetManager
+    BudgetManager -> Budget : printExpenses()
+    activate Budget
+    Budget -> Ui : printExpensesList(expenses)
+    deactivate Budget
+    deactivate BudgetManager
+end
+
+deactivate ListCommand
+@enduml

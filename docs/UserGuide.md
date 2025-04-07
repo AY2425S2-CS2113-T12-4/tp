@@ -12,6 +12,7 @@ different categories.
 - [Quick Start](#quick-start)
 - [Features](#features)
   - [Adding an Expense: `add`](#adding-an-expense-add)
+  - [Adding a Recurring Expense: `add-recurring`](#adding-a-recurring-expense-add-recurring)
   - [Deleting an Expense: `delete`](#deleting-an-expense-delete)
   - [Listing all Expenses: `list`](#listing-all-expenses-list)
   - [Editing an Expense: `edit-expense`](#editing-an-expense-edit-expense)
@@ -102,8 +103,8 @@ ___________________________________________
 ```
 
 ### Adding a Recurring Expense: `add-recurring`
-
-Adds a recurring expense to the list of expenses based on the given frequency and number of iterations. Each entry is treated as a separate expense added to the system.
+Adds a recurring expense to the list of expenses based on the given frequency and number of iterations. 
+Each entry is treated as a separate expense added to the system.
 
 **Format:**
 
@@ -192,12 +193,21 @@ ___________________________________________
 ### Listing all Expenses: `list`
 Displays all recorded expenses under the Overall Budget, including their amount, description, and date/time.
 
-**Format:** `list`
+**Format:** `list [start/<TIME>] [end/<TIME>]`
 
 * Lists expenses in chronological order from the Overall Budget, with latest displayed first. 
 * Each expense includes the amount, description, and timestamp.
+* Both start and end are optional. Users can choose to apply both or either or none. 
+* Format for time is "MMM dd yyyy at HH:mm" 
+* Here, 
+- M: Month (**Only the first alphabet of month should be capitalised**) 
+- d: Day
+- y: Year
+- H: Hour
+- m: Minute
+* If incorrect date time formats are used, then programme will use system date and time.
 
-**Example:** `list`
+**Example 1:** `list`
 
 **Expected Output 1:**
 ```
@@ -209,12 +219,25 @@ Expense List:
 ___________________________________________
 ```
 
+**Example 2:** `list start/Apr 01 2025 at 12:45 end/Apr 02 2025 at 11:40`
 **Expected Output 2:**
 ```
 ___________________________________________
-No expenses recorded.
+Expense List:
+2. $12.50 spent on Coffee (Apr 02 2025 at 10:30)
+3. $60.00 spent on Groceries (Apr 01 2025 at 16:45)
 ___________________________________________
 ```
+**Example 3:** `list start/Apr 01 2025 at 23:00`
+**Expected Output 3:**
+```
+___________________________________________
+Expense List:
+1. $25.00 spent on Bus Fare (Apr 03 2025 at 08:15)
+2. $12.50 spent on Coffee (Apr 02 2025 at 10:30)
+___________________________________________
+```
+
 
 ### Editing an Expense: `edit-expense`
 Edit an item on the list of expenses. Expense `AMOUNT`, `DESCRIPTION` or `DATE TIME` can be edited, with all three being 
@@ -438,7 +461,8 @@ Sets a budget alert to notify the user when expenses exceed a specific limit.
 
 **Format:** `alert <AMOUNT>`
 
-* The `AMOUNT` can be any positive number, if a number too large in entered, it will be displayed as Infinity.
+* The `AMOUNT` can be any positive number less than 100000.
+* Any `AMOUNT` with more than 2 decimal places will be rounded to 2 decimal places.
 * The budget alert remains active until it is manually updated or removed
 * To remove the alert, input `alert 0`
 
@@ -622,17 +646,18 @@ computer and put it in your root folder.
 
 ## Command Summary
 
-| Command          | Format                                                                |
-|------------------|-----------------------------------------------------------------------|
-| **add**          | `add <AMOUNT> c/<CATEGORY> d/<DESCRIPTION> t/<DATE_TIME>`             |
-| **delete**       | `delete <INDEX>`                                                      |
-| **list**         | `list`                                                                |
-| **edit-expense** | `edit-expense <INDEX> [a/<AMOUNT>] [d/<DESCRIPTION>] [t/<DATE_TIME>]` |
-| **set-budget**   | `set-budget <AMOUNT>` or `set-budget c/<CATEGORY> <AMOUNT>`           |
-| **check-budget** | `check-budget [c/<CATEGORY>]`                                         |
-| **edit-budget**  | `edit-budget old/<CURRENT_NAME> [a/<NEW_AMOUNT>] [c/<NEW_NAME>]`      |
-| **summary**      | `summary`                                                             |
-| **alert**        | `alert <AMOUNT>`                                                      |
-| **find**         | `find <KEYWORD>`                                                      |
-| **help**         | `help`                                                                |
-| **bye**          | `bye`                                                                 |
+| Command           | Format                                                                                                              |
+|-------------------|---------------------------------------------------------------------------------------------------------------------|
+| **add**           | `add <AMOUNT> c/<CATEGORY> d/<DESCRIPTION> t/<DATE_TIME>`                                                           |
+| **add-recurring** | `add-recurring <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <START DATE TIME> f/ <FREQUENCY_IN_DAYS> i/ <ITERATIONS>` |
+| **delete**        | `delete <INDEX>`                                                                                                    |
+| **list**          | `list [start/<TIME>] [end/<TIME>]`                                                                                  |
+| **edit-expense**  | `edit-expense <INDEX> [a/<AMOUNT>] [d/<DESCRIPTION>] [t/<DATE_TIME>]`                                               |
+| **set-budget**    | `set-budget <AMOUNT>` or `set-budget c/<CATEGORY> <AMOUNT>`                                                         |
+| **check-budget**  | `check-budget [c/<CATEGORY>]`                                                                                       |
+| **edit-budget**   | `edit-budget old/<CURRENT_NAME> [a/<NEW_AMOUNT>] [c/<NEW_NAME>]`                                                    |
+| **summary**       | `summary [c/<CATEGORY1> c/<CATEGORY2>... ]`                                                                         |
+| **alert**         | `alert <AMOUNT>`                                                                                                    |
+| **find**          | `find <KEYWORD>`                                                                                                    |
+| **help**          | `help`                                                                                                              |
+| **bye**           | `bye`                                                                                                               |

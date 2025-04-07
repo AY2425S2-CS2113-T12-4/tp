@@ -116,14 +116,13 @@ public class Budget {
         if (expenses.isEmpty()) {
             Ui.printNoExpense();
 
-        } else {
+        }else {
             Ui.printExpensesList(expenses, start, end);
         }
     }
 
     /**
      * deletes an expense.
-     *
      * @param index of the expense in list
      * @throws InvalidInputException when wrong index provided
      */

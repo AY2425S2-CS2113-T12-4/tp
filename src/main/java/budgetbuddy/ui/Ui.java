@@ -19,7 +19,9 @@ import java.util.Scanner;
 public class Ui {
     private static final String SEPARATOR =
             "__________________________________________";  // Separator for formatting
+    private static String lastOutput;
     private Scanner scanner;  // Scanner to capture user input
+
 
     /**
      * Prints a separator line for better output formatting.
@@ -71,6 +73,11 @@ public class Ui {
 
         System.out.println("\nAdd Expense: add");
         System.out.println("Format: add AMOUNT c/ CATEGORY d/ DESCRIPTION t/ TIME <MMM dd yyyy 'at' hh:mm>");
+        System.out.println("- M: Month (**Only the first alphabet of month should be capitalised**) \n" +
+                "- d: Day\n" +
+                "- y: Year\n" +
+                "- H: Hour\n" +
+                "- m: Minute");
         System.out.println("Please Note: If dateTime format is incorrect, current system time will be used");
         System.out.println("Examples: add 15.50 c/Food d/Lunch t/Oct 05 2025 at 12:30, " +
                 "\n          add 40 c/Transport d/Taxi Ride t/Oct 10 2025 at 14:35");
@@ -79,13 +86,18 @@ public class Ui {
         System.out.println("Format: add-recurring AMOUNT c/ CATEGORY d/ DESCRIPTION t/ TIME" +
                 " f/ FREQUENCY i/ ITERATIONS");
         System.out.println("Please Note:");
-        System.out.println("- TIME must follow the format: MMM dd yyyy 'at' HH:mm (e.g., Apr 24 2025 at 12:00)");
-        System.out.println("- If date/time format is incorrect, the current system time will be used");
-        System.out.println("- FREQUENCY is in days (e.g., 30 = every 30 days)");
-        System.out.println("- ITERATIONS is the number of times to repeat the expense");
-        System.out.println("- Maximum frequency allowed:" +
+        System.out.println("TIME must follow the format: MMM dd yyyy 'at' HH:mm (e.g., Apr 24 2025 at 12:00)");
+        System.out.println("M: Month (**Only the first alphabet of month should be capitalised**) \n" +
+                "- d: Day\n" +
+                "- y: Year\n" +
+                "- H: Hour\n" +
+                "- m: Minute");
+        System.out.println("If date/time format is incorrect, the current system time will be used");
+        System.out.println("FREQUENCY is in days (e.g., 30 = every 30 days)");
+        System.out.println("ITERATIONS is the number of times to repeat the expense");
+        System.out.println("Maximum frequency allowed:" +
                 AddRecurringExpenseCommand.MAX_FREQUENCY_ADD_RECURRING + " days");
-        System.out.println("- Maximum iterations allowed:"
+        System.out.println("Maximum iterations allowed:"
                 + AddRecurringExpenseCommand.MAX_ITERATIONS_ADD_RECURRING + " 10");
         System.out.println("Examples: add-recurring 20 c/Food d/Lunch t/Apr 24 2025 at 12:00 f/30 i/5");
 
@@ -94,10 +106,18 @@ public class Ui {
         System.out.println("Format: delete INDEX");
         System.out.println("Examples: delete 2, delete 5");
 
-        System.out.println("\nList Expenses: list");
-        System.out.println("Format: list");
-        System.out.println("Please Note: Shows all expenses in chronological order");
-        System.out.println("Example: list");
+        System.out.println("\nView Expenses: list");
+        System.out.println("Format: list start/ START_TIME end/ END_TIME");
+        System.out.println("- M: Month (**Only the first alphabet of month should be capitalised**) \n" +
+                "- d: Day\n" +
+                "- y: Year\n" +
+                "- H: Hour\n" +
+                "- m: Minute");
+        System.out.println("Please Note: START_TIME and END_TIME are both optional");
+        System.out.println("If date/time format is incorrect, the current system time will be used");
+        System.out.println("Example: list"+"\n         list start/Apr 24 2025 at 12:00 ," +
+                " \n         list start/Apr 24 2025 at 12:00 end/May 01 2025 at 12:00");
+
 
         System.out.println("\nEdit Expense: edit-expense");
         System.out.println("Format: edit-expense INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TIME]");
@@ -223,6 +243,7 @@ public class Ui {
         printSeparator();
     }
 
+
     /**
      * Prints a list of all recorded expenses.
      *
@@ -242,13 +263,11 @@ public class Ui {
      *
      * @param expenses A list of expenses to be displayed.
      */
-
     public static void printExpensesList(ArrayList expenses, String start, String end) {
-        printSeparator();
 
-        boolean bypassStart = start.isEmpty();
+        boolean bypassStart = start.isBlank();
         //if no start date provided
-        boolean bypassEnd = end.isEmpty();
+        boolean bypassEnd = end.isBlank();
         //if no end date provided
 
         //boolean happensAfterStart = false;
@@ -263,10 +282,18 @@ public class Ui {
 
         try {
             if (!bypassStart) {
-                startDate = DateTimeParser.parseOrDefault(start, false);
+                startDate = DateTimeParser.parseOrDefault(start, true);
+                if(!DateTimeParser.parseOrDefaultBooleanReturn(start, true)) {
+                    System.err.println("Incorrect time format for \"start\". Will use current time for it. ");
+                    System.err.flush(); //make sure that error appears before list
+                }
             }
             if (!bypassEnd) {
-                endDate = DateTimeParser.parseOrDefault(end, false);
+                endDate = DateTimeParser.parseOrDefault(end, true);
+                if(!DateTimeParser.parseOrDefaultBooleanReturn(end, true)) {
+                    System.err.println("Incorrect time format for \"end\". Will use current time for it.");
+                    System.err.flush();//make sure that error appears before list
+                }
             }
         } catch (Exception e) {
             System.out.println("Error parsing expenses list: " + e.getMessage());
@@ -274,7 +301,16 @@ public class Ui {
         }
         //if the user provides incorrect date and time formats
 
+        if(!bypassEnd && !bypassStart){
+            assert startDate != null;
+            if(startDate.isAfter(endDate)){
+                System.err.println("Start time cannot occur after end time.");
+                System.err.flush();//flush error before any other print
+                return;
+            }
+        }
 
+        printSeparator();
         System.out.println("Expense List:");
         for (int i = expenses.size() - 1; i >= 0; i--) {
             Expense expense = (Expense) expenses.get(i);
@@ -292,6 +328,7 @@ public class Ui {
 
         printSeparator();
     }
+
 
     /**
      * Prints a message confirming the deletion of an expense.
@@ -518,5 +555,16 @@ public class Ui {
         System.out.println("Warning: Your total expenses (" + formattedTotalExpense + ") have reached the budget " +
                 "limit for the '" + category + "' category (limit: " + formattedLimit + ")");
         printSeparator();
+    }
+
+
+    public static void printMessage(String message) {
+        lastOutput = message;
+        System.out.println(message);
+    }
+
+
+    public static String getLastOutput() {
+        return lastOutput;
     }
 }
