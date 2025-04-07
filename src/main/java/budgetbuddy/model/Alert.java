@@ -18,6 +18,16 @@ public class Alert {
     }
 
     /**
+     * Checks if the budget alert is currently active.
+     *
+     * @return {@code true} if the alert is enabled and will trigger when the threshold is reached;
+     *         {@code false} if the alert is disabled.
+     */
+    public boolean isActive() {
+        return isActive;
+    }
+
+    /**
      * Sets the alert amount. If the amount is 0, it disables the alert.
      *
      * @param amount The amount to trigger an alert.
