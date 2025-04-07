@@ -245,7 +245,6 @@ public class Ui {
      * @param expenses A list of expenses to be displayed.
      */
     public static void printExpensesList(ArrayList expenses, String start, String end) {
-        printSeparator();
 
         boolean bypassStart = start.isBlank();
         //if no start date provided
@@ -264,10 +263,18 @@ public class Ui {
 
         try {
             if (!bypassStart) {
-                startDate = DateTimeParser.parseOrDefault(start, false);
+                startDate = DateTimeParser.parseOrDefault(start, true);
+                if(!DateTimeParser.parseOrDefaultBooleanReturn(start, true)) {
+                    System.err.println("Incorrect time format for \"start\". Will use current time for it. ");
+                    System.err.flush(); //make sure that error appears before list
+                }
             }
             if (!bypassEnd) {
-                endDate = DateTimeParser.parseOrDefault(end, false);
+                endDate = DateTimeParser.parseOrDefault(end, true);
+                if(!DateTimeParser.parseOrDefaultBooleanReturn(end, true)) {
+                    System.err.println("Incorrect time format for \"end\". Will use current time for it.");
+                    System.err.flush();//make sure that error appears before list
+                }
             }
         } catch (Exception e) {
             System.out.println("Error parsing expenses list: " + e.getMessage());
@@ -275,7 +282,16 @@ public class Ui {
         }
         //if the user provides incorrect date and time formats
 
+        if(!bypassEnd && !bypassStart){
+            assert startDate != null;
+            if(startDate.isAfter(endDate)){
+                System.err.println("Start time cannot occur after end time.");
+                System.err.flush();//flush error before any other print
+                return;
+            }
+        }
 
+        printSeparator();
         System.out.println("Expense List:");
         for (int i = expenses.size() - 1; i >= 0; i--) {
             Expense expense = (Expense) expenses.get(i);

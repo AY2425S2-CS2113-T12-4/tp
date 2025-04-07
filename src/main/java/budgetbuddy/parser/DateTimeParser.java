@@ -55,4 +55,26 @@ public class DateTimeParser {
         }
         return dateTimeParsed;
     }
+
+    public static boolean parseOrDefaultBooleanReturn(String inputDateTimeStr, boolean noErrorPrint) {
+        //we bypass the error messages when loading from .txt
+        boolean isCorrectDateTimeFormat = false;
+        LocalDateTime dateTimeParsed = null;
+
+        try {
+            // Attempt to parse the string using the predefined formatter.
+            LocalDateTime parsedDateTime = LocalDateTime.parse(inputDateTimeStr, DATETIME_FORMAT);
+            isCorrectDateTimeFormat = true;
+            dateTimeParsed = parsedDateTime;
+        } catch (DateTimeParseException e) {
+            if (!noErrorPrint) {
+                Ui.printWrongTimeFormat();
+            }
+            LocalDateTime systemNow = LocalDateTime.now();
+            dateTimeParsed = systemNow;
+            // Assert that the system time is not null.
+            assert systemNow != null : "System current dateTime should never be null.";
+        }
+        return isCorrectDateTimeFormat;
+    }
 }
