@@ -11,12 +11,14 @@ different categories.
 - [Introduction](#introduction)
 - [Quick Start](#quick-start)
 - [Features](#features)
+  - [Notes about the command format](#notes-about-the-command-format)
+  - [Saving of Data](#saving-of-data)
+  - [Setting a Budget: `set-budget`](#setting-a-budget-set-budget)
   - [Adding an Expense: `add`](#adding-an-expense-add)
   - [Adding a Recurring Expense: `add-recurring`](#adding-a-recurring-expense-add-recurring)
   - [Deleting an Expense: `delete`](#deleting-an-expense-delete)
   - [Listing all Expenses: `list`](#listing-all-expenses-list)
   - [Editing an Expense: `edit-expense`](#editing-an-expense-edit-expense)
-  - [Setting a Budget: `set-budget`](#setting-a-budget-set-budget)
   - [Checking Budget: `check-budget`](#checking-budget-check-budget)
   - [Editing Budget: `edit-budget`](#editing-budget-edit-budget)
   - [Summary of Budget: `summary`](#summary-of-budget-summary)
@@ -47,12 +49,12 @@ different categories.
 Hello! I'm your Budget Buddy
 What can I do for you?
 Input 'help' if you want to know what I can do!!
-___________________________________________
+__________________________________________
 ```
 
 ## Features 
 
-### Notes about the command format:
+### Notes about the Command Format
 
 * Words in `<UPPER_CASE>` are the parameters to be supplied by the user. 
 e.g. in `check-budget c/<CATEGORY>`, `CATEGORY` is a parameter which can be used as `check-budget c/Food`. 
@@ -63,6 +65,11 @@ e.g. only `add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <DATE TIME>` is accept
 * Extraneous parameters for commands that do not take in parameters (such as help, list, exit and clear) will be ignored.
 e.g. if the command specifies help 123, it will be interpreted as help.
 
+### Caution
+* Data will only be saved when exiting the program using the `bye` command.
+* If the program is closed directly (i.e., without `bye`), data will not be saved.
+* Data will be saved in the file `budget_data.txt` in the same folder as the jar file.
+* Do not edit the file `budget_data.txt` directly, as it may corrupt the data or cause the program to malfunction.
 
 ### Setting a Budget: `set-budget`
 Sets a spending limit for all expenses or for a specific category. 
@@ -71,18 +78,21 @@ Users can set an Overall budget, create new budget categories, or update existin
 **Format:** `set-budget [c/<CATEGORY>] <AMOUNT>`
 
 * The `AMOUNT` can be any positive number less than 100000.
+* The `AMOUNT` is recommended to be 2 decimal place. Any values with more than 2 decimal place may be rounded off. 
 * If no c/ marker is used, the budget will apply to the Overall Budget. 
 * If a c/<CATEGORY> is provided, a category-specific budget will be set. 
 * If the category doesn't already exist, it will be automatically created. 
 * If it exists, the budget limit will be updated.
-* * Categories are case-sensitive
+  * Categories are case-sensitive
 
 **Example 1:**
 `set-budget 1000`
 
 **Expected Output 1:**
 ```
+__________________________________________
 Overall budget set to: $1000.0
+__________________________________________
 ```
 
 **Example 2:**
@@ -90,7 +100,19 @@ Overall budget set to: $1000.0
 
 **Expected Output 2:**
 ```
-Budget for category Food set to: $300.0
+__________________________________________
+Budget for Food set to: $300.0
+__________________________________________
+```
+
+**Example 3:**
+`set-budget c/Food 10000000000`
+
+**Expected Output 3:**
+```
+__________________________________________
+Invalid input format: Amount must be between 0 and 100000.0
+__________________________________________
 ```
 
 ### Adding an Expense: `add`
@@ -101,7 +123,7 @@ Adds a new item to the list of expenses. Users can choose to leave `CATEGORY` an
 **Format:** `add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <DATE TIME>`
 
 * The `AMOUNT` can be any positive number, with a limit set to $10,000. 
-* The `CATEGORY` can be in natural language format. If it does not exist, the expense defaults to the **Overall Budget**.
+* The `CATEGORY` can be in natural language format. To add expense to Overall budget, use `c/Overall`.
 * The `DESCRIPTION` can be in natural language format.  
 * The `CATEGORY` and `DESCRIPTION` cannot contain `d/` and `t/`
 * The `CATEGORY` is case-sensitive.
@@ -132,7 +154,6 @@ Expense Added: $100.00 spent on bus fares (Apr 04 2025 at 23:13)
 ___________________________________________
 ```
 
-
 **Example 3:** 
 `add 50.34 c/ Overall d/ cab fares t/ Jan 15 2025 at 11:30`
 
@@ -151,20 +172,18 @@ Each entry is treated as a separate expense added to the system.
 
 `add-recurring <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <START DATE TIME> f/ <FREQUENCY_IN_DAYS> i/ <ITERATIONS>`
 
-
-- The `AMOUNT` must be a positive number. The amount limit is set to $10,000.
-- The `CATEGORY` can be any valid budget category. If it doesn't exist, the expense is added under the **Overall Budget**.
-- The `DESCRIPTION` is in natural language format. It cannot contain markers like `t/`, `f/`, or `i/`.
-- The `START DATE TIME` must follow the format `MMM dd yyyy at HH:mm`, where:
-  - Only the first letter of `MMM` is capitalized (e.g., `Apr 24 2025 at 12:00`)
-  - `HH:mm` follows the 24-hour clock format
-  - If the date is incorrectly formatted, the current system date and time will be used instead.
-- The `FREQUENCY` (`f/`) specifies the number of days between each recurrence.
-- The `ITERATIONS` (`i/`) specifies how many times the expense should recur.
-- Maximum frequency allowed is **1000 days**.
-- Maximum number of iterations allowed is **10**.
-
----
+* The `AMOUNT` must be a positive number. The amount limit is set to $10,000.
+* The `CATEGORY` can be any valid budget category.
+* To save to overall budget , use `c/Overall`. 
+* The `DESCRIPTION` is in natural language format. It cannot contain markers like `t/`, `f/`, or `i/`.
+* The `START DATE TIME` must follow the format `MMM dd yyyy at HH:mm`, where:
+  * Only the first letter of `MMM` is capitalized (e.g., `Apr 24 2025 at 12:00`)
+  * `HH:mm` follows the 24-hour clock format
+  * If the date is incorrectly formatted, the current system date and time will be used instead.
+* The `FREQUENCY` (`f/`) specifies the number of days between each recurrence.
+* The `ITERATIONS` (`i/`) specifies how many times the expense should recur.
+* Maximum frequency allowed is **1000 days**.
+* Maximum number of iterations allowed is **10**.
 
 #### Example 1:
 `add-recurring 20 c/Food d/Lunch t/Apr 24 2025 at 12:00 f/30 i/5`
@@ -241,11 +260,11 @@ Displays all recorded expenses under the Overall Budget, including their amount,
 * Both start and end are optional. Users can choose to apply both or either or none. 
 * Format for time is "MMM dd yyyy at HH:mm" 
 * Here, 
-- M: Month (**Only the first alphabet of month should be capitalised**) 
-- d: Day
-- y: Year
-- H: Hour
-- m: Minute
+  * M: Month (**Only the first alphabet of month should be capitalised**)
+  * d: Day 
+  * y: Year 
+  * H: Hour 
+  * m: Minute
 * If incorrect date time formats are used for end time, then programme will use system date and time.
 * If incorrect date time formats are used for start time, then programme will not work.
 
@@ -262,6 +281,7 @@ ___________________________________________
 ```
 
 **Example 2:** `list start/Apr 01 2025 at 12:45 end/Apr 02 2025 at 11:40`
+
 **Expected Output 2:**
 ```
 ___________________________________________
@@ -271,6 +291,7 @@ Expense List:
 ___________________________________________
 ```
 **Example 3:** `list start/Apr 01 2025 at 23:00`
+
 **Expected Output 3:**
 ```
 ___________________________________________
@@ -339,7 +360,7 @@ ___________________________________________
 Displays the budget allocation, amount spent, and remaining balance for a specified category.
 If no category is provided, it displays the Overall Budget.
 
-**Format:** `check-budget [c/<CATEGORY>]`
+**Format:** `check-budget c/<CATEGORY>`
 
 * The budget breakdown includes:
   * Total Budget (allocated amount)
@@ -351,22 +372,26 @@ If no category is provided, it displays the Overall Budget.
 
 **Expected Output 1 :**
 ```
-===== Overall Budget Usage =====
-Total Budget: $1000.0
-Spent: $100.0
-Remaining: $900.0
-===============================
+__________________________________________
+Overall Budget:
+
+Total Budget: $10000.00
+Spent: $246.00
+Remaining: $9754.00
+__________________________________________
 ```
 
-**Example 2:** `check-budget c/Groceries`
+**Example 2:** `check-budget c/Food`
 
 **Expected Output 2 :**
 ```
-===== Budget for Groceries =====
-Total Budget: $50.0
-Spent: $5.0
-Remaining: $45.0
-===============================
+__________________________________________
+Budget for Food
+
+Total Budget: $10000.00
+Spent: $0.00
+Remaining: $10000.00
+__________________________________________
 ```
 
 ### Editing Budget: `edit-budget`
@@ -378,7 +403,7 @@ Modifies an existing budget by updating its limit, name, or both.
 * `NEW_AMOUNT` is optional but must be a positive number less than 100000 to update the budget limit. 
 * `NEW_NAME` is optional but must be non-empty if provided. 
 * If `NEW_NAME` is provided, the budget will be renamed accordingly.
-* At least one of the two, new amount or new name  must be specified.
+* At least one of the two, new amount or new name must be specified.
 
 **Example 1:** `edit-budget old/Food a/500`
 
@@ -404,6 +429,8 @@ __________________________________________
 ```
 __________________________________________
 Updated limit of budget 'Food' to $1000.0
+__________________________________________
+__________________________________________
 Renamed budget 'Food' to 'Groceries'
 __________________________________________
 ```
@@ -418,18 +445,17 @@ __________________________________________
 ```
 
 ### Summary of Budget: `summary`
-
 View a summarized budget across all categories or for selected ones. 
 The summary includes the total expenses, remaining budget, and spending limit for each category.
-
-If no category is specified, the summary will cover **all existing budgets**.
-If specific categories are included using the `c/` marker, only those categories will be shown.
 
 **Format:**
 `summary [c/<CATEGORY1> c/<CATEGORY2>... ]`
 
-- If a specified category does not exist, an error will be shown.
-- Commas **should not** be placed between categories.
+* If no category is specified, the summary will cover **all existing budgets**.
+* If specific categories are included using the `c/` marker, only those categories will be shown.
+* If a specified category does not exist, an error will be shown.
+* If the total expenses exceed the budget limit, the remaining budget will be shown as 0.
+* Commas **should not** be placed between categories.
 
 **Example 1 (summary across all budgets):**
 `summary`
@@ -473,7 +499,11 @@ ___________________________________________
 `summary c/Repairs`
 
 **Expected Output:**
-`Invalid Input Exception: Category 'Repairs' does not exist.`
+```
+__________________________________________
+Invalid input format: Category 'Repairs' does not exist.
+__________________________________________
+```
 
 ### Add Alert: `alert`
 Sets a budget alert to notify the user when expenses exceed a specific limit.
@@ -511,6 +541,7 @@ Removes the budget alert set by the user.
 
 * The alert will be removed, and the user will no longer receive notifications when expenses exceed the set limit.
 * This command is a placeholder and does not require any additional parameters.
+* Extraneous parameters are not allowed. Only input exactly `delete-alert`.
 
 **Example:** `delete-alert`
 
@@ -528,102 +559,118 @@ Searches for expenses in the Overall budget using a keyword.
 
 * `<KEYWORD>` is the search term used to match expenses.
 * The command displays all expenses that contain the keyword in their description. 
-* At least one keyword must be provided. 
+* Only one word is allowed as a keyword.
 
 **Example 1:** `find food`
 
 **Expected Output 1:**
 ```
-------- Expenses Matching: 'food' -------
+__________________________________________
+Expenses Matching: 'food'
 No matching expenses found for keyword: food
--------------------------------------
+__________________________________________
 ```
 
-**Example 2:**`find apple`
+**Example 2:**`find Chicken`
 
 **Expected Output 2:**
 ```
-------- Expenses Matching: 'apple' -------
-1. $2.80 spent on apple (Jan 15 2025 at 11:30)
-2. $2.00 spent on apple juice (Jan 18 2025 at 11:20)
--------------------------------------
+__________________________________________
+Expenses Matching: 'Chicken'
+1. $13.00 spent on Chicken Rice (Apr 08 2025 at 03:03)
+__________________________________________
 ```
 
 ### Help: `help`
 View all available commands in Budget Buddy, including their functions and formats.
 
+**Format:** `help`
+
+* The command will ignore any extraneous parameters and display the help information.
+
 **Example:** `help`
 
 **Expected Outcome:**
 ```
+__________________________________________
 Available Commands:
 
 Add Expense: add
-Format: add AMOUNT c/ CATEGORY d/ DESCRIPTION t/ TIME <MMM dd yyyy 'at' hh:mm>
-Please Note: If dateTime format is incorrect, current system time will be used
+Format: add [AMOUNT] c/[CATEGORY] d/[DESCRIPTION] t/[MMM dd yyyy 'at' hh:mm]
 Examples: add 15.50 c/Food d/Lunch t/Oct 05 2025 at 12:30, 
-       add 40 c/Transport d/Taxi Ride t/Oct 10 2025 at 14:35
+          add 40 c/Transport d/Taxi Ride t/Oct 10 2025 at 14:35
+
+Add Recurring Expense: add-recurring
+Format: add-recurring [AMOUNT] c/[CATEGORY] d/[DESCRIPTION] t/[TIME] f/[FREQUENCY] i/[ITERATIONS]
+Examples: add-recurring 20 c/Food d/Lunch t/Apr 24 2025 at 12:00 f/30 i/5
 
 Delete Expense: delete
-Format: delete INDEX
-Examples: delete 2, delete 5
+Format: delete [INDEX]
+Examples: delete 2
+          delete 5
 
-List Expenses: list
-Format: list
-Please Note: Shows all expenses in chronological order
+View Expenses: list
+Format: list start/[START_TIME] end/[END_TIME]
 Example: list
+         list start/Apr 24 2025 at 12:00 , 
+         list start/Apr 24 2025 at 12:00 end/May 01 2025 at 12:00
 
 Edit Expense: edit-expense
-Format: edit-expense INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TIME]
-Please Note: At least one edit field must be provided
+Format: edit-expense INDEX a/[AMOUNT] d/[DESCRIPTION] t/[MMM dd yyyy 'at' hh:mm]
 Examples: edit-expense 1 a/25.00, 
-       edit-expense 2 d/Dinner t/Nov 15 2025 at 19:00
+          edit-expense 2 d/Dinner t/Nov 15 2025 at 19:00
 
 Set Budget: set-budget
-Format: set-budget AMOUNT | set-budget c/CATEGORY AMOUNT
-Examples: set-budget 1000, set-budget c/Food 300
+Format: set-budget [AMOUNT] 
+          set-budget c/[CATEGORY] [AMOUNT]
+Examples: set-budget 1000
+          set-budget c/Food 300
 
 Check Budget: check-budget
-Format: check-budget [c/CATEGORY]
-Examples: check-budget, check-budget c/Groceries
+Format: check-budget c/[CATEGORY]
+Examples: check-budget
+          check-budget c/Groceries
 
 Edit Budget: edit-budget
-Format: edit-budget old/CURRENT_NAME [a/NEW_AMOUNT] [c/NEW_NAME]
-Please Note: At least one edit field must be provided
+Format: edit-budget old/[CURRENT_NAME] a/[NEW_AMOUNT] c/[NEW_NAME]
 Examples: edit-budget old/Food a/500, 
-       edit-budget old/Food c/Groceries
+          edit-budget old/Food c/Groceries
 
 Budget Summary: summary
-Format: summary
-Example: summary
+Format: summary c/[CATEGORY1] c/[CATEGORY2] ...
+Examples: summary 
+          summary c/Food
+          summary c/Food c/Transport
 
 Set Alert: alert
-Format: alert AMOUNT
-Please Note: Use 'alert 0' to remove alert
-Examples: alert 500, alert 0
+Format: alert [AMOUNT]
+Examples: alert 500
+          alert 0
 
 Delete Alert: delete-alert
 Format: delete-alert
 Example: delete-alert
 
 Find Expenses: find
-Format: find KEYWORD
+Format: find [KEYWORD]
 Example: find coffee
 
 Exit Program: bye
 Format: bye
 Example: bye
-___________________________________________
+__________________________________________
 ```
 
 ### Bye: `bye`
 Exits the program.
+
 **Format:** `bye`
 * The program will save all data before exiting.
+* The program will ignore any extraneous parameters behind `bye`.
 
-*Example:* `bye`
+*Example 1:* `bye`
 
-**Expected Output:**
+**Expected Output 1:**
 ```
 ___________________________________________
 Thank you for using Budget Buddy.
@@ -631,9 +678,15 @@ Goodbye!
 ___________________________________________
 ```
 
-### Caution
-To ensure your progress is saved, always exit the program using the bye command.
-Quitting the program directly will result in unsaved changes.
+*Example 2:* `bye 123`
+
+**Expected Output 2:**
+```
+___________________________________________
+Thank you for using Budget Buddy.
+Goodbye!
+___________________________________________
+```
 
 ## FAQ
 

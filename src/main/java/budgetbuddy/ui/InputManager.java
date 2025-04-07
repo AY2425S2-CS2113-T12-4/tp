@@ -72,9 +72,13 @@ public class InputManager {
             } catch (InvalidInputException e) {
                 e.print();
             } catch (NumberFormatException e) {
+                Ui.printSeparator();
                 System.out.println("Invalid input: Please enter a valid number.");
+                Ui.printSeparator();
             } catch (NoSuchElementException e) {
+                Ui.printSeparator();
                 System.out.println("No input found, exiting...");
+                Ui.printSeparator();
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());

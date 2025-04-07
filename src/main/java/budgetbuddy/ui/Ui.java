@@ -1,6 +1,5 @@
 package budgetbuddy.ui;
 
-import budgetbuddy.command.AddRecurringExpenseCommand;
 import budgetbuddy.model.Budget;
 import budgetbuddy.model.Expense;
 import budgetbuddy.parser.DateTimeParser;
@@ -72,94 +71,63 @@ public class Ui {
         System.out.println("Available Commands:");
 
         System.out.println("\nAdd Expense: add");
-        System.out.println("Format: add AMOUNT c/ CATEGORY d/ DESCRIPTION t/ TIME <MMM dd yyyy 'at' hh:mm>");
-        System.out.println("- M: Month (**Only the first alphabet of month should be capitalised**) \n" +
-                "- d: Day\n" +
-                "- y: Year\n" +
-                "- H: Hour\n" +
-                "- m: Minute");
-        System.out.println("Please Note: If dateTime format is incorrect, current system time will be used");
+        System.out.println("Format: add [AMOUNT] c/[CATEGORY] d/[DESCRIPTION] t/[MMM dd yyyy 'at' hh:mm]");
         System.out.println("Examples: add 15.50 c/Food d/Lunch t/Oct 05 2025 at 12:30, " +
                 "\n          add 40 c/Transport d/Taxi Ride t/Oct 10 2025 at 14:35");
 
         System.out.println("\nAdd Recurring Expense: add-recurring");
-        System.out.println("Format: add-recurring AMOUNT c/ CATEGORY d/ DESCRIPTION t/ TIME" +
-                " f/ FREQUENCY i/ ITERATIONS");
-        System.out.println("Please Note:");
-        System.out.println("TIME must follow the format: MMM dd yyyy 'at' HH:mm (e.g., Apr 24 2025 at 12:00)");
-        System.out.println("M: Month (**Only the first alphabet of month should be capitalised**) \n" +
-                "- d: Day\n" +
-                "- y: Year\n" +
-                "- H: Hour\n" +
-                "- m: Minute");
-        System.out.println("If date/time format is incorrect, the current system time will be used");
-        System.out.println("FREQUENCY is in days (e.g., 30 = every 30 days)");
-        System.out.println("ITERATIONS is the number of times to repeat the expense");
-        System.out.println("Maximum frequency allowed:" +
-                AddRecurringExpenseCommand.MAX_FREQUENCY_ADD_RECURRING + " days");
-        System.out.println("Maximum iterations allowed:"
-                + AddRecurringExpenseCommand.MAX_ITERATIONS_ADD_RECURRING + " 10");
+        System.out.println("Format: add-recurring [AMOUNT] c/[CATEGORY] d/[DESCRIPTION] t/[TIME]" +
+                " f/[FREQUENCY] i/[ITERATIONS]");
         System.out.println("Examples: add-recurring 20 c/Food d/Lunch t/Apr 24 2025 at 12:00 f/30 i/5");
 
-
         System.out.println("\nDelete Expense: delete");
-        System.out.println("Format: delete INDEX");
-        System.out.println("Examples: delete 2, delete 5");
+        System.out.println("Format: delete [INDEX]");
+        System.out.println("Examples: delete 2" +
+                "\n          delete 5");
 
         System.out.println("\nView Expenses: list");
-        System.out.println("Format: list start/ START_TIME end/ END_TIME");
-        System.out.println("- M: Month (**Only the first alphabet of month should be capitalised**) \n" +
-                "- d: Day\n" +
-                "- y: Year\n" +
-                "- H: Hour\n" +
-                "- m: Minute");
-        System.out.println("Please Note: START_TIME and END_TIME are both optional");
-        System.out.println("If date/time format is incorrect, the current system time will be used");
+        System.out.println("Format: list start/[START_TIME] end/[END_TIME]");
         System.out.println("Example: list"+"\n         list start/Apr 24 2025 at 12:00 ," +
                 " \n         list start/Apr 24 2025 at 12:00 end/May 01 2025 at 12:00");
 
-
         System.out.println("\nEdit Expense: edit-expense");
-        System.out.println("Format: edit-expense INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TIME]");
-        System.out.println("Please Note: At least one edit field must be provided");
+        System.out.println("Format: edit-expense INDEX a/[AMOUNT] d/[DESCRIPTION] t/[MMM dd yyyy 'at' hh:mm]");
         System.out.println("Examples: edit-expense 1 a/25.00, " +
                 "\n          edit-expense 2 d/Dinner t/Nov 15 2025 at 19:00");
 
         System.out.println("\nSet Budget: set-budget");
-        System.out.println("Format: set-budget AMOUNT | set-budget c/CATEGORY AMOUNT");
-        System.out.println("Examples: set-budget 1000, set-budget c/Food 300");
+        System.out.println("Format: set-budget [AMOUNT] " +
+                "\n          set-budget c/[CATEGORY] [AMOUNT]");
+        System.out.println("Examples: set-budget 1000" +
+                "\n          set-budget c/Food 300");
 
         System.out.println("\nCheck Budget: check-budget");
-        System.out.println("Format: check-budget [c/CATEGORY]");
-        System.out.println("Examples: check-budget, check-budget c/Groceries");
+        System.out.println("Format: check-budget c/[CATEGORY]");
+        System.out.println("Examples: check-budget" +
+                "\n          check-budget c/Groceries");
 
         System.out.println("\nEdit Budget: edit-budget");
-        System.out.println("Format: edit-budget old/CURRENT_NAME [a/NEW_AMOUNT] [c/NEW_NAME]");
-        System.out.println("Please Note: At least one edit field must be provided");
+        System.out.println("Format: edit-budget old/[CURRENT_NAME] a/[NEW_AMOUNT] c/[NEW_NAME]");
         System.out.println("Examples: edit-budget old/Food a/500, " +
                 "\n          edit-budget old/Food c/Groceries");
 
-
         System.out.println("\nBudget Summary: summary");
-        System.out.println("Format: summary [c/ CATEGORY1 c/CATEGORY2 ...]");
-        System.out.println("- Shows summary for specified categories.");
-        System.out.println("- If none specified, shows all.");
-        System.out.println("- No need to separate categories with commas.");
-        System.out.println("Examples: summary");
-        System.out.println("          summary c/Food c/Transport");
-
+        System.out.println("Format: summary c/[CATEGORY1] c/[CATEGORY2] ...");
+        System.out.println("Examples: summary " +
+                "\n          summary c/Food" +
+                "\n          summary c/Food c/Transport");
 
         System.out.println("\nSet Alert: alert");
-        System.out.println("Format: alert AMOUNT");
-        System.out.println("Please Note: Use 'alert 0' to remove alert");
-        System.out.println("Examples: alert 500, alert 0");
+        System.out.println("Format: alert [AMOUNT]");
+        System.out.println("Examples: alert 500" +
+                "\n          alert 0");
 
         System.out.println("\nDelete Alert: delete-alert");
         System.out.println("Format: delete-alert");
         System.out.println("Example: delete-alert");
 
         System.out.println("\nFind Expenses: find");
-        System.out.println("Format: find KEYWORD");
+        System.out.println("Format: find [KEYWORD]");
         System.out.println("Example: find coffee");
 
         System.out.println("\nExit Program: bye");
@@ -215,7 +183,6 @@ public class Ui {
      * @param alertAmount   The threshold set for the budget alert.
      */
     public static void printCheckAlert(double totalExpenses, double alertAmount) {
-        printSeparator();
         System.out.println("Warning: Your total expenses ($" + totalExpenses +
                 ") have exceeded the alert limit of $" + alertAmount);
         printSeparator();
@@ -520,7 +487,6 @@ public class Ui {
      * Expected format: {@code "MMM dd yyyy 'at' HH:mm"} (e.g., Jan 31 2025 at 14:30)
      */
     public static void printWrongTimeFormat() {
-        printSeparator();
         System.out.println("Wrong time format used. " + "Will use system current dateTime instead.");
         System.out.println("Format guide: \"MMM dd yyyy 'at' HH:mm\"");
         printSeparator();
@@ -534,7 +500,6 @@ public class Ui {
      * @param category     the name of the budget category
      */
     public static void printBudgetExceeded(double totalExpense, double limit, String category) {
-        printSeparator();
         String formattedTotalExpense = String.format("$%,.2f", totalExpense);
         String formattedLimit = String.format("$%,.2f", limit);
         System.out.println("Warning: Your total expenses (" + formattedTotalExpense + ") have exceeded the budget " +
@@ -557,7 +522,6 @@ public class Ui {
                 "limit for the '" + category + "' category (limit: " + formattedLimit + ")");
         printSeparator();
     }
-
 
     public static void printMessage(String message) {
         lastOutput = message;

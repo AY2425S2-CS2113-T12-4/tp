@@ -152,6 +152,10 @@ public class Budget {
         double totalExpenses = getTotalExpenses();
         double remaining = limit - totalExpenses;
 
+        if (remaining < 0) {
+            remaining = 0.0;
+        }
+
         // Check for arithmetic overflow
         if (Double.isInfinite(remaining)) {
             throw new ArithmeticException("Budget calculation overflow - amounts too large");
