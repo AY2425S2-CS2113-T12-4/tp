@@ -24,13 +24,16 @@ IP --> IM: Return AddExpenseCommand object
 deactivate IP
 IM -> AEC: execute(budgetManager)
 activate AEC
+Create AP
 AEC -> AP: new AddParser(description)
 activate AP
-AP -> AP: parse()
-activate AP
-AP --> AP
+AP --> AEC
 deactivate AP
+AEC -> AP: parse()
+activate AP
 AP --> AEC: Return parsed components [amount, category, description, time]
+deactivate AP
+
 deactivate AP
 box AEC #LightGreen
 AEC -> BM: addExpenseToBudget(category, amount, description, time)

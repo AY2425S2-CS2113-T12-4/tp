@@ -8,9 +8,9 @@ participant ":InputManager" as IM
 participant ":InputParser" as IP
 participant ":SummaryCommand" as SC
 participant ":SummaryParser" as SP
-participant ":BudgetManager" as BM
 participant ":BudgetSummary" as BS
 participant ":UI" as UI
+participant ":BudgetManager" as BM
 
 User -> IM: Enters "summary"
 activate IM
@@ -25,46 +25,63 @@ IP --> IM: Return SummaryCommand object
 deactivate IP
 IM -> SC: execute(budgetManager)
 activate SC
+create SP
 SC -> SP: new SummaryParser(description, budgetManager)
 activate SP
-SP -> SP: parse()
+SP --> SC
+deactivate SP
+
+SC -> SP: parse()
 activate SP
+SP --> SC : Return categories to display
 
-alt No categories specified
-    SP -> SC: Return empty array (summary across all categories)
-    deactivate SP
-else Categories provided
-    SP -> BM: categoryExists(category)
-    activate BM
-    BM --> SP: categoryExists result
-    deactivate BM
-    SP -> SC: Return categories
-    deactivate SP
-end
+deactivate SP
 
-box SC #LightYellow
-SC -> BM: create BudgetSummary(budgetManager)
-activate BM
-BM -> BS: new BudgetSummary(budgetManager)
+
+create BS
+SC -> BS: new BudgetSummary(budgetManager)
 activate BS
-BS -> BS: summariseBudget()
+BS --> SC
 deactivate BS
 
-alt Specific categories provided
-    SC -> BS: summariseBudget(categories)
-    activate BS
-    BS --> SC
-    deactivate BS
+alt No categories provided
+SC -> BS: summariseBudget()
+activate BS
+BS -> BM: getBudgets()
+activate BM
+BM --> BS: Return budgets
+deactivate BM
+BS -> UI: printBudgetSummary()
+activate UI
+UI --> BS: summary displayed
+deactivate UI
+BS--> SC
+deactivate BS
+
+else Specific categories provided
+SC -> BS: summariseBudget(categories)
+activate BS
+loop For each specified category
+BS -> BM: getBudgets().get(category)
+activate BM
+BM --> BS: Return specific budget category
+deactivate BM
+end
+BS -> UI: printBudgetSummary()
+activate UI
+UI --> BS: summary displayed
+deactivate UI
+BS--> SC
+deactivate BS
 end
 
-SC -> UI: printBudgetSummary()
-activate UI
-UI --> SC: summary displayed
-deactivate UI
+
+
+
 
 deactivate BM
 SC --> IM:
-end box
+
 deactivate SC
 IM --> User: Show summary result
 deactivate IM

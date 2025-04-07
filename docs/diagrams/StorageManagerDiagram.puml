@@ -5,7 +5,7 @@ skinparam classAttributeIconSize 0
 
 package "budgetbuddy.storage" {
     class StorageManager {
-        - FILE_PATH: String
+        <u>- FILE_PATH: String</u>
         + save(manager: BudgetManager): void
         + load(manager: BudgetManager): void
     }
@@ -44,8 +44,9 @@ package "budgetbuddy.model" {
 StorageManager --> BudgetManager : uses
 StorageManager --> Budget : uses
 StorageManager --> Expense : uses
-BudgetManager --> Budget : manages
-BudgetManager --> Alert : uses
-Budget --> Expense : contains
+BudgetManager "1" *-- "1..*" Budget : budgets
+Budget "1..2" *-- "0..*" Expense : expenses
+BudgetManager *--  "1"Alert : alert
+
 
 @enduml

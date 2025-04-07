@@ -3,13 +3,13 @@
 hide footbox
 actor User
 
-participant "InputManager" as InputManager
-participant "InputParser" as InputParser
-participant "ListCommand" as ListCommand
-participant "BudgetManager" as BudgetManager
-participant "Budget" as Budget
-participant "Ui" as Ui
-participant "DateTimeParser" as DateTimeParser
+participant ":InputManager" as InputManager
+participant ":InputParser" as InputParser
+participant ":ListCommand" as ListCommand
+participant ":BudgetManager" as BudgetManager
+participant ":Budget" as Budget
+participant ":Ui" as Ui
+participant ":DateTimeParser" as DateTimeParser
 
 User -> InputManager : enter "list" command
 activate InputManager
@@ -37,7 +37,14 @@ alt start/end markers present
     BudgetManager -> Budget : printExpenses(start, end)
     activate Budget
     Budget -> Ui : printExpensesList(expenses, start, end)
+    activate Ui
+    Ui --> Budget
+    deactivate Ui
+    Budget --> BudgetManager
+
+
     deactivate Budget
+    BudgetManager -->ListCommand
     deactivate BudgetManager
 
 else no start/end markers
@@ -46,9 +53,17 @@ else no start/end markers
     BudgetManager -> Budget : printExpenses()
     activate Budget
     Budget -> Ui : printExpensesList(expenses)
+    activate Ui
+    Ui --> Budget
+    deactivate Ui
+    Budget --> BudgetManager
     deactivate Budget
+    BudgetManager -->ListCommand
     deactivate BudgetManager
 end
+ListCommand --> InputManager
 
 deactivate ListCommand
+InputManager --> User: Show list result
+
 @enduml
