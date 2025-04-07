@@ -2,8 +2,6 @@ package budgetbuddy.parser;
 
 import budgetbuddy.exception.InvalidInputException;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Parses the "add" command to extract amount, category, description, and date/time.

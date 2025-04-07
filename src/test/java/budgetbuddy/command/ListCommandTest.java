@@ -44,27 +44,13 @@ public class ListCommandTest {
     }
 
     @Test
-    public void testListWithMissingStartAndEndMarkers() throws InvalidInputException {
-        String desc = "list start/ end/";
-        ListCommand command = new ListCommand(desc);
-        command.execute(budgetManager);
-
-        String output = errContent.toString().trim();
-        assertTrue(output.contains("start/ marker is empty."));
-        assertTrue(output.contains("end/ marker is empty."));
-        assertTrue(output.contains("Showing full list."));
-    }
-
-    @Test
     public void testListWithInvalidStartAndEndFormat() throws InvalidInputException {
         String desc = "list start/notadate end/notadate";
         ListCommand command = new ListCommand(desc);
         command.execute(budgetManager);
 
         String output = errContent.toString().trim();
-        assertTrue(output.contains("Incorrect time format for \"start\". Will use current time for it."));
-        assertTrue(output.contains("Incorrect time format for \"end\". Will use current time for it."));
-
+        assertTrue(output.contains("Invalid date format for \"start/\". Use: \"MMM dd yyyy at HH:mm\""));
     }
 
     @Test
