@@ -193,12 +193,10 @@ ___________________________________________
 ### Listing all Expenses: `list`
 Displays all recorded expenses under the Overall Budget, including their amount, description, and date/time.
 
-**Format:** `list `
+**Format:** `list [start/<TIME>] [end/<TIME>]`
 
 * Lists expenses in chronological order from the Overall Budget, with latest displayed first. 
 * Each expense includes the amount, description, and timestamp.
-
-**Example:** `list [start/<TIME>] [end/<TIME>]`
 * Both start and end are optional. Users can choose to apply both or either or none. 
 * Format for time is "MMM dd yyyy at HH:mm" 
 * Here, 
@@ -647,17 +645,18 @@ computer and put it in your root folder.
 
 ## Command Summary
 
-| Command          | Format                                                                |
-|------------------|-----------------------------------------------------------------------|
-| **add**          | `add <AMOUNT> c/<CATEGORY> d/<DESCRIPTION> t/<DATE_TIME>`             |
-| **delete**       | `delete <INDEX>`                                                      |
-| **list**         | `list`                                                                |
-| **edit-expense** | `edit-expense <INDEX> [a/<AMOUNT>] [d/<DESCRIPTION>] [t/<DATE_TIME>]` |
-| **set-budget**   | `set-budget <AMOUNT>` or `set-budget c/<CATEGORY> <AMOUNT>`           |
-| **check-budget** | `check-budget [c/<CATEGORY>]`                                         |
-| **edit-budget**  | `edit-budget old/<CURRENT_NAME> [a/<NEW_AMOUNT>] [c/<NEW_NAME>]`      |
-| **summary**      | `summary`                                                             |
-| **alert**        | `alert <AMOUNT>`                                                      |
-| **find**         | `find <KEYWORD>`                                                      |
-| **help**         | `help`                                                                |
-| **bye**          | `bye`                                                                 |
+| Command           | Format                                                                                                              |
+|-------------------|---------------------------------------------------------------------------------------------------------------------|
+| **add**           | `add <AMOUNT> c/<CATEGORY> d/<DESCRIPTION> t/<DATE_TIME>`                                                           |
+| **add-recurring** | `add-recurring <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <START DATE TIME> f/ <FREQUENCY_IN_DAYS> i/ <ITERATIONS>` |
+| **delete**        | `delete <INDEX>`                                                                                                    |
+| **list**          | `list [start/<TIME>] [end/<TIME>]`                                                                                  |
+| **edit-expense**  | `edit-expense <INDEX> [a/<AMOUNT>] [d/<DESCRIPTION>] [t/<DATE_TIME>]`                                               |
+| **set-budget**    | `set-budget <AMOUNT>` or `set-budget c/<CATEGORY> <AMOUNT>`                                                         |
+| **check-budget**  | `check-budget [c/<CATEGORY>]`                                                                                       |
+| **edit-budget**   | `edit-budget old/<CURRENT_NAME> [a/<NEW_AMOUNT>] [c/<NEW_NAME>]`                                                    |
+| **summary**       | `summary [c/<CATEGORY1> c/<CATEGORY2>... ]`                                                                         |
+| **alert**         | `alert <AMOUNT>`                                                                                                    |
+| **find**          | `find <KEYWORD>`                                                                                                    |
+| **help**          | `help`                                                                                                              |
+| **bye**           | `bye`                                                                                                               |
