@@ -45,8 +45,9 @@ cross-platform compatibility, Budget Buddy makes money management easy and acces
 - **What it does:**
   - Allows users to filter expenses using start/ and end/ markers — either one, both, 
   or none(defaults to normal list operations) — to view expenses within a specific date-time range or list all by default.
-  - If a marker is used without a valid date-time, a warning is shown and the system defaults to the current time, 
-  ensuring smooth functionality even with incomplete input.
+  - If a marker is used without a valid date-time, an error message is shown to use the correct format.
+  - If the start marker is left blank then an error message is shown whereas when end marker is left blank, a warning is 
+  shown and the end date and time defaults to current system date and time.
 
 - **Justification:**
   - Gives users greater control over how they view their expenses by allowing them to focus on specific time periods,
