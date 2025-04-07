@@ -55,4 +55,39 @@ public class DateTimeParser {
         }
         return dateTimeParsed;
     }
+
+    /**
+     * Attempts to parse the provided date and time string using the predefined formatter.
+     * This method is specifically used in listing when the user provides start/end in wrong format
+     * <p>
+     * If the string is successfully parsed, a boolean true value is returned.
+     * If the string cannot be parsed (i.e. it is in an incorrect format), a boolean false value is returned.
+     * </p>
+     *
+     * @param inputDateTimeStr The user provided date and time string.
+     * @param noErrorPrint     Whether to print error messages or not.
+     * @return boolean value specifying if user inputted time was in correct format or not.
+     */
+
+    public static boolean parseOrDefaultBooleanReturn(String inputDateTimeStr, boolean noErrorPrint) {
+        //we bypass the error messages when loading from .txt
+        boolean isCorrectDateTimeFormat = false;
+        LocalDateTime dateTimeParsed = null;
+
+        try {
+            // Attempt to parse the string using the predefined formatter.
+            LocalDateTime parsedDateTime = LocalDateTime.parse(inputDateTimeStr, DATETIME_FORMAT);
+            isCorrectDateTimeFormat = true;
+            dateTimeParsed = parsedDateTime;
+        } catch (DateTimeParseException e) {
+            if (!noErrorPrint) {
+                Ui.printWrongTimeFormat();
+            }
+            LocalDateTime systemNow = LocalDateTime.now();
+            dateTimeParsed = systemNow;
+            // Assert that the system time is not null.
+            assert systemNow != null : "System current dateTime should never be null.";
+        }
+        return isCorrectDateTimeFormat;
+    }
 }

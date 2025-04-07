@@ -11,7 +11,9 @@
   - [Storage](#storage)
 - [Implementation](#implementation)
   - [Adding an expense](#add-expense)
+  - [Adding recurring expenses](#add-recurring-expenses)
   - [Deleting an expense](#delete-expense)
+  - [Listing Expenses](#list-expenses)
   - [Finding an expense](#find-expense)
   - [Setting a Budget](#set-budget)
   - [Editing a Budget](#edit-budget)
@@ -188,6 +190,10 @@ The diagram below illustrates how `StorageManager` interacts with `BudgetManager
 The diagram below outlines the process of execution when `AddCommand` is executed.
 ![BudgetManagerAddSequenceDiagram.png](/docs/diagrams/BudgetManagerAddSequenceDiagram.png)
 
+### Add Recurring Expenses
+The diagram below outlines the process of execution when `AddRecurringCommand` is executed.
+![AddRecurringSequenceDiagram.png](/docs/diagrams/AddRecurringSequenceDiagram.png)
+
 ### Edit Expense
 The diagram below outlines the process of execution when `EditExpenseCommand` is executed.
 ![EditExpenseSequenceDiagram.png](diagrams/EditExpenseSequenceDiagram.png)
@@ -195,6 +201,10 @@ The diagram below outlines the process of execution when `EditExpenseCommand` is
 ### Delete Expense
 The diagram below outlines the process of execution when `DeleteCommand` is executed.
 ![DeleteExpenseSequenceDiagram](/docs/diagrams/DeleteExpenseSequenceDiagram.png)
+
+### List Expenses
+The diagram below outlines the process of execution when `ListCommand` is executed.
+![ListCommandSequenceDiagram](/docs/diagrams/ListCommandSequenceDiagram.png)
 
 ### Find Expense
 The diagram below outlines the process of execution when `FindCommand` is executed.

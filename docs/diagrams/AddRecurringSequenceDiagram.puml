@@ -1,0 +1,41 @@
+@startuml
+hide footbox
+actor User
+
+participant ":InputManager"
+participant ":InputParser"
+participant ":AddRecurringExpenseCommand"
+participant ":AddRecurringParser"
+participant ":DateTimeParser"
+participant ":BudgetManager"
+participant ":Ui"
+
+User -> ":InputManager" : Enters "add-recurring ..."
+":InputManager" -> ":InputParser" : parseInput(userInput)
+":InputParser" -> ":AddRecurringExpenseCommand" : initialize with (description)
+":InputParser" <-- ":AddRecurringExpenseCommand" : Return AddRecurringExpenseCommand object
+":InputManager" -> ":AddRecurringExpenseCommand" : execute(budgetManager)
+
+":AddRecurringExpenseCommand" -> ":AddRecurringParser" : new AddRecurringParser(description)
+":AddRecurringExpenseCommand" -> ":AddRecurringParser" : parse()
+":AddRecurringParser" --> ":AddRecurringExpenseCommand" : Return [amount, category, desc, time, freq, iterations]
+
+":AddRecurringExpenseCommand" -> ":DateTimeParser" : parseOrDefault(time, false)
+":DateTimeParser" --> ":AddRecurringExpenseCommand" : startTimeParsed
+
+note right of AddRecurringExpenseCommand
+Suppresses Add Expense notifications for each iteration
+Loops recurringIterations times
+Each iteration adds an expense for a certain date and time
+end note
+
+loop Add recurring expenses
+    ":AddRecurringExpenseCommand" -> ":BudgetManager" : addExpenseToBudget(category, amount, desc, time)
+end
+
+":AddRecurringExpenseCommand" -> ":Ui" : print "Hooray! Added recurring expense(s)..."
+":AddRecurringExpenseCommand" -> ":BudgetManager" : listAllExpenses()
+":BudgetManager" -> ":Ui" : printExpensesList(expenses)
+
+User <-- ":Ui" : Show final list
+@enduml
