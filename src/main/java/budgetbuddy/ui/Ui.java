@@ -114,7 +114,10 @@ public class Ui {
                 "- H: Hour\n" +
                 "- m: Minute");
         System.out.println("Please Note: START_TIME and END_TIME are both optional");
-        System.out.println("If date/time format is incorrect, the current system time will be used");
+        System.out.println("If incorrect date time formats are used for start time, " +
+                "then programme will show an error message.");
+        System.out.println("If incorrect date time formats are used for end time, " +
+                "then programme will use system date and time.");
         System.out.println("Example: list"+"\n         list start/Apr 24 2025 at 12:00 ," +
                 " \n         list start/Apr 24 2025 at 12:00 end/May 01 2025 at 12:00");
 

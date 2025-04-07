@@ -250,9 +250,11 @@ Budget Buddy helps with common challenges like overspending, forgetfulness, and 
 
 ### Value proposition
 
-Budget Buddy helps students take control of their finances with a simple, intuitive tool for tracking expenses, setting budgets, and gaining financial insights.
+Budget Buddy helps students take control of their finances with a simple, intuitive tool for tracking expenses, 
+setting budgets, and gaining financial insights.
 
-Many students struggle with money management, leading to overspending and financial stress. Budget Buddy addresses this by providing:
+Many students struggle with money management, leading to overspending and financial stress.
+Budget Buddy addresses this by providing:
 
 - Real-time updates to keep spending in check
 - Spending alerts to prevent overspending
