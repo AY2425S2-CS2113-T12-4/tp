@@ -25,14 +25,16 @@ opt Overall budget does not exist
 end
 
 
+
 BM -> BM: get "Overall" budget
 activate BM
 BM -->BM
 deactivate BM
-BM -> B: addExpense(expense)
+BM -> B: overallBudget.addExpense(expense)
 
 activate B
-
+B --> BM
+deactivate B
 
 
 alt category exists and is not "Overall"
@@ -40,7 +42,8 @@ alt category exists and is not "Overall"
     activate BM
     BM -->BM
     deactivate BM
-    BM -> B: addExpense(expense)
+    BM -> B: categoryBudget.addExpense(expense)
+    activate B
     B --> BM
     deactivate B
 

@@ -38,7 +38,7 @@ class Budget {
 }
 
 class Expense {
-    - static final DateTimeFormatter DATETIME_FORMAT
+    <u>- static final DateTimeFormatter DATETIME_FORMAT</u>
     - LocalDateTime dateTime
     - String description
     - double amount

@@ -4,7 +4,7 @@ skinparam classAttributeIconSize 0
 hide footbox
 
 ' Define the abstract base class
-abstract class Command {
+abstract class "<<abstract>> \n Command" {
     - description: String
     + execute(budgetManager): void
     + isExit(): boolean
@@ -25,17 +25,17 @@ class SetBudgetCommand
 class SummaryCommand
 
 ' Define inheritance relationships
-Command <|-- AddExpenseCommand
-Command <|-- AlertCommand
-Command <|-- CheckBudgetCommand
-Command <|-- DeleteCommand
-Command <|-- EditBudgetCommand
-Command <|-- EditExpenseCommand
-Command <|-- ExitCommand
-Command <|-- FindExpenseCommand
-Command <|-- HelpCommand
-Command <|-- ListCommand
-Command <|-- SetBudgetCommand
-Command <|-- SummaryCommand
+"<<abstract>> \n Command" <|-- AddExpenseCommand
+"<<abstract>> \n Command" <|-- AlertCommand
+"<<abstract>> \n Command" <|-- CheckBudgetCommand
+"<<abstract>> \n Command" <|-- DeleteCommand
+"<<abstract>> \n Command" <|-- EditBudgetCommand
+"<<abstract>> \n Command" <|-- EditExpenseCommand
+"<<abstract>> \n Command" <|-- ExitCommand
+"<<abstract>> \n Command" <|-- FindExpenseCommand
+"<<abstract>> \n Command" <|-- HelpCommand
+"<<abstract>> \n Command" <|-- ListCommand
+"<<abstract>> \n Command" <|-- SetBudgetCommand
+"<<abstract>> \n Command" <|-- SummaryCommand
 
 @enduml
