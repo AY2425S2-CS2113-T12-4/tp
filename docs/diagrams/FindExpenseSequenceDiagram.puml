@@ -1,0 +1,71 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+hide footbox
+
+actor User
+participant ":InputManager" as IM
+participant ":InputParser" as IP
+participant ":FindExpenseCommand" as FEC
+participant ":FindExpenseParser" as FEP
+participant ":BudgetManager" as BM
+participant ":UI" as UI
+
+User -> IM: Enters "find food"
+activate IM
+IM -> IP: parseInput(userInput)
+activate IP
+create FEC
+IP -> FEC: initialize with (description)
+activate FEC
+FEC --> IP
+deactivate FEC
+IP --> IM: Return FindExpenseCommand object
+deactivate IP
+IM -> FEC: execute(budgetManager)
+activate FEC
+FEC -> FEP: new FindExpenseParser(description)
+activate FEP
+FEP -> FEP: parse()
+activate FEP
+FEP --> FEP
+deactivate FEP
+FEP --> FEC: Return keyword
+deactivate FEP
+box FEC #LightYellow
+FEC -> BM: findExpense(keyword)
+activate BM
+BM -> UI: printSearchHeader(keyword)
+activate UI
+UI --> BM: header printed
+deactivate UI
+
+loop For each expense in Overall budget
+   alt expense description contains keyword
+      BM -> UI: printMatchingExpense(expenseIndex, expense)
+      activate UI
+      UI --> BM: expense printed
+      deactivate UI
+   end
+end
+
+alt No matching expense found
+   BM -> UI: printNoMatchesFound(keyword)
+   activate UI
+   UI --> BM: printed no matches message
+   deactivate UI
+else Matching expense(s) found
+   BM -> UI: printSeparator()
+   activate UI
+   UI --> BM: printed separator
+   deactivate UI
+end
+
+BM --> FEC: (findExpense complete)
+deactivate BM
+FEC --> IM:
+end box
+deactivate FEC
+IM --> User: Show search results
+deactivate IM
+@enduml

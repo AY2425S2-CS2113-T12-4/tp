@@ -36,7 +36,8 @@ Budget Buddy uses the following tools for development:
 ## Design
 
 ### Architecture
-![High Level Architecture](High_Level_Architecture.png)
+
+![High Level Architecture](diagrams/High_Level_Architecture.png)
 
 The architecture diagram above presents a high-level overview of the major components in the Budget Buddy and how they interact with each other.
 
@@ -127,7 +128,7 @@ extension and maintenance across the codebase.
 
 #### Class Diagram
 
-![ImplementationAbstractCommandsDiagram.png](ImplementationAbstractCommandsDiagram.png)
+![ImplementationAbstractCommandsDiagram.png](diagrams/ImplementationAbstractCommandsDiagram.png)
 
 #### Example Implementation: AddExpenseCommand 
 
@@ -152,7 +153,7 @@ The Parser<T> abstract class serves as the base for various command-specific par
 Each parser extends Parser<T> and implements the parse() method to extract command-specific details.
 
 #### Class Diagram
-![ParserClassDiagram.png](ParserClassDiagram.png)
+![ParserClassDiagram.png](diagrams/ParserClassDiagram.png)
 
 #### Example Implementation
 The `AddParser` class is responsible for extracting details from the add command. It parses the input string and extracts four main components:
@@ -179,7 +180,7 @@ The `StorageManager` class is responsible for reading from and writing to a loca
 It loads all budgets and alerts when the application starts and saves them on every update.
 
 The diagram below illustrates how `StorageManager` interacts with `BudgetManager`, `Budget`, `Expense`, and `Alert`.
-![StorageManagerClassDiagram.png](StorageManagerDiagram.png)
+![StorageManagerClassDiagram.png](diagrams/StorageManagerDiagram.png)
 
 ## Implementation
 
@@ -190,24 +191,34 @@ The diagram below outlines the process of execution when `AddCommand` is execute
 ### Edit Expense
 The diagram below outlines the process of execution when `EditExpenseCommand` is executed.
 ![EditExpenseSequenceDiagram.png](diagrams/EditExpenseSequenceDiagram.png)
+
 ### Delete Expense
 The diagram below outlines the process of execution when `DeleteCommand` is executed.
-![Delete Expense Sequence Diagram](/docs/diagrams/DeleteExpenseSequenceDiagram.png)
+![DeleteExpenseSequenceDiagram](/docs/diagrams/DeleteExpenseSequenceDiagram.png)
+
 ### Find Expense
+The diagram below outlines the process of execution when `FindCommand` is executed.
+![FindExpenseSequenceDiagram](/docs/diagrams/FindExpenseSequenceDiagram.png)
 
 ### Set Budget
+The diagram below outlines the process of execution when `SetBudgetCommand` is executed.
+![SetBudgetSequenceDiagram](/docs/diagrams/SetBudgetSequenceDiagram.png)
 
 ### Edit Budget
 The diagram below outlines the process of execution when `EditBudgetCommand` is executed.
-![Edit Budget Sequence Diagram](/docs/diagrams/EditBudgetSequenceDiagram.png)
+![EditBudgetSequenceDiagram](/docs/diagrams/EditBudgetSequenceDiagram.png)
+
 ### Check Budget
-![Check Budget Sequence Diagram](/docs/diagrams/CheckBudgetCommandSequenceDiagram.png)
+The diagram below outlines the process of execution when `CheckBudgetCommand` is executed.
+![CheckBudgetSequenceDiagram](/docs/diagrams/CheckBudgetCommandSequenceDiagram.png)
+
 ### Add Alert
 
 ### Edit Alert
 
 ### Summary
-
+The diagram below outlines the process of execution when `SummaryCommand` is executed.
+![SummarySequenceDiagram](/docs/diagrams/SummarySequenceDiagram.png)
 
 ## Product scope
 ### Target user profile
@@ -244,7 +255,7 @@ Many students struggle with money management, leading to overspending and financ
 |Version| As a ...                                                 | I want to ...                                         | So that I can ...                                                               |
 |--------|----------------------------------------------------------|-------------------------------------------------------|---------------------------------------------------------------------------------|
 |v1.0| financially conscious student                            | log my daily expenses                                 | track my spending habits effectively.                                           |
-|v1.0| busy student                                             | categorise my expenses                                | see where most of my money is spent.                                            |
+|v1.0| budget conscious student                                 | categorise my expenses                                | see where most of my money is spent.                                            |
 |v1.0| student on limited budget                                | set a overall budget                                  | I can manage my finances and avoid overspending.                                |
 |v1.0| forgetful student with hectic schedule                   | see the portion of my budget I have used              | be more financially aware.                                                      |
 |v1.0| time-strapped student managing multiple responsibilities | view a summary of my finances                         | quickly understand my financial situation.                                      |
@@ -276,7 +287,18 @@ The application is designed to meet the following non-functional requirements:
 
 ## Glossary
 
-* *glossary item* - Definition
+| Term                  | Definition                                                                                       |
+|-----------------------|--------------------------------------------------------------------------------------------------|
+| **Budget**             | A predefined financial limit for a specific category of expenses (e.g., Food, Transportation). Helps users track their spending and avoid overspending. |
+| **Expense**            | A financial transaction made by the user, associated with a specific category, amount, description, and date. Contributes to overall budget management. |
+| **BudgetManager**      | The central component responsible for managing and handling budgets and expenses. Provides methods to add, edit, retrieve, and summarize budgets and expenses. |
+| **Category**           | A classification used to group expenses. Examples include "Food", "Transport", and "Entertainment". Categories help in organizing and tracking spending behavior. |
+| **SummaryCommand**     | A command that generates a summary of the user’s budgets and expenses, either for all categories or specific categories, allowing the user to view an overview of their financial situation. |
+| **Parser**             | A class responsible for interpreting user input and extracting the necessary parameters to execute the corresponding command. Parsers convert raw input into structured data. |
+| **InvalidInputException** | An exception thrown when user input does not match the expected format or parameters. Ensures the program handles invalid input gracefully. |
+| **Ui (User Interface)** | The component responsible for interacting with the user. Displays messages, lists, and feedback from the system to the user, making it an essential part of the user experience. |
+| **StorageManager**     | A component responsible for managing data persistence. Loads and saves the user’s budget, expense, and alert data to and from the file system (e.g., `budget_data.txt`). |
+
 
 ## Instructions for manual testing
 

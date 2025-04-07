@@ -12,6 +12,7 @@ import java.util.List;
  * This is then sent to the AddRecurringExpenseCommand
  */
 public class AddRecurringParser extends Parser<String[]> {
+    private static final double MAX_AMOUNT = 10000; // Define a maximum amount limit
 
     public AddRecurringParser(String input) {
         super(input);
@@ -25,6 +26,8 @@ public class AddRecurringParser extends Parser<String[]> {
         }
 
         String line = input.substring("add-recurring".length()).trim();
+
+
         List<String> missingFields = new ArrayList<>();
 
         int cIndex = line.indexOf("c/");
@@ -91,6 +94,16 @@ public class AddRecurringParser extends Parser<String[]> {
         //print all the missing fields
         if (!missingFields.isEmpty()) {
             throw new InvalidInputException("Missing required fields: " + String.join(", ", missingFields));
+        }
+
+        // Validate amount
+        try {
+            double amountValue = Double.parseDouble(amount);
+            if (amountValue < 0 || amountValue > MAX_AMOUNT) {
+                throw new InvalidInputException("Amount must be between 0 and " + MAX_AMOUNT);
+            }
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException("Invalid amount format");
         }
 
         // Validate frequency and iterations

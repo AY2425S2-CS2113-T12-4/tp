@@ -7,6 +7,8 @@ import budgetbuddy.exception.InvalidInputException;
  * Supports optional parameters: a/, c/
  */
 public class EditBudgetParser extends Parser<String[]> {
+    private static final double MAX_AMOUNT = 100000; // Define a maximum amount limit
+
     public EditBudgetParser(String input) {
         super(input);
     }
@@ -27,8 +29,15 @@ public class EditBudgetParser extends Parser<String[]> {
         String remaining = splitOld[1].substring(result[0].length()).trim();
         if (remaining.contains("a/")) {
             String amt = remaining.split("a/", 2)[1].split(" ")[0].trim();
-            Double.parseDouble(amt);
-            result[1] = amt;
+            try {
+                double amount = Double.parseDouble(amt);
+                if (amount < 0 || amount > MAX_AMOUNT) {
+                    throw new InvalidInputException("Amount must be between 0 and " + MAX_AMOUNT);
+                }
+                result[1] = amt;
+            } catch (NumberFormatException e) {
+                throw new InvalidInputException("Invalid amount format");
+            }
         }
         if (remaining.contains("c/")) {
             String cat = remaining.split("c/", 2)[1].split(" ")[0].trim();
