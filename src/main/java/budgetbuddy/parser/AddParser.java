@@ -17,69 +17,62 @@ public class AddParser extends Parser<String[]> {
 
     @Override
     public String[] parse() throws InvalidInputException {
-        if (input.length() < 4) {
-            throw new InvalidInputException("Use: add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <DATE TIME>");
+        if (!input.startsWith("add ")) {
+            throw new InvalidInputException("Invalid amount format. Use: add [AMOUNT] c/<CATEGORY> d/<DESCRIPTION>");
         }
 
         String line = input.substring(4).trim();
-        List<String> missingFields = new ArrayList<>();
-        List<String> wrongOrderFields = new ArrayList<>();
 
-        // Check marker order
+        // Check positions of c/, d/, and optional t/
         int cIndex = line.indexOf("c/");
         int dIndex = line.indexOf("d/");
         int tIndex = line.indexOf("t/");
 
-        if (cIndex == -1) {
-            missingFields.add("c/");
-        }
-        if (dIndex == -1) {
-            missingFields.add("d/");
-        }
-        if (tIndex == -1) {
-            missingFields.add("t/");
+        if (cIndex == -1 || dIndex == -1) {
+            throw new InvalidInputException("Missing required markers. Use: add [AMOUNT] c/<CATEGORY> d/<DESCRIPTION>");
         }
 
-        if (!missingFields.isEmpty()) {
-            throw new InvalidInputException("Missing " + String.join(", ", missingFields));
+        if (cIndex < 1 || dIndex < 1 || dIndex < cIndex) {
+            throw new InvalidInputException("Use: add [AMOUNT] c/<CATEGORY> d/<DESCRIPTION>");
         }
 
-        // Verify correct order: c/ must come before d/, which must come before t/
-        if (cIndex > dIndex || cIndex > tIndex || dIndex > tIndex) {
-            throw new InvalidInputException("Markers must be in sequence: c/ before d/ before t/");
-        }
-
-        // Split components
-        String[] splitAmountCategory = line.split("c/", 2);
-        String amountStr = splitAmountCategory[0].trim();
+        String amountStr = line.substring(0, cIndex).trim();
         if (amountStr.isEmpty()) {
-            missingFields.add("amount");
+            throw new InvalidInputException("Amount is missing.");
         }
 
         double amount;
         try {
             amount = Double.parseDouble(amountStr);
-            if (amount > MAX_AMOUNT) {
+            if (amount < 0 || amount > MAX_AMOUNT) {
                 throw new InvalidInputException("Amount must be between 0 and " + MAX_AMOUNT);
             }
         } catch (NumberFormatException e) {
-            throw new InvalidInputException("Invalid amount format.");
+            throw new InvalidInputException("Invalid amount format. Use: add [AMOUNT] c/<CATEGORY> d/<DESCRIPTION>");
         }
 
-        String[] splitCategoryDescription = splitAmountCategory[1].split("d/", 2);
-        String description = splitCategoryDescription[1].split("t/", 2)[0].trim();
+        String category = line.substring(cIndex + 2, dIndex).trim();
+        if (category.isEmpty()) {
+            throw new InvalidInputException("Category cannot be empty.");
+        }
+
+        String description;
+        String dateTime = "";
+
+        if (tIndex != -1 && tIndex > dIndex) {
+            description = line.substring(dIndex + 2, tIndex).trim();
+            dateTime = line.substring(tIndex + 2).trim();
+        } else {
+            description = line.substring(dIndex + 2).trim();
+        }
+
         if (description.isEmpty()) {
-            missingFields.add("description");
+            throw new InvalidInputException("Description cannot be empty.");
         }
 
-        if (!missingFields.isEmpty()) {
-            throw new InvalidInputException("Missing " + String.join(", ", missingFields));
-        }
+        return new String[]{String.valueOf(amount), category, description, dateTime
 
-        // Extract all components
-        String category = splitCategoryDescription[0].trim();
-        String dateTime = splitCategoryDescription[1].split("t/", 2)[1].trim();
-
-        return new String[]{amountStr, category, description, dateTime};
+        };
     }
+
 }
