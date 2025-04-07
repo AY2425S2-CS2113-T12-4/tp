@@ -65,7 +65,9 @@ public class StorageManager {
 
                     } else if (line.startsWith("EXPENSE:") && currentBudget != null) {
                         String[] parts = line.substring(8).split("\\|");
-                        if (parts.length < 3) throw new IllegalArgumentException("Incomplete expense line");
+                        if (parts.length < 3) {
+                            throw new IllegalArgumentException("Incomplete expense line");
+                        }
                         double amount = Double.parseDouble(parts[0]);
                         String description = parts[1];
                         String timeStamp = parts[2];
