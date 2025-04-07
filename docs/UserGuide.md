@@ -52,6 +52,18 @@ ___________________________________________
 
 ## Features 
 
+### Notes about the command format:
+
+* Words in `<UPPER_CASE>` are the parameters to be supplied by the user. 
+e.g. in `check-budget c/<CATEGORY>`, `CATEGORY` is a parameter which can be used as `check-budget c/Food`. 
+* Items in square brackets are optional.
+  e.g. in `check-budget [c/CATEGORY]`, can be used as `check-budget` or  `check-budget c/Food`. 
+* Parameters are always in fixed order.
+e.g. only `add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <DATE TIME>` is acceptable, in the given order 
+* Extraneous parameters for commands that do not take in parameters (such as help, list, exit and clear) will be ignored.
+e.g. if the command specifies help 123, it will be interpreted as help.
+
+
 ### Setting a Budget: `set-budget`
 Sets a spending limit for all expenses or for a specific category. 
 Users can set an Overall budget, create new budget categories, or update existing category budgets.
@@ -234,7 +246,8 @@ Displays all recorded expenses under the Overall Budget, including their amount,
 - y: Year
 - H: Hour
 - m: Minute
-* If incorrect date time formats are used, then programme will use system date and time.
+* If incorrect date time formats are used for end time, then programme will use system date and time.
+* If incorrect date time formats are used for start time, then programme will not work.
 
 **Example 1:** `list`
 
