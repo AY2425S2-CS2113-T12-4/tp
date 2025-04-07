@@ -1,0 +1,41 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+hide footbox
+actor User
+participant ":InputManager" as IM
+participant ":InputParser" as IP
+participant ":EditAlertCommand" as EAC
+participant ":AlertParser" as AP
+participant ":BudgetManager" as BM
+participant ":Alert" as A
+participant ":Ui" as UI
+
+User -> IM: Enters "edit-alert 400" command
+activate IM
+IM -> IP: parseInput(userInput)
+activate IP
+create EAC
+IP -> EAC: initialize with description
+activate EAC
+EAC --> IP
+deactivate EAC
+IP --> IM: Return EditAlertCommand object
+deactivate IP
+
+IM -> EAC: execute(budgetManager)
+activate EAC
+EAC -> AP: new AlertParser(description)
+activate AP
+AP -> AP: parse()
+AP --> EAC: Return new amount
+deactivate AP
+EAC -> BM: getBudgetAlert().editAlertAmount(amount)
+activate A
+A -> UI: printSetBudgetAlert(amount, true)
+deactivate A
+EAC --> IM
+deactivate EAC
+IM --> User: Show success message
+deactivate IM
+@enduml
