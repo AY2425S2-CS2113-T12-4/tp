@@ -3,15 +3,11 @@ package budgetbuddy;
 import budgetbuddy.exception.InvalidInputException;
 import budgetbuddy.model.Budget;
 import budgetbuddy.model.Expense;
-import budgetbuddy.ui.Ui;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BudgetTest {
 
@@ -105,6 +101,4 @@ class BudgetTest {
         Budget noLimitBudget = new Budget("Entertainment", 0.0);
         assertEquals(0.0, noLimitBudget.getRemainingBudget(), 0.01);
     }
-
-
 }
