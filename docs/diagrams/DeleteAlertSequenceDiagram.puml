@@ -1,0 +1,35 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+hide footbox
+actor User
+participant ":InputManager" as IM
+participant ":InputParser" as IP
+participant ":DeleteAlertCommand" as DAC
+participant ":BudgetManager" as BM
+participant ":Alert" as A
+participant ":Ui" as UI
+
+User -> IM: Enters "delete-alert" command
+activate IM
+IM -> IP: parseInput(userInput)
+activate IP
+create DAC
+IP -> DAC: initialize with description
+activate DAC
+DAC --> IP
+deactivate DAC
+IP --> IM: Return DeleteAlertCommand object
+deactivate IP
+
+IM -> DAC: execute(budgetManager)
+activate DAC
+DAC -> BM: getBudgetAlert().removeAlert()
+activate A
+A -> UI: printRemoveBudgetAlert()
+deactivate A
+DAC --> IM
+deactivate DAC
+IM --> User: Show success message
+deactivate IM
+@enduml

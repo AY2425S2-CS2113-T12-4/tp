@@ -1,0 +1,44 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+hide footbox
+actor User
+participant ":InputManager" as IM
+participant ":InputParser" as IP
+participant ":AlertCommand" as AC
+participant ":AlertParser" as AP
+participant ":BudgetManager" as BM
+participant ":Alert" as A
+participant ":Ui" as UI
+
+User -> IM: Enters "alert 500" command
+activate IM
+IM -> IP: parseInput(userInput)
+activate IP
+create AC
+IP -> AC: initialize with description
+activate AC
+AC --> IP
+deactivate AC
+IP --> IM: Return AlertCommand object
+deactivate IP
+
+IM -> AC: execute(budgetManager)
+activate AC
+AC -> AP: new AlertParser(description)
+activate AP
+AP -> AP: parse()
+AP --> AC: Return alert amount
+deactivate AP
+AC -> BM: setBudgetAlert(amount)
+activate BM
+BM -> A: setAlert(amount)
+activate A
+A -> UI: printSetBudgetAlert(amount, false)
+deactivate A
+deactivate BM
+AC --> IM
+deactivate AC
+IM --> User: Show success message
+deactivate IM
+@enduml

@@ -213,8 +213,14 @@ The diagram below outlines the process of execution when `CheckBudgetCommand` is
 ![CheckBudgetSequenceDiagram](/docs/diagrams/CheckBudgetCommandSequenceDiagram.png)
 
 ### Add Alert
-
+The diagram below outlines the process of execution when `AddAlertCommand` is executed.
+![AddAlertSequenceDiagram](/docs/diagrams/AddAlertSequenceDiagram.png)
 ### Edit Alert
+The diagram below outlines the process of execution when `EditAlertCommand` is executed.
+![EditAlertSequenceDiagram](/docs/diagrams/EditAlertSequenceDiagram.png)
+### Delete Alert
+The diagram below outlines the process of execution when `DeleteAlertCommand` is executed.
+![DeleteAlertSequenceDiagram](/docs/diagrams/DeleteAlertSequenceDiagram.png)
 
 ### Summary
 The diagram below outlines the process of execution when `SummaryCommand` is executed.
