@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SummaryCommandTest {
 
@@ -28,7 +27,7 @@ public class SummaryCommandTest {
     }
 
     @Test
-    public void testSummaryAllCategories_success() throws InvalidInputException {
+    public void testExecute_noCategorySpecified_displaysSummaryForAllCategories() throws InvalidInputException {
         SummaryCommand command = new SummaryCommand("summary"); // No category = all
 
         command.execute(budgetManager);
@@ -43,12 +42,12 @@ public class SummaryCommandTest {
     }
 
     @Test
-    public void testSummarySpecificCategories_success() throws InvalidInputException {
+    public void testExecute_validCategorySpecified_displaysSummaryForThatCategory() throws InvalidInputException {
         SummaryCommand command = new SummaryCommand("summary c/Food");
 
         command.execute(budgetManager);
 
-        // Assert that the output contains budget summaries for Food and Transport only
+        // Assert that the output contains budget summaries for Food only
         String output = outputStreamCaptor.toString();
         assertTrue(output.contains("Category: Food"));
         assertTrue(output.contains("Total Expenses"));
@@ -57,7 +56,7 @@ public class SummaryCommandTest {
     }
 
     @Test
-    public void testSummaryInvalidCategoryIgnored() {
+    public void testExecute_invalidCategorySpecified_throwsInvalidInputException() {
         SummaryCommand command = new SummaryCommand("summary c/Groceries");
 
         assertThrows(InvalidInputException.class, () -> {
@@ -66,7 +65,7 @@ public class SummaryCommandTest {
     }
 
     @Test
-    public void testSummaryEmptyCategories() throws InvalidInputException {
+    public void testExecute_emptyCategorySpecified_displaysSummaryForAllCategories() throws InvalidInputException {
         SummaryCommand command = new SummaryCommand("summary c/");
 
         command.execute(budgetManager);
@@ -76,5 +75,11 @@ public class SummaryCommandTest {
         assertTrue(output.contains("Budget Summary"));
         assertTrue(output.contains("Category: Food"));
         assertTrue(output.contains("Category: Transport"));
+    }
+
+    @Test
+    public void  testIsExit_alwaysReturnsFalse() {
+        SummaryCommand command = new SummaryCommand("summary");
+        assertFalse(command.isExit());
     }
 }

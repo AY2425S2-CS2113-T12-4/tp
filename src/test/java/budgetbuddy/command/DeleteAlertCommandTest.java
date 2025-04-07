@@ -35,6 +35,13 @@ class DeleteAlertCommandTest {
     }
 
     @Test
+    void testExecute_validCommand_noExceptionThrown() {
+        DeleteAlertCommand command = new DeleteAlertCommand("delete-alert");
+
+        assertDoesNotThrow(() -> command.execute(budgetManager), "Valid command should not throw an exception.");
+    }
+
+    @Test
     void testIsExit_alwaysReturnsFalse() {
         DeleteAlertCommand command = new DeleteAlertCommand("delete-alert");
 

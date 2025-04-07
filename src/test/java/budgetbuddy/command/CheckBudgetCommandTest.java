@@ -1,12 +1,11 @@
 package budgetbuddy.command;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import budgetbuddy.model.BudgetManager;
 import budgetbuddy.exception.InvalidInputException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CheckBudgetCommandTest {
 
@@ -37,5 +36,12 @@ public class CheckBudgetCommandTest {
         assertThrows(InvalidInputException.class, () -> {
             command.execute(budgetManager);
         }, "Expected InvalidInputException for invalid category");
+    }
+
+
+    @Test
+    public void testIsExit_alwaysReturnsFalse() {
+        CheckBudgetCommand command = new CheckBudgetCommand("check-budget c/Food");
+        assertFalse(command.isExit());
     }
 }
