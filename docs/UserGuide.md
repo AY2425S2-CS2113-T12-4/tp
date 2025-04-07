@@ -461,7 +461,8 @@ Sets a budget alert to notify the user when expenses exceed a specific limit.
 
 **Format:** `alert <AMOUNT>`
 
-* The `AMOUNT` can be any positive number, if a number too large in entered, it will be displayed as Infinity.
+* The `AMOUNT` can be any positive number less than 100000.
+* Any `AMOUNT` with more than 2 decimal places will be rounded to 2 decimal places.
 * The budget alert remains active until it is manually updated or removed
 * To remove the alert, input `alert 0`
 

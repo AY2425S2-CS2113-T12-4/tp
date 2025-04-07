@@ -19,7 +19,9 @@ import java.util.Scanner;
 public class Ui {
     private static final String SEPARATOR =
             "__________________________________________";  // Separator for formatting
+    private static String lastOutput;
     private Scanner scanner;  // Scanner to capture user input
+
 
     /**
      * Prints a separator line for better output formatting.
@@ -553,5 +555,16 @@ public class Ui {
         System.out.println("Warning: Your total expenses (" + formattedTotalExpense + ") have reached the budget " +
                 "limit for the '" + category + "' category (limit: " + formattedLimit + ")");
         printSeparator();
+    }
+
+
+    public static void printMessage(String message) {
+        lastOutput = message;
+        System.out.println(message);
+    }
+
+
+    public static String getLastOutput() {
+        return lastOutput;
     }
 }
