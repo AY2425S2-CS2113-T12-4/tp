@@ -212,7 +212,7 @@ The diagram below outlines the process of execution when `FindCommand` is execut
 
 ### Set Budget
 The diagram below outlines the process of execution when `SetBudgetCommand` is executed.
-![SetBudgetSequenceDiagram](/docs/diagrams/SetBudgetSequenceDiagram.png)
+![SetBudgetSequenceDiagram](diagrams/SetBudgetSequenceDiagram.png)
 
 ### Edit Budget
 The diagram below outlines the process of execution when `EditBudgetCommand` is executed.
@@ -224,13 +224,13 @@ The diagram below outlines the process of execution when `CheckBudgetCommand` is
 
 ### Add Alert
 The diagram below outlines the process of execution when `AddAlertCommand` is executed.
-![AddAlertSequenceDiagram](/docs/diagrams/AddAlertSequenceDiagram.png)
+![AddAlertSequenceDiagram](diagrams/AddAlertSequenceDiagram.png)
 ### Edit Alert
 The diagram below outlines the process of execution when `EditAlertCommand` is executed.
-![EditAlertSequenceDiagram](/docs/diagrams/EditAlertSequenceDiagram.png)
+![EditAlertSequenceDiagram](diagrams/EditAlertSequenceDiagram.png)
 ### Delete Alert
 The diagram below outlines the process of execution when `DeleteAlertCommand` is executed.
-![DeleteAlertSequenceDiagram](/docs/diagrams/DeleteAlertSequenceDiagram.png)
+![DeleteAlertSequenceDiagram](diagrams/DeleteAlertSequenceDiagram.png)
 
 ### Summary
 The diagram below outlines the process of execution when `SummaryCommand` is executed.
@@ -250,9 +250,11 @@ Budget Buddy helps with common challenges like overspending, forgetfulness, and 
 
 ### Value proposition
 
-Budget Buddy helps students take control of their finances with a simple, intuitive tool for tracking expenses, setting budgets, and gaining financial insights.
+Budget Buddy helps students take control of their finances with a simple, intuitive tool for tracking expenses, 
+setting budgets, and gaining financial insights.
 
-Many students struggle with money management, leading to overspending and financial stress. Budget Buddy addresses this by providing:
+Many students struggle with money management, leading to overspending and financial stress.
+Budget Buddy addresses this by providing:
 
 - Real-time updates to keep spending in check
 - Spending alerts to prevent overspending

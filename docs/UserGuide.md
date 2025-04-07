@@ -266,7 +266,7 @@ Displays all recorded expenses under the Overall Budget, including their amount,
   * H: Hour 
   * m: Minute
 * If incorrect date time formats are used for end time, then programme will use system date and time.
-* If incorrect date time formats are used for start time, then programme will not work.
+
 
 **Example 1:** `list`
 
