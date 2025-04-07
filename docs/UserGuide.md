@@ -12,6 +12,7 @@ different categories.
 - [Quick Start](#quick-start)
 - [Features](#features)
   - [Adding an Expense: `add`](#adding-an-expense-add)
+  - [Adding a Recurring Expense: `add-recurring`](#adding-a-recurring-expense-add-recurring)
   - [Deleting an Expense: `delete`](#deleting-an-expense-delete)
   - [Listing all Expenses: `list`](#listing-all-expenses-list)
   - [Editing an Expense: `edit-expense`](#editing-an-expense-edit-expense)
@@ -102,8 +103,8 @@ ___________________________________________
 ```
 
 ### Adding a Recurring Expense: `add-recurring`
-
-Adds a recurring expense to the list of expenses based on the given frequency and number of iterations. Each entry is treated as a separate expense added to the system.
+Adds a recurring expense to the list of expenses based on the given frequency and number of iterations. 
+Each entry is treated as a separate expense added to the system.
 
 **Format:**
 
@@ -192,12 +193,23 @@ ___________________________________________
 ### Listing all Expenses: `list`
 Displays all recorded expenses under the Overall Budget, including their amount, description, and date/time.
 
-**Format:** `list`
+**Format:** `list `
 
 * Lists expenses in chronological order from the Overall Budget, with latest displayed first. 
 * Each expense includes the amount, description, and timestamp.
 
-**Example:** `list`
+**Example:** `list [start/<TIME>] [end/<TIME>]`
+* Both start and end are optional. Users can choose to apply both or either or none. 
+* Format for time is "MMM dd yyyy at HH:mm" 
+* Here, 
+- M: Month (**Only the first alphabet of month should be capitalised**) 
+- d: Day
+- y: Year
+- H: Hour
+- m: Minute
+* If incorrect date time formats are used, then programme will use system date and time.
+
+**Example 1:** `list`
 
 **Expected Output 1:**
 ```
@@ -209,12 +221,25 @@ Expense List:
 ___________________________________________
 ```
 
+**Example 2:** `list start/Apr 01 2025 at 12:45 end/Apr 02 2025 at 11:40`
 **Expected Output 2:**
 ```
 ___________________________________________
-No expenses recorded.
+Expense List:
+2. $12.50 spent on Coffee (Apr 02 2025 at 10:30)
+3. $60.00 spent on Groceries (Apr 01 2025 at 16:45)
 ___________________________________________
 ```
+**Example 3:** `list start/Apr 01 2025 at 23:00`
+**Expected Output 3:**
+```
+___________________________________________
+Expense List:
+1. $25.00 spent on Bus Fare (Apr 03 2025 at 08:15)
+2. $12.50 spent on Coffee (Apr 02 2025 at 10:30)
+___________________________________________
+```
+
 
 ### Editing an Expense: `edit-expense`
 Edit an item on the list of expenses. Expense `AMOUNT`, `DESCRIPTION` or `DATE TIME` can be edited, with all three being 
