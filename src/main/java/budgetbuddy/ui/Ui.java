@@ -284,14 +284,15 @@ public class Ui {
             if (!bypassStart) {
                 startDate = DateTimeParser.parseOrDefault(start, true);
                 if(!DateTimeParser.parseOrDefaultBooleanReturn(start, true)) {
-                    System.err.println("Incorrect time format for \"start\". Will use current time for it. ");
+                    System.err.println("Invalid date format for \"start/\". Use: \"MMM dd yyyy at HH:mm\"");
                     System.err.flush(); //make sure that error appears before list
+                    return; //Exit function
                 }
             }
             if (!bypassEnd) {
                 endDate = DateTimeParser.parseOrDefault(end, true);
                 if(!DateTimeParser.parseOrDefaultBooleanReturn(end, true)) {
-                    System.err.println("Incorrect time format for \"end\". Will use current time for it.");
+                    System.err.println("Invalid date format for \"end/\". Using current date and time instead.");
                     System.err.flush();//make sure that error appears before list
                 }
             }

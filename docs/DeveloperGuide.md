@@ -188,11 +188,11 @@ The diagram below illustrates how `StorageManager` interacts with `BudgetManager
 
 ### Add Expense
 The diagram below outlines the process of execution when `AddCommand` is executed.
-![BudgetManagerAddSequenceDiagram.png](/docs/diagrams/BudgetManagerAddSequenceDiagram.png)
+![BudgetManagerAddSequenceDiagram.png](diagrams/BudgetManagerAddSequenceDiagram.png)
 
 ### Add Recurring Expenses
 The diagram below outlines the process of execution when `AddRecurringCommand` is executed.
-![AddRecurringSequenceDiagram.png](/docs/diagrams/AddRecurringSequenceDiagram.png)
+![AddRecurringSequenceDiagram.png](diagrams/AddRecurringSequenceDiagram.png)
 
 ### Edit Expense
 The diagram below outlines the process of execution when `EditExpenseCommand` is executed.
@@ -200,15 +200,15 @@ The diagram below outlines the process of execution when `EditExpenseCommand` is
 
 ### Delete Expense
 The diagram below outlines the process of execution when `DeleteCommand` is executed.
-![DeleteExpenseSequenceDiagram](/docs/diagrams/DeleteExpenseSequenceDiagram.png)
+![DeleteExpenseSequenceDiagram](diagrams/DeleteExpenseSequenceDiagram.png)
 
 ### List Expenses
 The diagram below outlines the process of execution when `ListCommand` is executed.
-![ListCommandSequenceDiagram](/docs/diagrams/ListCommandSequenceDiagram.png)
+![ListCommandSequenceDiagram](diagrams/ListCommandSequenceDiagram.png)
 
 ### Find Expense
 The diagram below outlines the process of execution when `FindCommand` is executed.
-![FindExpenseSequenceDiagram](/docs/diagrams/FindExpenseSequenceDiagram.png)
+![FindExpenseSequenceDiagram](diagrams/FindExpenseSequenceDiagram.png)
 
 ### Set Budget
 The diagram below outlines the process of execution when `SetBudgetCommand` is executed.
@@ -216,11 +216,11 @@ The diagram below outlines the process of execution when `SetBudgetCommand` is e
 
 ### Edit Budget
 The diagram below outlines the process of execution when `EditBudgetCommand` is executed.
-![EditBudgetSequenceDiagram](/docs/diagrams/EditBudgetSequenceDiagram.png)
+![EditBudgetSequenceDiagram](diagrams/EditBudgetSequenceDiagram.png)
 
 ### Check Budget
 The diagram below outlines the process of execution when `CheckBudgetCommand` is executed.
-![CheckBudgetSequenceDiagram](/docs/diagrams/CheckBudgetCommandSequenceDiagram.png)
+![CheckBudgetSequenceDiagram](diagrams/CheckBudgetCommandSequenceDiagram.png)
 
 ### Add Alert
 The diagram below outlines the process of execution when `AddAlertCommand` is executed.
@@ -234,7 +234,7 @@ The diagram below outlines the process of execution when `DeleteAlertCommand` is
 
 ### Summary
 The diagram below outlines the process of execution when `SummaryCommand` is executed.
-![SummarySequenceDiagram](/docs/diagrams/SummarySequenceDiagram.png)
+![SummarySequenceDiagram](diagrams/SummarySequenceDiagram.png)
 
 ## Product scope
 ### Target user profile

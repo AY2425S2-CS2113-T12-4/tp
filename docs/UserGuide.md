@@ -52,6 +52,47 @@ ___________________________________________
 
 ## Features 
 
+### Notes about the command format:
+
+* Words in `<UPPER_CASE>` are the parameters to be supplied by the user. 
+e.g. in `check-budget c/<CATEGORY>`, `CATEGORY` is a parameter which can be used as `check-budget c/Food`. 
+* Items in square brackets are optional.
+  e.g. in `check-budget [c/CATEGORY]`, can be used as `check-budget` or  `check-budget c/Food`. 
+* Parameters are always in fixed order.
+e.g. only `add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <DATE TIME>` is acceptable, in the given order 
+* Extraneous parameters for commands that do not take in parameters (such as help, list, exit and clear) will be ignored.
+e.g. if the command specifies help 123, it will be interpreted as help.
+
+
+### Setting a Budget: `set-budget`
+Sets a spending limit for all expenses or for a specific category. 
+Users can set an Overall budget, create new budget categories, or update existing category budgets.
+
+**Format:** `set-budget [c/<CATEGORY>] <AMOUNT>`
+
+* The `AMOUNT` can be any positive number less than 100000.
+* If no c/ marker is used, the budget will apply to the Overall Budget. 
+* If a c/<CATEGORY> is provided, a category-specific budget will be set. 
+* If the category doesn't already exist, it will be automatically created. 
+* If it exists, the budget limit will be updated.
+* * Categories are case-sensitive
+
+**Example 1:**
+`set-budget 1000`
+
+**Expected Output 1:**
+```
+Overall budget set to: $1000.0
+```
+
+**Example 2:**
+`set-budget c/Food 300`
+
+**Expected Output 2:**
+```
+Budget for category Food set to: $300.0
+```
+
 ### Adding an Expense: `add`
 Adds a new item to the list of expenses. Users can choose to leave `CATEGORY` and `DATE TIME` blank, in which case:
  - The expense will default to the **Overall Budget** if `CATEGORY` is not provided or cannot be found.
@@ -63,13 +104,13 @@ Adds a new item to the list of expenses. Users can choose to leave `CATEGORY` an
 * The `CATEGORY` can be in natural language format. If it does not exist, the expense defaults to the **Overall Budget**.
 * The `DESCRIPTION` can be in natural language format.  
 * The `CATEGORY` and `DESCRIPTION` cannot contain `d/` and `t/`
-* The `DATE TIME` has to follow the format of `MMM dd yyyy at HH:mm`, where **only** the first letter of `MMM` is 
-capitalized, and HH:mm follows the 24-hour clock format. 
+* The `CATEGORY` is case-sensitive.
 * The `DATE TIME` must follow the format `MMM dd yyyy at HH:mm`, where:
   - **Only the first letter of `MMM` is capitalized** (e.g., `Jan 15 2025 at 11:30`).
   - **`HH:mm` follows the 24-hour clock format** (e.g., `13:45 for 1:45 PM`). 
   - If an incorrect date format is provided, the **current date and time** will be used instead.
 * Users **must still include `c/` and `t/` even if leaving them blank**.
+* Argument order is strict. Users should follow the recommended format. Reordering the markers will not execute command.
 
 **Example 1:**
 `add 200 c/ d/ food t/`
@@ -93,12 +134,12 @@ ___________________________________________
 
 
 **Example 3:** 
-`add 50 c/ Overall d/ cab fares t/ Jan 15 2025 at 11:30`
+`add 50.34 c/ Overall d/ cab fares t/ Jan 15 2025 at 11:30`
 
 **Expected Output 3:**
 ```
 ___________________________________________
-Expense Added: $50.00 spent on cab fares (Jan 15 2025 at 11:30)
+Expense Added: $50.34 spent on cab fares (Jan 15 2025 at 11:30)
 ___________________________________________
 ```
 
@@ -205,7 +246,8 @@ Displays all recorded expenses under the Overall Budget, including their amount,
 - y: Year
 - H: Hour
 - m: Minute
-* If incorrect date time formats are used, then programme will use system date and time.
+* If incorrect date time formats are used for end time, then programme will use system date and time.
+* If incorrect date time formats are used for start time, then programme will not work.
 
 **Example 1:** `list`
 
@@ -293,30 +335,6 @@ ___________________________________________
 ```
 
 
-### Setting a Budget: `set-budget`
-Allows users to define a monthly spending limit. Helps in tracking expenses and avoiding overspending by setting an
-overall or category-specific budget.
-
-**Format:** `set-budget <AMOUNT>`
-
-* The `AMOUNT` can be any positive number less than 100000.
-
-**Example 1:**
-`set-budget 1000`
-
-**Expected Output 1:**
-```
-Overall budget set to: $1000.0
-```
-
-**Example 2:**
-`set-budget c/Food 300`
-
-**Expected Output 2:**
-```
-Budget for category Food set to: $300.0
-```
-
 ### Checking Budget: `check-budget`
 Displays the budget allocation, amount spent, and remaining balance for a specified category.
 If no category is provided, it displays the Overall Budget.
@@ -326,7 +344,8 @@ If no category is provided, it displays the Overall Budget.
 * The budget breakdown includes:
   * Total Budget (allocated amount)
   * Spent (total expenses recorded)
-  * Remaining (total budget minus spent amount)
+  * Remaining 
+* If the Amount Spent exceeds the Total Budget, Remaining Budget remains 0.
 
 **Example 1:** `check-budget`
 
@@ -611,6 +630,10 @@ Thank you for using Budget Buddy.
 Goodbye!
 ___________________________________________
 ```
+
+### Caution
+To ensure your progress is saved, always exit the program using the bye command.
+Quitting the program directly will result in unsaved changes.
 
 ## FAQ
 
