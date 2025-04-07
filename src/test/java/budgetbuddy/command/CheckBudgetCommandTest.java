@@ -5,7 +5,9 @@ import org.junit.jupiter.api.Test;
 import budgetbuddy.model.BudgetManager;
 import budgetbuddy.exception.InvalidInputException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class CheckBudgetCommandTest {
 
