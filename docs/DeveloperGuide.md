@@ -33,7 +33,8 @@
 
 Budget Buddy uses the following tools for development:
 1. JUnit5 - For unit testing and ensuring code reliability.
-2. Gradle - For efficient build automation and dependency management. 
+2. Gradle - For efficient build automation and dependency management.
+3. PlantUML - For creating UML diagrams to visualize the system architecture and design.
 
 ## Design
 
