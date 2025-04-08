@@ -32,10 +32,10 @@ public class AddExpenseCommandTest {
             addExpenseCommand.execute(budgetManager);
 
             Map<String, Budget> budgets = budgetManager.getBudgets();
-            Budget monthlyBudget = budgets.get("Monthly");
+            Budget monthlyBudget = budgets.get("Overall");
             List<Expense> expenses = monthlyBudget.getExpenses();
 
-            assertEquals(1, expenses.size(), "Expense should be added to the monthly budget");
+            assertEquals(1, expenses.size());
 
             Expense addedExpense = expenses.get(0);
             assertEquals(50.0, addedExpense.getAmount(), "Expense amount should be 50");
