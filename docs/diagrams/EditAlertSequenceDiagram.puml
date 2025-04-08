@@ -56,7 +56,7 @@ activate UI
 UI --> A
 deactivate UI
 else Total expenses equals alert amount
-A -> UI: pprintHitAlert(totalExpenses)
+A -> UI: printHitAlert(totalExpenses)
 activate UI
 UI --> A
 deactivate UI

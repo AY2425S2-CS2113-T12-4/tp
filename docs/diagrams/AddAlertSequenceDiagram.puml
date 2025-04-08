@@ -25,17 +25,51 @@ deactivate IP
 
 IM -> AC: execute(budgetManager)
 activate AC
+create AP
 AC -> AP: new AlertParser(description)
 activate AP
-AP -> AP: parse()
+AP --> AC
+deactivate AP
+AC -> AP: parse()
+activate AP
 AP --> AC: Return alert amount
 deactivate AP
 AC -> BM: setBudgetAlert(amount)
 activate BM
 BM -> A: setAlert(amount)
 activate A
+alt amount > 0
 A -> UI: printSetBudgetAlert(amount, false)
+activate UI
+UI --> A
+deactivate UI
+else amount == 0
+A -> UI: printRemoveBudgetAlert()
+activate UI
+UI --> A
+deactivate UI
+end
+A-->BM
 deactivate A
+
+
+
+BM -> A:checkAlert(totalExpenses)
+activate A
+opt Total expenses exceed alert amount
+A -> UI: printCheckAlert(totalExpenses, alertAmount)
+activate UI
+UI --> A
+deactivate UI
+else Total expenses equals alert amount
+A -> UI: printHitAlert(totalExpenses)
+activate UI
+UI --> A
+deactivate UI
+end
+A --> BM
+deactivate A
+BM-->AC
 deactivate BM
 AC --> IM
 deactivate AC
