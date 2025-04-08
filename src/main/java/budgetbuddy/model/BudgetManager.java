@@ -264,6 +264,11 @@ public class BudgetManager {
             throw new InvalidInputException("Invalid index. Please provide a valid expense number.");
         }
 
+        if (amount.isEmpty() && description.isEmpty() && dateTime.isEmpty()) {
+            throw  new InvalidInputException("Invalid input. Please provide at least one of: amount, description, " +
+                    "or date, to update.");
+        }
+
         Expense expenseToEdit = overallBudget.getExpenses().get(overallBudget.getExpenses().size() - index);
         String category = "";
         for (Map.Entry<String, Budget> entry : budgets.entrySet()) {
