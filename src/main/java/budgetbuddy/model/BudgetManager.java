@@ -369,6 +369,10 @@ public class BudgetManager {
 
         Budget budgetToEdit = budgets.get(currentName);
 
+        if (currentName.equalsIgnoreCase("Overall") && !newName.isEmpty() && !newName.equalsIgnoreCase("Overall")) {
+            throw new InvalidInputException("The 'Overall' budget cannot be renamed.");
+        }
+
         // Update the budget limit if specified
         if (newAmount >= 0) {
             budgetToEdit.setLimit(newAmount);

@@ -216,9 +216,10 @@ public class Ui {
      *
      * @param expenses A list of expenses to be displayed.
      */
-    public static void printExpensesList(ArrayList expenses) {
+    public static void printExpensesList(ArrayList<Expense> expenses) {
         printSeparator();
         System.out.println("Expense List:");
+        expenses.sort((e1, e2) -> e1.getDateTime().compareTo(e2.getDateTime()));
         for (int i = expenses.size() - 1; i >= 0; i--) {
             System.out.println((expenses.size() - i) + ". " + expenses.get(i));
         }

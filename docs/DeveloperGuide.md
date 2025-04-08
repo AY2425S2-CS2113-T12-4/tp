@@ -166,8 +166,28 @@ The `AddParser` class is responsible for extracting details from the add command
 * Date/Time
 
 ### Model
-#### Budget Manager Class
 **Overview**
+The Model component is responsible for storing, managing, and providing access to all the data used by Budget Buddy. 
+It represents the internal state of the application and is updated based on user commands. The model ensures consistent
+handling of budgets, expenses, and financial alerts, acting as the foundation for all financial operations within the system.
+
+Model components main responsibilities include:
+* Store and manage user-defined budgets categorized by spending type (e.g., Food, Travel, etc.)
+* Track and update expenses for each budget category 
+* Maintain an overall alert system for total spending across all budgets 
+* Provide summaries and filtered views of expenses 
+* Support editing and deletion of budgets and expenses
+
+The key classes Model include:
+* `BudgetManager` : Central class that manages multiple Budget instances and a global Alert; provides all core 
+operations for expense tracking, budget setting, and alert management.
+* `Budget` : Represents a single budget category with a limit and a list of expenses; handles expense storage and limit tracking.
+* `Expense` : Represents a single financial transaction; stores amount, description, and timestamp.
+* `Alert` : Manages alert settings to notify users when total spending exceeds a defined threshold.
+* `BudgetSummary` : Provides summarized insights about total expenses and budgets, useful for generating reports or 
+overviews across categories.
+
+#### Budget Manager Class
 The `BudgetManager` class is responsible for managing instances of the `Budget` class, which holds an `ArrayList` of 
 `Expense` objects. It centralizes the core functionalities related to budget management, including setting budgets, 
 adding expenses to specific budgets, and other budget-related operations. This class acts as the interface for 
