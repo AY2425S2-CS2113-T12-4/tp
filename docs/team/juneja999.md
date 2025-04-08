@@ -81,8 +81,6 @@ and a detailed example (`AddExpenseCommand`) in the Design section. This showcas
 structure and extensibility of command implementations across the app.
 - Added a sequence diagram for the `list` command in the Implementation section to illustrate 
 time-based filtering logic and flow.
-- Added a sequence diagram for the `add-recurring` command in the Implementation section 
-to show how recurring expenses are parsed, validated, and recorded.
 - Expanded the value proposition in the Product Scope section to better reflect the system’s
 practical benefits to users.
 
