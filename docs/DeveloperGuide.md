@@ -11,7 +11,6 @@
   - [Storage](#storage)
 - [Implementation](#implementation)
   - [Adding an expense](#add-expense)
-  - [Adding recurring expenses](#add-recurring-expenses)
   - [Deleting an expense](#delete-expense)
   - [Listing Expenses](#list-expenses)
   - [Finding an expense](#find-expense)
@@ -211,9 +210,6 @@ The diagram below illustrates how `StorageManager` interacts with `BudgetManager
 The diagram below outlines the process of execution when `AddCommand` is executed.
 ![BudgetManagerAddSequenceDiagram.png](diagrams/BudgetManagerAddSequenceDiagram.png)
 
-### Add Recurring Expenses
-The diagram below outlines the process of execution when `AddRecurringCommand` is executed.
-![AddRecurringSequenceDiagram.png](diagrams/AddRecurringSequenceDiagram.png)
 
 ### Edit Expense
 The diagram below outlines the process of execution when `EditExpenseCommand` is executed.

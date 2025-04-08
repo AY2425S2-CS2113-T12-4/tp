@@ -35,14 +35,15 @@ alt category is empty or blank
     deactivate UI
 
 else category provided
-    opt category does not exist
+    alt category does not exist
         BM -> UI: printBudgetNotFound(category)
         activate UI
         UI --> BM
         deactivate UI
 
         BM --> CBC
-        end
+
+    else category exists
         BM -> BM: budgets.get(category)
         activate BM
         note right of BM: Retrieve category budget
@@ -63,7 +64,7 @@ else category provided
         activate UI
         UI --> BM
         deactivate UI
-
+    end
 end
 
 BM --> CBC
