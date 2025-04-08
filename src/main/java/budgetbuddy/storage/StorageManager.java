@@ -22,7 +22,10 @@ public class StorageManager {
      * Saves all budgets and alert amount to a file.
      */
     public static void save(BudgetManager manager) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+        File tempFile = new File("budget_data_temp.txt");
+        File finalFile = new File(FILE_PATH);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
             for (Map.Entry<String, Budget> entry : manager.getBudgets().entrySet()) {
                 String category = entry.getKey();
                 Budget budget = entry.getValue();
@@ -31,16 +34,23 @@ public class StorageManager {
                 for (Expense e : budget.getExpenses()) {
                     writer.write("EXPENSE:" + e.getAmount() + "|"
                             + e.getDescription().replace("|", " ") + "|"
-                            + e.getDateTimeString()); //string type to preserve date time format
+                            + e.getDateTimeString());
                     writer.newLine();
                 }
             }
+
             if (manager.getBudgetAlert().isActive()) {
                 writer.write("ALERT:" + manager.getBudgetAlert().getAlertAmount());
                 writer.newLine();
             }
         } catch (IOException e) {
             System.out.println("Error saving budget data: " + e.getMessage());
+            return;
+        }
+
+        // Only replace original file if writing succeeded
+        if (!tempFile.renameTo(finalFile)) {
+            System.out.println("Failed to replace the old data file with new one.");
         }
     }
 
