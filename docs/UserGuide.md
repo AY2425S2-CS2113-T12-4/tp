@@ -191,14 +191,18 @@ Each entry is treated as a separate expense added to the system.
 
 **Expected Output:**
 ```
+___________________________________________
 Adding recurring expense to budget... 
 Hooray! Added recurring expense(s) to budget. 
 Here is the list:
+___________________________________________
+Expense List:
 1.$20.00 spent on Lunch (Apr 24 2025 at 12:00)
 2.$20.00 spent on Lunch (May 24 2025 at 12:00)
 3.$20.00 spent on Lunch (Jun 23 2025 at 12:00)
 4.$20.00 spent on Lunch (Jul 23 2025 at 12:00)
 5.$20.00 spent on Lunch (Aug 22 2025 at 12:00)
+___________________________________________
 ```
 
 #### Example 2:
@@ -206,12 +210,15 @@ Here is the list:
 
 **Expected Output:**
 ```
+___________________________________________
 Adding recurring expense to budget... 
 Hooray! Added recurring expense(s) to budget. 
 Here is the list:
+___________________________________________
 1.$15.75 spent on Bus Pass (Jan 01 2026 at 09:00)
 2.$15.75 spent on Bus Pass (Jan 16 2026 at 09:00)
 3.$15.75 spent on Bus Pass (Jan 31 2026 at 09:00)
+___________________________________________
 ```
 #### Error Example (Invalid Format):
 `add-recurring 20 c/Food d/Lunch t/Apr 2025 f/10 i/5`
@@ -220,14 +227,18 @@ Here is the list:
 ```
 Wrong time format used. Will use system current dateTime instead.
 Format guide: "MMM dd yyyy at HH:mm" 
+___________________________________________
 Adding recurring expense to budget... 
 Hooray! Added recurring expense(s) to budget. 
 Here is the list:
-$20.00 spent on Lunch (Mar 10 2025 at 12:00)
-$20.00 spent on Lunch (Mar 20 2025 at 12:00)
-$20.00 spent on Lunch (Mar 30 2025 at 12:00)
-$20.00 spent on Lunch (Apr 10 2025 at 12:00)
-$20.00 spent on Lunch (Apr 20 2025 at 12:00)
+___________________________________________
+Expense List: 
+1. $20.00 spent on Lunch (Mar 10 2025 at 12:00)
+2. $20.00 spent on Lunch (Mar 20 2025 at 12:00)
+3. $20.00 spent on Lunch (Mar 30 2025 at 12:00)
+4. $20.00 spent on Lunch (Apr 10 2025 at 12:00)
+5. $20.00 spent on Lunch (Apr 20 2025 at 12:00)
+___________________________________________
 ```
 
 ### Deleting an Expense: `delete`
@@ -724,18 +735,18 @@ computer and put it in your root folder.
 
 ## Command Summary
 
-| Command           | Format                                                                                                              |
-|-------------------|---------------------------------------------------------------------------------------------------------------------|
-| **add**           | `add <AMOUNT> c/<CATEGORY> d/<DESCRIPTION> t/<DATE_TIME>`                                                           |
-| **add-recurring** | `add-recurring <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <START DATE TIME> f/ <FREQUENCY_IN_DAYS> i/ <ITERATIONS>` |
-| **delete**        | `delete <INDEX>`                                                                                                    |
-| **list**          | `list [start/<TIME>] [end/<TIME>]`                                                                                  |
-| **edit-expense**  | `edit-expense <INDEX> [a/<AMOUNT>] [d/<DESCRIPTION>] [t/<DATE_TIME>]`                                               |
-| **set-budget**    | `set-budget <AMOUNT>` or `set-budget c/<CATEGORY> <AMOUNT>`                                                         |
-| **check-budget**  | `check-budget [c/<CATEGORY>]`                                                                                       |
-| **edit-budget**   | `edit-budget old/<CURRENT_NAME> [a/<NEW_AMOUNT>] [c/<NEW_NAME>]`                                                    |
-| **summary**       | `summary [c/<CATEGORY1> c/<CATEGORY2>... ]`                                                                         |
-| **alert**         | `alert <AMOUNT>`                                                                                                    |
-| **find**          | `find <KEYWORD>`                                                                                                    |
-| **help**          | `help`                                                                                                              |
-| **bye**           | `bye`                                                                                                               |
+| Command           | Format                                                                                             |
+|-------------------|----------------------------------------------------------------------------------------------------|
+| **add**           | `add <AMOUNT> c/<CATEGORY> d/<DESCRIPTION> t/<DATE_TIME>`                                          |
+| **add-recurring** | `add-recurring <AMOUNT> c/<CATEGORY> d/<DESCRIPTION> t/<START DATE TIME> f/<FREQUENCY_IN_DAYS> i/<ITERATIONS>` |
+| **delete**        | `delete <INDEX>`                                                                                   |
+| **list**          | `list start/<TIME> end/<TIME>`                                                                     |
+| **edit-expense**  | `edit-expense <INDEX> a/<AMOUNT> d/<DESCRIPTION> t/<DATE_TIME>`                                    |
+| **set-budget**    | `set-budget <AMOUNT>` or `set-budget c/<CATEGORY> <AMOUNT>`                                        |
+| **check-budget**  | `check-budget c/<CATEGORY>`                                                                        |
+| **edit-budget**   | `edit-budget old/<CURRENT_NAME> a/<NEW_AMOUNT> c/<NEW_NAME>`                                       |
+| **summary**       | `summary c/<CATEGORY1> c/<CATEGORY2>... `                                                          |
+| **alert**         | `alert <AMOUNT>`                                                                                   |
+| **find**          | `find <KEYWORD>`                                                                                   |
+| **help**          | `help`                                                                                             |
+| **bye**           | `bye`                                                                                              |

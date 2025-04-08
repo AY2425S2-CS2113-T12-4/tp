@@ -4,6 +4,7 @@ import budgetbuddy.exception.InvalidInputException;
 import budgetbuddy.model.BudgetManager;
 import budgetbuddy.parser.AddRecurringParser;
 import budgetbuddy.parser.DateTimeParser;
+import budgetbuddy.ui.Ui;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -109,6 +110,7 @@ public class AddRecurringExpenseCommand extends Command {
             budgetManager.addExpenseToBudget(category , amount , expenseDescription , startTime );
         }
         System.setOut(orignalOut); //re-instantiating to console
+        Ui.printSeparator();
         System.out.println("Hooray! Added recurring expense(s) to budget.");
         System.out.println("Here is the list:");
         budgetManager.listAllExpenses(); // show the list after adding
