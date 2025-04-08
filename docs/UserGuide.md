@@ -116,11 +116,9 @@ __________________________________________
 ```
 
 ### Adding an Expense: `add`
-Adds a new item to the list of expenses. Users can choose to leave `CATEGORY` and `DATE TIME` blank, in which case:
- - The expense will default to the **Overall Budget** if `CATEGORY` is not provided or cannot be found.
- - The `DATE TIME` will default to the **current date and time** if left blank or formatted incorrectly.
+Adds a new item to the list of expenses. 
 
-**Format:** `add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> t/ <DATE TIME>`
+**Format:** `add <AMOUNT> c/ <CATEGORY> d/ <DESCRIPTION> [t/ <DATE TIME>]`
 
 * The `AMOUNT` can be any positive number, with a limit set to $10,000. 
 * The `CATEGORY` can be in natural language format. To add expense to Overall budget, use `c/Overall`.
@@ -131,7 +129,10 @@ Adds a new item to the list of expenses. Users can choose to leave `CATEGORY` an
   - **Only the first letter of `MMM` is capitalized** (e.g., `Jan 15 2025 at 11:30`).
   - **`HH:mm` follows the 24-hour clock format** (e.g., `13:45 for 1:45 PM`). 
   - If an incorrect date format is provided, the **current date and time** will be used instead.
-* Users **must still include `c/` and `t/` even if leaving them blank**.
+* Users can choose to leave `CATEGORY` and `DATE TIME` blank, in which case:
+  - The expense will default to the **Overall Budget** if `CATEGORY` is not provided or cannot be found.
+  - The `DATE TIME` will default to the **current date and time** if left blank or formatted incorrectly.
+* Users **must still include `c/` even if leaving it blank**.
 * Argument order is strict. Users should follow the recommended format. Reordering the markers will not execute command.
 
 **Example 1:**
@@ -306,7 +307,7 @@ ___________________________________________
 Edit an item on the list of expenses. Expense `AMOUNT`, `DESCRIPTION` or `DATE TIME` can be edited, with all three being 
 optional but requiring minimally one.
 
-**Format:** `edit-expense <INDEX> a/ <AMOUNT> d/ <DESCRIPTION> t/ <DATE TIME>`
+**Format:** `edit-expense <INDEX> [a/ <AMOUNT>] [d/ <DESCRIPTION>] [t/ <DATE TIME>]`
 
 * The `INDEX` refers to the index of the expense when the `list` function is used.
 * The `AMOUNT` can be any positive number less than 100000.
@@ -318,7 +319,7 @@ optional but requiring minimally one.
   - **Only the first letter of `MMM` is capitalized** (e.g., `Jan 15 2025 at 11:30`).
   - **`HH:mm` follows the 24-hour clock format** (e.g., `13:45 for 1:45 PM`).
   - If an incorrect date format is provided, the **current date and time** will be used instead.
-* Users can omit `a/`, `c/` **or** `t/` but cannot omit all three.
+* Users can omit `a/`, `c/` **or** `t/` but **cannot omit all three**.
 
 **Example 1:**
 
@@ -399,11 +400,12 @@ Modifies an existing budget by updating its limit, name, or both.
 
 **Format:** `edit-budget old/<CURRENT_NAME> a/<NEW_AMOUNT> c/<NEW_NAME>`
 
-* `CURRENT_NAME` must be an existing budget name. To edit overall budget, use `old/Overall`. 
+* `CURRENT_NAME` must be an existing budget name.  
 * `NEW_AMOUNT` is optional but must be a positive number less than 100000 to update the budget limit. 
 * `NEW_NAME` is optional but must be non-empty if provided. 
 * If `NEW_NAME` is provided, the budget will be renamed accordingly.
 * At least one of the two, new amount or new name must be specified.
+* To edit overall budget, use `old/Overall`, however, it cannot be renamed.
 
 **Example 1:** `edit-budget old/Food a/500`
 

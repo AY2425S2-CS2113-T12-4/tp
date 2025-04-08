@@ -29,9 +29,6 @@ public class ListParser extends Parser<String[]> {
 
         if (hasEnd) {
             String[] splitEnd = input.split("end/", 2);
-            if (splitEnd.length < 2 || splitEnd[1].isBlank()) {
-                throw new InvalidInputException("end/ marker is missing or empty.");
-            }
             end = splitEnd[1].trim();
         }
 

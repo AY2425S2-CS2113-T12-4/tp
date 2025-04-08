@@ -16,7 +16,7 @@ public class AddParser extends Parser<String[]> {
     @Override
     public String[] parse() throws InvalidInputException {
         if (!input.startsWith("add ")) {
-            throw new InvalidInputException("Invalid amount format. Use: add [AMOUNT] c/<CATEGORY> d/<DESCRIPTION>");
+            throw new InvalidInputException("Invalid amount format. Use: add <AMOUNT> c/<CATEGORY> d/<DESCRIPTION>");
         }
 
         String line = input.substring(4).trim();
@@ -27,11 +27,11 @@ public class AddParser extends Parser<String[]> {
         int tIndex = line.indexOf("t/");
 
         if (cIndex == -1 || dIndex == -1) {
-            throw new InvalidInputException("Missing required markers. Use: add [AMOUNT] c/<CATEGORY> d/<DESCRIPTION>");
+            throw new InvalidInputException("Missing required markers. Use: add <AMOUNT> c/<CATEGORY> d/<DESCRIPTION>");
         }
 
         if (cIndex < 1 || dIndex < 1 || dIndex < cIndex) {
-            throw new InvalidInputException("Use: add [AMOUNT] c/<CATEGORY> d/<DESCRIPTION>");
+            throw new InvalidInputException("Use: add <AMOUNT> c/<CATEGORY> d/<DESCRIPTION>");
         }
 
         String amountStr = line.substring(0, cIndex).trim();
@@ -46,13 +46,10 @@ public class AddParser extends Parser<String[]> {
                 throw new InvalidInputException("Amount must be between 0 and " + MAX_AMOUNT);
             }
         } catch (NumberFormatException e) {
-            throw new InvalidInputException("Invalid amount format. Use: add [AMOUNT] c/<CATEGORY> d/<DESCRIPTION>");
+            throw new InvalidInputException("Invalid amount format. Use: add <AMOUNT> c/<CATEGORY> d/<DESCRIPTION>");
         }
 
         String category = line.substring(cIndex + 2, dIndex).trim();
-        if (category.isEmpty()) {
-            throw new InvalidInputException("Category cannot be empty.");
-        }
 
         String description;
         String dateTime = "";

@@ -220,4 +220,8 @@ public class Expense {
     public String getDateTimeString() {
         return dateTime.format(DATETIME_FORMAT);
     }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
 }
