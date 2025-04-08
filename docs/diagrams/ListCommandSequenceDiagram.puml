@@ -1,69 +1,102 @@
 @startuml
-
 hide footbox
-actor User
 
-participant ":InputManager" as InputManager
-participant ":InputParser" as InputParser
-participant ":ListCommand" as ListCommand
-participant ":BudgetManager" as BudgetManager
-participant ":Budget" as Budget
-participant ":Ui" as Ui
-participant ":DateTimeParser" as DateTimeParser
+participant ":ListCommand" as LC
+participant ":ListParser" as P
+participant ":BudgetManager" as BM
+participant ":Budget" as B
+participant ":Ui"
+participant ":DateTimeParser" as DTP
 
-User -> InputManager : enter "list" command
-activate InputManager
-InputManager -> InputParser : parseInput("list")
-activate InputParser
-InputParser --> InputManager : ListCommand
-deactivate InputParser
+activate LC
+create P
+LC -> P : new ListParser(description)
+activate P
+P --> LC : ListParser
+deactivate P
 
-InputManager -> ListCommand : execute(budgetManager)
-activate ListCommand
+LC -> P : parse()
+activate P
+P --> LC : [start, end]
+deactivate P
 
-alt start/end markers present
-    ListCommand -> DateTimeParser : parseOrDefault(start, true)
-    activate DateTimeParser
-    DateTimeParser --> ListCommand : startDate
-    deactivate DateTimeParser
+alt start and end are both empty
+    LC -> BM : listAllExpenses()
+    activate BM
+    BM -> B : get("Overall")
+    activate B
+    B --> BM : Budget
+    deactivate B
+    BM -> B : printExpenses()
+    activate B
 
-    ListCommand -> DateTimeParser : parseOrDefault(end, true)
-    activate DateTimeParser
-    DateTimeParser --> ListCommand : endDate
-    deactivate DateTimeParser
+    alt expenses.isEmpty()
+        B -> Ui : printNoExpense()
+        activate Ui
+        Ui --> B
+        deactivate Ui
+    else
+        B -> Ui : printExpensesList(expenses)
+        activate Ui
+        Ui --> B
+        deactivate Ui
+    end
 
-    ListCommand -> BudgetManager : listPartialExpenses(start, end)
-    activate BudgetManager
-    BudgetManager -> Budget : printExpenses(start, end)
-    activate Budget
-    Budget -> Ui : printExpensesList(expenses, start, end)
-    activate Ui
-    Ui --> Budget
-    deactivate Ui
-    Budget --> BudgetManager
+    B --> BM
+    deactivate B
+    BM --> LC
+    deactivate BM
 
+else start or end is provided
+    LC -> BM : listAllExpenses()
+    activate BM
+    BM -> B : get("Overall")
+    activate B
+    B --> BM : Budget
+    deactivate B
+    BM -> B : printExpenses(start,end)
+    activate B
+    alt expenses.isEmpty()
+        B -> Ui : printNoExpense()
+        activate Ui
+        Ui --> B
+        deactivate Ui
+    else
+        opt start is provided
+            B -> DTP : parseOrDefault(start)
+            activate DTP
+            DTP --> B : startDate
+            deactivate DTP
 
-    deactivate Budget
-    BudgetManager -->ListCommand
-    deactivate BudgetManager
+            B -> DTP : parseOrDefaultBooleanReturn(start)
+            activate DTP
+            DTP --> B : boolean
+            deactivate DTP
+        end
 
-else no start/end markers
-    ListCommand -> BudgetManager : listAllExpenses()
-    activate BudgetManager
-    BudgetManager -> Budget : printExpenses()
-    activate Budget
-    Budget -> Ui : printExpensesList(expenses)
-    activate Ui
-    Ui --> Budget
-    deactivate Ui
-    Budget --> BudgetManager
-    deactivate Budget
-    BudgetManager -->ListCommand
-    deactivate BudgetManager
+        opt end is provided
+            B -> DTP : parseOrDefault(end)
+            activate DTP
+            DTP --> B : endDate
+            deactivate DTP
+
+            B -> DTP : parseOrDefaultBooleanReturn(end)
+            activate DTP
+            DTP --> B : boolean
+            deactivate DTP
+        end
+
+        B -> Ui : printExpensesList(expenses, start, end)
+        activate Ui
+        Ui --> B
+        deactivate Ui
+    end
+
+    B --> BM
+    deactivate B
+    BM --> LC
+    deactivate BM
 end
-ListCommand --> InputManager
 
-deactivate ListCommand
-InputManager --> User: Show list result
-
+deactivate LC
 @enduml

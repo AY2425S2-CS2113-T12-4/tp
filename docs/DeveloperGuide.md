@@ -27,7 +27,7 @@
 - [User stories](#user-stories)
 - [Non-functional requirements](#non-functional-requirements)
 - [Glossary](#glossary)
-- [Manual testing](#instructions-for-manual-testing) 
+- [Manual testing](#instructions-for-manual-testing)
 
 ## Acknowledgements
 
@@ -308,21 +308,21 @@ The application is designed to meet the following non-functional requirements:
 
 **Cross-Platform Compatibility**
 
-   - The application can run on Windows, Linux, and macOS without requiring platform-specific modifications.
+- The application can run on Windows, Linux, and macOS without requiring platform-specific modifications.
 
 **Performance**
 
-  - The application should provide a smooth user experience with minimal latency when managing expenses and budgets.
+- The application should provide a smooth user experience with minimal latency when managing expenses and budgets.
 
-  - It should be able to handle at least 1000 expense entries without significant performance degradation.
+- It should be able to handle at least 1000 expense entries without significant performance degradation.
 
 **Usability**
 
-  - The user interface should be intuitive and easy to navigate, ensuring accessibility for first-time users.
+- The user interface should be intuitive and easy to navigate, ensuring accessibility for first-time users.
 
 **Maintainability**
 
-  - The codebase should follow modular design principles, making it easy to debug, update, and extend.
+- The codebase should follow modular design principles, making it easy to debug, update, and extend.
 
 ## Glossary
 
@@ -341,4 +341,99 @@ The application is designed to meet the following non-functional requirements:
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+### Start Budget Buddy Application
+1. Follow the instructions in the User Guide Quick Start to set up and run the application.
+2. Expected Output: A welcome message and prompt for user input.
+
+### Test Cases
+For more advanced usage and a full command reference, refer to the User Guide Feature List.
+
+### 2.1 Initial State
+1. Follow the Quick Start guide.
+2. Expected: Welcome message and user input prompt.
+3. Test Case: `help`  
+   Expected: Displays a list of all possible commands with usage examples.
+4. Test Case: Enter a non-command string (e.g. `xyz123`)   
+   Expected: Shows an error message indicating unrecognized command.
+
+### 2.2 Add/Set a Budget
+1. Test Case: `set budget 1000`  
+   Expected: Sets the Overall Budget to 1000
+2. Test Case: `set budget c/Food 500`:
+   Expected: Creates a budget named Food and sets a limit of 500
+3. Test Case: `set-budget c/Food 10000000000`.
+   Expected: Error – amount must be between 0 and 100000.0.
+
+### 2.3 Add an expense
+1. Test Case: `add 200 c/ d/games`  
+   Expected: $200.00 spent on games added under Overall Budget with current date/time.
+2. Test Case: `add 50.34 c/Overall d/cab fares t/Jan 15 2025 at 11:30`:
+   Expected: Expense recorded with specified timestamp in Overall Budget
+3. Test Case: `add 50000 c/Food d/Chicken t/Jan 15 2025 at 11:30`.
+   Expected: Expense added under Food category.
+
+### 2.4 Add recurring expenses
+1. Test Case: `add-recurring 20 c/Food d/Lunch t/Apr 24 2025 at 12:00 f/30 i/5`  
+   Expected: 5 instances of $20.00 Lunch added monthly.
+2. Test Case: `add-recurring 20 c/Food d/Lunch t/Apr 2025 f/10 i/5`:
+   Expected: Warning about date format → defaults to system time.
+
+### 2.5 List expenses
+1. Test Case: `list`  
+   Expected: Lists all expenses sorted by date (latest first).
+2. Test Case: `list start/Apr 01 2025 at 12:45 end/Apr 02 2025 at 11:40`:
+   Expected: Lists expenses within specified date range.
+
+### 2.6 Delete an expense
+1. Test Case: `delete 1`  
+   Expected: Deletes the expense at index 1 from both Overall and category.
+2. Test Case: `delete -2`:
+   Expected:  Error – invalid index.
+
+
+### 2.7 Edit an Expense
+1. Test Case: `edit-expense 1 a/200`  
+   Expected: Updates amount of expense at index 1 to $200.0.
+2. Test Case: `edit-expense 3 d/Taxi`:
+   Expected: Updates description of expense at index 3 to Taxi.
+
+### 2.8 Check Budget
+1. Test Case: `check-budget`  
+   Expected: Shows "Overall Budget" total budget, spent, and remaining.
+2. Test Case: `check-budget c/Food`:
+   Expected: Shows "Food Budget" total budget, spent, and remaining.
+
+### 2.9 Edit Budget
+1. Test Case: `edit-budget old/Food a/500`  
+   Expected: Updates Food Budget's limit to $500.
+2. Test Case: `edit-budget old/Food c/Groceries`:
+   Expected: Renames Food to Groceries.
+3. Test Case: `edit-budget old/Food a/500 c/Groceries`:
+   Expected: Updates amount and name.
+
+### 2.10 Budget Summary
+1. Test Case: `summary`  
+   Expected: Summary of all budgets with total budget, spent, and remaining
+2. Test Case: `summary c/Food`:
+   Expected: Summary of "Food Budget" with total budget, spent, and remaining
+
+### 2.11 Alerts
+1. Test Case: `alert 100`  
+   Expected: Alert set at $100.
+2. Test Case: `alert 0`:
+   Expected: Alert removed
+3. Test Case: `delete-alert`:
+   Expected: Alert removed
+
+### 2.12 Find Expenses
+1. Test Case: `find Chicken`  
+   Expected: Lists expenses with 'Chicken' in description
+2. Test Case: `find`:
+   Expected: Error – missing keyword.
+
+### 2.13 Exit
+1. Test Case: `bye`  
+   Expected: Data is saved; program exits gracefully.
+2. Test Case: `Close window without using `bye`
+   Expected: Data is not saved (manual test of caution warning).
+

@@ -65,6 +65,8 @@ decisions without hassle.
   * Delete Expense
   * Edit Budget
   * Check Budget
+  * List Command
+* Added Instruction to Manual Testing
 
 ### User Guide
 * Wrote clear formatting notes in the beginning to explain format of UG
